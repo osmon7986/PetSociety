@@ -1,0 +1,40 @@
+.table-section {
+  background-color: #F7F3EF;
+}
+
+.categoryRow {
+  gap: 8px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.categoryTag {
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  padding: 4px 16px;
+  white-space: nowrap;
+  color: #fff;
+  background-color: #5E5344;
+  box-shadow: 0 2px 4px rgba(255, 147, 194, .3);
+}
+
+.containerTitle {
+  font-size: 2rem;
+}
+
+.categoryTag:hover {
+  background-color: var(--accent-color);
+  color: var(--dark-color) !important;
+  font-weight: bold;
+  border: 1px solid var(--accent-color);
+}
+
+.active {
+  background-color: var(--accent-color);
+  color: var(--dark-color) !important;
+  font-weight: bold;
+  border: 1px solid var(--accent-color);
+}

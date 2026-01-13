@@ -1,0 +1,262 @@
+<div class="container">
+  <h3>簡易 JWT 測試介面</h3>
+
+  <div *ngIf="!isLoggedIn()">
+    <h4>步驟 1: 登入以取得 JWT</h4>
+    <label>帳號 (Email):</label>
+    <input type="email" [(ngModel)]="username" placeholder="test@example.com">
+
+    <label>密碼:</label>
+    <input type="password" [(ngModel)]="password" placeholder="password123">
+
+    <button (click)="handleLogin()">登入並取得 Token</button>
+  </div>
+
+  <div *ngIf="isLoggedIn()">
+    <h4>步驟 2: 使用 JWT 呼叫受保護端點</h4>
+    <p class="success">Token 狀態: 已儲存 JWT。</p>
+
+    <button (click)="handleGetInfo()">測試 /info 端點</button>
+    <button (click)="handleLogout()">登出 (清除 Token)</button>
+
+    <div *ngIf="memberInfo" style="margin-top: 15px; padding: 10px; border: 1px dashed #007bff;">
+      <h5>API 回傳資料:</h5>
+      <p>{{ memberInfo | json }}</p>
+    </div>
+  </div>
+
+  <hr>
+  <p [class.error]="statusMessage.startsWith('❌')" [class.success]="statusMessage.startsWith('✅')">
+    **狀態:** {{ statusMessage }}
+  </p>
+</div>
+<div class="container">
+
+  <h2 class="fw-bold mb-4">PetSociety 奶茶系色票指南</h2>
+  <p class="text-muted">此頁面展示所有品牌顏色、按鈕樣式與用途說明，方便團隊統一設計風格。</p>
+
+  <!-- 色票區 -->
+  <h4 class="section-title">色票 Colors</h4>
+
+  <div class="color-item">
+    <div class="color-box" style="background: var(--accent-color);"></div>
+    <div class="color-info">
+      <h6>Primary 奶茶拿鐵 — <code>#D8C3A5</code></h6>
+      <p>主要按鈕、CTA、強調色。</p>
+    </div>
+  </div>
+
+  <div class="color-item">
+    <div class="color-box" style="background: var(--primary-color);"></div>
+    <div class="color-info">
+      <h6>品牌主色（奶香米杏）— <code>#C9B29B</code></h6>
+      <p>背景大區塊、課程標題區。</p>
+    </div>
+  </div>
+
+  <div class="color-item">
+    <div class="color-box" style="background: var(--light-primary-color);"></div>
+    <div class="color-info">
+      <h6>奶泡淺色背景 — <code>#F2EBE5</code></h6>
+      <p>卡片背景、Hover 背景、block 區隔。</p>
+    </div>
+  </div>
+
+  <div class="color-item">
+    <div class="color-box" style="background: var(--dark-color);"></div>
+    <div class="color-info">
+      <h6>柔可可灰 — <code>#5E5344</code></h6>
+      <p>深色按鈕、標題色、Footer 背景。</p>
+    </div>
+  </div>
+
+  <div class="color-item">
+    <div class="color-box" style="background: var(--light-dark-color);"></div>
+    <div class="color-info">
+      <h6>副文字色（奶粉灰）— <code>#8E8375</code></h6>
+      <p>次要文字、標籤、描述用。</p>
+    </div>
+  </div>
+
+  <div class="color-item">
+    <div class="color-box" style="background: var(--grey-color);"></div>
+    <div class="color-info">
+      <h6>邊框奶油灰 — <code>#E8E2DA</code></h6>
+      <p>邊框、分隔線、input 枠。</p>
+    </div>
+  </div>
+
+  <div class="color-item">
+    <div class="color-box" style="background: var(--light-grey-color);"></div>
+    <div class="color-info">
+      <h6>奶霜白背景 — <code>#F7F3EF</code></h6>
+      <p>全站背景最佳色，不死白、不刺眼。</p>
+    </div>
+  </div>
+
+  <!-- 按鈕示意 -->
+  <h4 class="section-title">按鈕 Button Preview</h4>
+
+  <div class="mb-3">
+    <button class="btn btn-primary me-2">Primary 奶茶按鈕</button>
+    <code>#D8C3A5 → Hover: #C7B29A</code>
+  </div>
+
+  <div class="mb-3">
+    <button class="btn btn-outline-primary me-2">Outline 奶茶按鈕</button>
+    <code>外框：#D8C3A5</code>
+  </div>
+
+  <div class="mb-3">
+    <button class="btn btn-dark me-2">深可可色按鈕</button>
+    <code>#5E5344 → Hover: #4F473A</code>
+  </div>
+
+  <div class="mb-3">
+    <button class="btn btn-outline-dark me-2">Outline 深可可</button>
+    <code>外框：#5E5344</code>
+  </div>
+
+  <br>
+
+</div>
+<div class="container my-5">
+  <h2 class="mb-4">文字顏色預覽（Milk Tea Theme）</h2>
+
+  <div class="p-3 mb-3 border rounded">
+    <div class="text-accent fw-bold">accent-color — #D8C3A5</div>
+    <small class="text-accent">奶茶拿鐵色（主要按鈕、強調色）</small>
+  </div>
+
+  <div class="p-3 mb-3 border rounded">
+    <div class="text-primary-milk fw-bold">primary-color — #C9B29B</div>
+    <small class="text-primary-milk">奶香米杏色（主色）</small>
+  </div>
+
+  <div class="p-3 mb-3 border rounded">
+    <div class="text-light-primary fw-bold">light-primary-color — #F2EBE5</div>
+    <small class="text-light-primary">奶泡色（hover 背景、淺主色）</small>
+  </div>
+
+  <div class="p-3 mb-3 border rounded">
+    <div class="text-dark fw-bold">dark-color — #5E5344</div>
+    <small class="text-dark">柔可可灰（深色文字、深色按鈕）</small>
+  </div>
+
+  <div class="p-3 mb-3 border rounded">
+    <div class="text-light-dark fw-bold">light-dark-color — #8E8375</div>
+    <small class="text-light-dark">奶粉灰（副標、次文字）</small>
+  </div>
+
+  <div class="p-3 mb-3 border rounded" style="background:#5E5344;">
+    <div class="text-light fw-bold">light-color — #FFFFFF</div>
+    <small class="text-light">白色（深背景上的文字）</small>
+  </div>
+
+  <div class="p-3 mb-3 border rounded">
+    <div class="text-grey fw-bold">grey-color — #E8E2DA</div>
+    <small class="text-grey">奶油灰（邊框色）</small>
+  </div>
+
+  <div class="p-3 mb-3 border rounded">
+    <div class="text-light-grey fw-bold">light-grey-color — #F7F3EF</div>
+    <small class="text-light-grey">奶霜白背景（section 背景）</small>
+  </div>
+</div>
+<div class="container my-5">
+
+  <h2 class="mb-4 fw-bold">色系預覽（Bootstrap Colors Preview）</h2>
+
+  <!-- Template for each color -->
+  <div class="row gy-4">
+
+    <!-- PRIMARY -->
+    <div class="col-md-6">
+      <div class="p-3 border rounded">
+        <h5 class="fw-bold text-primary">Primary</h5>
+        <p class="text-primary">這是 Primary 文字顏色</p>
+        <button class="btn btn-primary me-2">Primary Button</button>
+        <button class="btn btn-outline-primary">Outline Primary</button>
+        <div class="mt-3 p-3 bg-primary text-light rounded">Primary 背景示範</div>
+      </div>
+    </div>
+
+    <!-- SECONDARY -->
+    <div class="col-md-6">
+      <div class="p-3 border rounded">
+        <h5 class="fw-bold text-secondary">Secondary</h5>
+        <p class="text-secondary">這是 Secondary 文字顏色</p>
+        <button class="btn btn-secondary me-2">Secondary Button</button>
+        <button class="btn btn-outline-secondary">Outline Secondary</button>
+        <div class="mt-3 p-3 bg-secondary text-dark rounded">Secondary 背景示範</div>
+      </div>
+    </div>
+
+    <!-- SUCCESS -->
+    <div class="col-md-6">
+      <div class="p-3 border rounded">
+        <h5 class="fw-bold text-success">Success</h5>
+        <p class="text-success">這是 Success 文字顏色</p>
+        <button class="btn btn-success me-2">Success Button</button>
+        <button class="btn btn-outline-success">Outline Success</button>
+        <div class="mt-3 p-3 bg-success text-dark rounded">Success 背景示範</div>
+      </div>
+    </div>
+
+    <!-- DANGER -->
+    <div class="col-md-6">
+      <div class="p-3 border rounded">
+        <h5 class="fw-bold text-danger">Danger</h5>
+        <p class="text-danger">這是 Danger 文字顏色</p>
+        <button class="btn btn-danger me-2">Danger Button</button>
+        <button class="btn btn-outline-danger">Outline Danger</button>
+        <div class="mt-3 p-3 bg-danger text-dark rounded">Danger 背景示範</div>
+      </div>
+    </div>
+
+    <!-- WARNING -->
+    <div class="col-md-6">
+      <div class="p-3 border rounded">
+        <h5 class="fw-bold text-warning">Warning</h5>
+        <p class="text-warning">這是 Warning 文字顏色</p>
+        <button class="btn btn-warning me-2">Warning Button</button>
+        <button class="btn btn-outline-warning">Outline Warning</button>
+        <div class="mt-3 p-3 bg-warning text-dark rounded">Warning 背景示範</div>
+      </div>
+    </div>
+
+    <!-- INFO -->
+    <div class="col-md-6">
+      <div class="p-3 border rounded">
+        <h5 class="fw-bold text-info">Info</h5>
+        <p class="text-info">這是 Info 文字顏色</p>
+        <button class="btn btn-info me-2">Info Button</button>
+        <button class="btn btn-outline-info">Outline Info</button>
+        <div class="mt-3 p-3 bg-info text-dark rounded">Info 背景示範</div>
+      </div>
+    </div>
+
+    <!-- LIGHT -->
+    <div class="col-md-6">
+      <div class="p-3 border rounded bg-dark text-light">
+        <h5 class="fw-bold text-light">Light</h5>
+        <p class="text-light">這是 Light 文字顏色（背景深色才看得見）</p>
+        <button class="btn btn-light me-2">Light Button</button>
+        <button class="btn btn-outline-light">Outline Light</button>
+        <div class="mt-3 p-3 bg-light text-dark rounded">Light 背景示範</div>
+      </div>
+    </div>
+
+    <!-- DARK -->
+    <div class="col-md-6">
+      <div class="p-3 border rounded">
+        <h5 class="fw-bold text-dark">Dark</h5>
+        <p class="text-dark">這是 Dark 文字顏色</p>
+        <button class="btn btn-dark me-2">Dark Button</button>
+        <button class="btn btn-outline-dark">Outline Dark</button>
+        <div class="mt-3 p-3 bg-dark text-light rounded">Dark 背景示範</div>
+      </div>
+    </div>
+
+  </div>
+</div>

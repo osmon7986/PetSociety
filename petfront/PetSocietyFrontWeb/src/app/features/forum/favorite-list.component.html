@@ -1,0 +1,33 @@
+<div class="home-container">
+  <header class="hero-section">
+    <h2>我的收藏文章 <span class="badge bg-primary">{{favorites.length}}</span></h2>
+    <h3>你珍藏的寵物資訊與精彩故事</h3>
+    <h4>首頁 / 論壇 / 我的收藏</h4>
+  </header>
+  <hr>
+
+  <div class="row" *ngIf="favorites.length > 0; else noData">
+    <div class="col-md-4 mb-3" *ngFor="let item of favorites">
+      <div class="card h-100 shadow-sm">
+        <img [src]="item.picture || 'assets/default-pet.jpg'" class="card-img-top" alt="文章圖片">
+        <div class="card-body">
+          <h5 class="card-title text-truncate">{{item.title}}</h5>
+          <p class="card-text text-muted small">{{item.content | slice:0:50}}...</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <span class="badge bg-info text-dark">{{item.categoryName}} / {{item.tagName}}</span>
+            <button class="btn btn-sm btn-outline-danger" (click)="toggleFavorite(item.articleId)">
+              <i class="bi bi-heart-fill"></i> 取消收藏
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noData>
+    <div class="text-center py-5">
+      <p class="text-muted">目前還沒有收藏任何文章喔！</p>
+      <!-- <a routerLink="/articles" class="btn btn-primary">去逛逛討論區</a> -->
+    </div>
+  </ng-template>
+</div>

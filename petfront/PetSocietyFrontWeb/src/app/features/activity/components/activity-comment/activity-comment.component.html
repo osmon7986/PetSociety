@@ -1,0 +1,20 @@
+<div class="comment-container">
+  @for (comment of showComment; track comment) {
+  <div class="comment">
+    <div class="comment-header">
+      <!-- <img [src]="comment.avatar" (error)="comment.avatar='assets/images/default-avatar.png'" alt="avatar"
+        class="avatar"> -->
+      <div class="comment-author">
+        <span class="name">{{ comment.memberName }}</span>
+        <span class="date">{{ comment.createDate | date: 'yyyy/MM/dd' }}</span>
+      </div>
+    </div>
+    <div class="comment-body">
+      <p>{{ comment.activityComment1 }}</p>
+    </div>
+  </div>
+  }
+  @if(showComment.length === 0) {
+  <p class="no-comments">目前尚無留言，快來留言吧！</p>
+  }
+</div>

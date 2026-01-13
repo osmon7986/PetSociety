@@ -1,0 +1,105 @@
+<div class="mall-container">
+
+  <section class="hero-banner">
+    <div class="banner-content">
+      <h1>精選寵物好物</h1>
+      <p>給毛小孩最好的呵護，全館滿額免運中</p>
+    </div>
+  </section>
+
+  <div class="main-content">
+
+    <aside class="sidebar" [ngClass]="{'disabled-sidebar': isLoading}">
+
+      <div class="filter-group">
+        <h3>商品搜尋</h3>
+        <div class="search-box">
+          <i class="pi pi-search search-icon" (click)="onSearch()"></i>
+          <input type="text" [(ngModel)]="keyword" (keydown.enter)="onSearch()" placeholder="搜尋商品..."
+            class="search-input" />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <h3>商品分類</h3>
+        <ul>
+          <li [class.active]="currentCategory === '全部商品'" (click)="filterCategory('全部商品')">全部商品</li>
+          <li [class.active]="currentCategory === '嚴選主食'" (click)="filterCategory('嚴選主食')">嚴選主食</li>
+          <li [class.active]="currentCategory === '美味零食'" (click)="filterCategory('美味零食')">美味零食</li>
+          <li [class.active]="currentCategory === '保健護理'" (click)="filterCategory('保健護理')">保健護理</li>
+          <li [class.active]="currentCategory === '居家生活'" (click)="filterCategory('居家生活')">居家生活</li>
+          <li [class.active]="currentCategory === '外出配件'" (click)="filterCategory('外出配件')">外出配件</li>
+          <li [class.active]="currentCategory === '休閒玩具'" (click)="filterCategory('休閒玩具')">休閒玩具</li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <h3>價格區間</h3>
+        <div class="price-inputs">
+          <input class="price-field" type="number" placeholder="最低" [(ngModel)]="inputMinPrice">
+
+          <span class="separator">~</span>
+
+          <input class="price-field" type="number" placeholder="最高" [(ngModel)]="inputMaxPrice">
+        </div>
+
+        <button class="btn-filter" (click)="filterPrice()">套用篩選</button>
+      </div>
+    </aside>
+
+    <section class="product-grid-section position-relative" style="min-height: 500px;">
+
+      <div *ngIf="isLoading"
+        class="flex flex-column justify-content-center align-items-center w-full h-full fadein animation-duration-500"
+        style="min-height: 400px;">
+        <i class="pi pi-heart-fill loading-heart-icon mb-3"></i>
+        <div class="text-primary-600 font-bold text-xl">正在用心準備毛孩的禮物... ❤️🐶</div>
+      </div>
+
+      <div *ngIf="!isLoading" class="fadein animation-duration-500">
+
+        <div class="toolbar">
+          <span>共 {{products.length}} 項商品</span>
+          <select (change)="onSortChange($event)">
+            <option value="default">預設排序</option>
+            <option value="price-asc">價格：由低到高</option>
+            <option value="price-desc">價格：由高到低</option>
+            <option value="newest">最新上架</option>
+          </select>
+        </div>
+
+        <div class="product-grid">
+          <div class="product-card" *ngFor="let product of products">
+            <div class="card-image">
+              <div class="badge-wrapper">
+                <span *ngIf="product.totalSold > 50" class="product-badge badge-hot">HOT</span>
+                <span *ngIf="isNew(product.createDate)" class="product-badge badge-new">NEW</span>
+              </div>
+              <img
+                [src]="product.thumbnail ? product.thumbnail : 'https://placehold.co/400x400/F2EBE5/5E5344?text=No+Image'"
+                class="w-100 h-100" alt="{{product.productName}}" (click)="openProductDetail(product)"
+                style="cursor: pointer; object-fit: cover;">
+              <button class="btn-add-cart" (click)="addToCart(product)">加入購物車</button>
+            </div>
+            <div class="card-info">
+              <h4 class="product-title" (click)="openProductDetail(product)" style="cursor: pointer;">
+                {{product.productName}}</h4>
+              <p class="product-category">{{product.categoryName}}</p>
+              <div class="price-row">
+                <span class="price">NT${{product.price | number}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-content-center mt-4 mb-4">
+          <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="pageSize"
+            [totalRecords]="totalRecords" [showCurrentPageReport]="true"
+            currentPageReportTemplate="顯示第 {first} 到 {last} 筆，共 {totalRecords} 筆商品">
+          </p-paginator>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>

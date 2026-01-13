@@ -1,0 +1,200 @@
+﻿@model PetSocietyWeb.ViewModels.ProductDetailViewModel
+
+@{
+    ViewData["Title"] = "刪除商品";
+}
+
+<div class="container-fluid py-3 mb-4 bg-white rounded shadow-sm">
+    <div class="d-flex justify-content-between align-items-center">
+        <h3 class="fw-bold text-dark mb-0">
+            <i class="fa-solid fa-trash-can me-2 text-danger"></i> 刪除商品
+        </h3>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+
+            <div class="card shadow-lg border-0 rounded-3 border-danger">
+
+                <div class="card-header bg-danger py-3 rounded-top">
+                    <h5 class="mb-0 text-white fw-bold">
+                        <i class="fa-solid fa-triangle-exclamation me-2"></i> 確定要刪除此項目嗎？
+                    </h5>
+                </div>
+
+                <div class="card-body p-4 bg-light">
+
+                    <div class="alert alert-warning border-0 shadow-sm mb-4">
+                        <i class="fa-solid fa-circle-exclamation me-1"></i>
+                        <strong>警告：</strong> 您正在執行刪除操作。此動作無法復原，相關的圖片也會一併刪除。
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-5 mb-4 mb-md-0 text-center">
+                            <div class="bg-white p-2 rounded shadow-sm h-100 d-flex align-items-center justify-content-center" style="min-height: 300px;">
+                                @if (Model.ImageUrlList != null && Model.ImageUrlList.Count > 0)
+                                {
+                                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+
+                                        <div class="carousel-indicators">
+                                            @for (int i = 0; i < Model.ImageUrlList.Count; i++)
+                                            {
+                                                <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="true"></button>
+                                            }
+                                        </div>
+
+                                        <div class="carousel-inner rounded">
+                                            @for (int i = 0; i < Model.ImageUrlList.Count; i++)
+                                            {
+                                                <div class="carousel-item @(i == 0 ? "active" : "")">
+                                                    <img src="@Model.ImageUrlList[i]" class="d-block w-100" style="height: 400px; object-fit: contain;" alt="商品圖片">
+                                                </div>
+                                            }
+                                        </div>
+
+                                        @if (Model.ImageUrlList.Count > 1)
+                                        {
+                                            <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                                                <span class="carousel-control-prev-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Previous</span>
+                                            </button>
+                                            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                                                <span class="carousel-control-next-icon bg-dark rounded-circle p-3" aria-hidden="true"></span>
+                                                <span class="visually-hidden">Next</span>
+                                            </button>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="text-muted text-center">
+                                        <i class="fa-solid fa-image fa-4x mb-3 text-secondary"></i>
+                                        <p class="mb-0">暫無商品圖片</p>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="col-md-7">
+                            <h4 class="fw-bold text-dark mb-3">@Model.ProductName</h4>
+                            <hr />
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold text-muted">商品類別</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-layer-group"></i></span>
+                                    <input type="text" class="form-control bg-white border-start-0" value="@Model.CategoryName" readonly />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold text-muted">賣家信箱</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-user"></i></span>
+                                    <input type="text" class="form-control bg-white border-start-0" value="@Model.SellerEmail" readonly />
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold text-muted">單價</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-dollar-sign"></i></span>
+                                        <input type="text" class="form-control bg-white border-start-0 fw-bold text-danger" value="@Model.Price.ToString("N0")" readonly />
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-semibold text-muted">數量</label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-cubes"></i></span>
+                                        <input type="text" class="form-control bg-white border-start-0" value="@Model.Stock" readonly />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold text-muted">商品狀態</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-toggle-on"></i></span>
+                                    <input type="text" class="form-control bg-white border-start-0" value="@Model.Status" readonly />
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold text-muted">建立時間</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-calendar-days"></i></span>
+                                    <input type="text" class="form-control bg-white border-start-0" value="@Model.CreateDate.ToString("yyyy/MM/dd HH:mm:ss")" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <label class="form-label fw-semibold text-muted">商品描述</label>
+                        <textarea class="form-control rounded-3 shadow-sm bg-white" rows="3" readonly style="resize: none;">@Model.Description</textarea>
+                    </div>
+
+                    <form asp-action="Delete" id="deleteForm">
+                        <input type="hidden" asp-for="ProductId" />
+
+                        <div class="d-flex mt-5 pt-3 border-top">
+                            <a asp-action="Index" class="btn btn-secondary px-4">
+                                <i class="fa-solid fa-arrow-left me-1"></i> 取消返回
+                            </a>
+
+                            <button type="button" class="btn btn-danger px-4 ms-auto fw-bold" data-bs-toggle="modal" data-bs-target="#deleteConfirmationModal">
+                                <i class="fa-solid fa-trash me-1"></i> 確認刪除
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title text-light" id="deleteModalLabel">
+                    <i class="fa-solid fa-exclamation-triangle me-2"></i>刪除確認
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="fw-bold mb-1 fs-5">您確定要刪除這個商品嗎？</p>
+                <div class="p-3 bg-light rounded mt-2 border">
+                    <p class="mb-1"><strong>商品名稱：</strong> @Model.ProductName</p>
+                    <p class="mb-0"><strong>商品ID：</strong> @Model.ProductId</p>
+                </div>
+                <p class="text-danger mt-3 mb-0 fw-bold"><i class="fa-solid fa-circle-info me-1"></i> 此動作無法復原！</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">
+                    <i class="fa-solid fa-trash-can me-1"></i> 確認刪除
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // 當按下 Modal 裡面的「確認刪除」按鈕時
+        document.getElementById('confirmDeleteBtn').addEventListener('click', function () {
+            // 送出 ID 為 deleteForm 的表單
+            document.getElementById('deleteForm').submit();
+        });
+    </script>
+}

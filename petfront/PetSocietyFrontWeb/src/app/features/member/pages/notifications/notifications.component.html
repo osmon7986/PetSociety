@@ -1,0 +1,77 @@
+<div class="card custom-card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+  <div class="card-header bg-white border-0 pt-4 px-4 pb-0">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h4 class="fw-bold text-dark-brown mb-0">
+        <i class="bi bi-bell-fill text-danger me-2"></i>通知中心
+      </h4>
+      <button class="btn btn-sm btn-outline-custom rounded-pill" (click)="onMarkAllRead()">
+        <i class="bi bi-check-all me-1"></i> 全部已讀
+      </button>
+    </div>
+    <ul class="nav nav-pills mb-3 gap-2">
+      <li class="nav-item">
+        <button class="nav-link rounded-pill py-1 px-3 border transition-hover" [class.active]="currentFilter === 'all'"
+          [class.bg-cream]="currentFilter === 'all'" [class.text-dark-brown]="currentFilter === 'all'"
+          [class.text-muted]="currentFilter !== 'all'" (click)="setFilter('all')">
+          全部
+        </button>
+      </li>
+      <li class="nav-item">
+        <button class="nav-link rounded-pill py-1 px-3 border transition-hover"
+          [class.active]="currentFilter === 'unread'" [class.bg-cream]="currentFilter === 'unread'"
+          [class.text-dark-brown]="currentFilter === 'unread'" [class.text-muted]="currentFilter !== 'unread'"
+          (click)="setFilter('unread')">
+          未讀
+        </button>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body p-0"> @if (filteredNotifications.length === 0) {
+    <div class="text-center py-5 mt-5">
+      <div class="display-1 text-accent mb-3">
+        @if(currentFilter === 'unread' && notifications.length > 0) {
+        <i class="bi bi-check-circle"></i>
+        } @else {
+        <i class="bi bi-bell-slash"></i>
+        }
+      </div>
+      <p class="text-muted-custom fs-5">
+        @if(currentFilter === 'unread' && notifications.length > 0) {
+        目前沒有未讀通知喔！
+        } @else {
+        目前沒有任何通知喔！
+        }
+      </p>
+    </div>
+    } @else {
+    <div class="list-group list-group-flush">
+      @for (item of filteredNotifications; track item.notificationId) {
+      <div
+        class="list-group-item list-group-item-action border-0 py-3 px-4 d-flex align-items-start gap-3 transition-hover"
+        [class.bg-unread]="!item.readTime" [class.bg-white]="item.readTime" (click)="onRead(item)"
+        style="cursor: pointer; border-bottom: 1px solid #f0f0f0 !important;">
+        <div class="icon-box flex-shrink-0 mt-1" [ngClass]="getCategoryClass(item.categoryName)">
+          <i class="bi fs-5" [class]="getCategoryIcon(item.categoryName)"></i>
+        </div>
+        <div class="flex-grow-1">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <h6 class="mb-0 fw-bold text-dark-brown">
+              {{ item.title }}
+              @if (!item.readTime) {
+              <span class="badge rounded-pill bg-danger ms-2" style="font-size: 0.6rem;">NEW</span>
+              }
+            </h6>
+            <small class="text-muted-custom" style="font-size: 0.8rem;">{{ item.createDate }}</small>
+          </div>
+          <p class="mb-0 text-muted-custom small text-truncate-2">{{ item.message }}</p>
+        </div>
+        <button class="btn btn-sm text-muted-custom btn-trash p-0 ms-2" (click)="onDelete(item.notificationId, $event)"
+          title="刪除通知">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      }
+    </div>
+    }
+  </div>
+</div>

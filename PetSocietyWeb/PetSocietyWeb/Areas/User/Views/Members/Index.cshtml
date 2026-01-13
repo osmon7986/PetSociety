@@ -1,0 +1,365 @@
+﻿@using PetSocietyWeb.Helpers
+@model PaginatedList<PetSocietyWeb.Areas.User.ViewModels.MemberVM>
+
+@{
+    ViewData["Title"] = "會員管理";
+}
+
+@section Styles {
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        .table-hover tbody tr td,
+        .table-hover thead tr th {
+            vertical-align: middle;
+        }
+
+        .table-hover thead th {
+            background-color: #E6D4C2;
+            color: #5e503f;
+        }
+
+        .sort-link {
+            color: #5e503f;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+        }
+
+            .sort-link:hover {
+                color: #000;
+            }
+
+        .avatar-img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .avatar-placeholder {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            color: #adb5bd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .page-link-custom {
+            color: #5e503f;
+            border-color: #dee2e6;
+        }
+
+            .page-link-custom:hover {
+                background-color: #E6D4C2;
+                color: #fff;
+            }
+
+        .disabled .page-link-custom {
+            color: #ced4da;
+            pointer-events: none;
+            background-color: #fff;
+        }
+    </style>
+}
+
+<div class="container-fluid px-4">
+    <h2 class="mt-4 mb-4 fw-bold text-secondary">
+        <i class="fa-solid fa-users-gear me-2"></i>會員管理
+    </h2>
+
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+            <div>
+                <a asp-action="Create" class="btn btn-primary shadow-sm">
+                    <i class="fa-solid fa-user-plus me-1"></i> 新增會員
+                </a>
+
+                <a asp-action="Dashboard" class="btn btn-primary shadow-sm">
+                    <i class="fa-solid fa-chart-pie me-1"></i> 數據儀表板
+                </a>
+            </div>
+
+            <form method="get" asp-action="Index" class="d-flex">
+                <div class="input-group">
+                    <input type="text" name="keyword" class="form-control" placeholder="搜尋姓名、Email..." value="@ViewBag.Keyword">
+                    <button class="btn btn-outline-secondary" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    @if (!string.IsNullOrEmpty(ViewBag.Keyword as string))
+                    {
+                        <a asp-action="Index" class="btn btn-outline-danger" title="清除搜尋"><i class="fa-solid fa-xmark"></i></a>
+                    }
+                </div>
+            </form>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4 py-3 text-start" style="width: 10%">頭像</th>
+
+                            <th style="width: 15%" class="text-start">
+                                <a asp-action="Index"
+                                   asp-route-sortOrder="@ViewData["NameSortParm"]"
+                                   asp-route-keyword="@ViewBag.Keyword"
+                                   class="sort-link">
+                                    姓名
+                                    @if (ViewData["CurrentSort"] as string == "Name")
+                                    {
+                                        <i class="fa-solid fa-arrow-up-short-wide text-muted small"></i>
+                                    }
+                                    @if (ViewData["CurrentSort"] as string == "name_desc")
+                                    {
+                                        <i class="fa-solid fa-arrow-down-wide-short text-muted small"></i>
+                                    }
+                                </a>
+                            </th>
+
+                            <th style="width: 20%" class="text-start">
+                                <a asp-action="Index"
+                                   asp-route-sortOrder="@ViewData["EmailSortParm"]"
+                                   asp-route-keyword="@ViewBag.Keyword"
+                                   class="sort-link">
+                                    Email
+                                    @if (ViewData["CurrentSort"] as string == "Email")
+                                    {
+                                        <i class="fa-solid fa-arrow-up-short-wide text-muted small"></i>
+                                    }
+                                    @if (ViewData["CurrentSort"] as string == "email_desc")
+                                    {
+                                        <i class="fa-solid fa-arrow-down-wide-short text-muted small"></i>
+                                    }
+                                </a>
+                            </th>
+
+                            <th class="text-center" style="width: 10%">角色</th>
+                            <th class="text-center" style="width: 15%">聯絡電話</th>
+
+                            <th style="width: 15%" class="text-center">
+                                <a asp-action="Index"
+                                   asp-route-sortOrder="@ViewData["DateSortParm"]"
+                                   asp-route-keyword="@ViewBag.Keyword"
+                                   class="sort-link text-center">
+                                    註冊日期
+                                    @if (ViewData["CurrentSort"] == null || ViewData["CurrentSort"] as string == "Date")
+                                    {
+                                        <i class="fa-solid fa-arrow-up-short-wide text-muted small"></i>
+                                    }
+
+                                    @if (ViewData["CurrentSort"] as string == "date_desc")
+                                    {
+                                        <i class="fa-solid fa-arrow-down-wide-short text-muted small"></i>
+                                    }
+
+                                </a>
+                            </th>
+
+                            <th class="text-center" style="width: 10%">狀態</th>
+                            <th class="text-center" style="width: 15%">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4">
+                                        @if (item.ProfilePic != null && item.ProfilePic.Length > 0)
+                                        {
+                                            <img src="@Url.Action("GetProfilePic", new { id = item.MemberId })" class="avatar-img" />
+                                        }
+                                        else
+                                        {
+                                            <div class="avatar-placeholder"><i class="fa-solid fa-user"></i></div>
+                                        }
+                                    </td>
+
+                                    <td class="text-start fw-bold text-dark">@item.Name</td>
+
+                                    <td class="text-start text-muted">@item.Email</td>
+
+                                    <td class="text-center">
+                                        @if (item.Role == 1)
+                                        {
+                                            <span class="badge bg-primary"><i class="fa-solid fa-shield-halved me-1"></i>管理員</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary text-light">一般會員</span>
+                                        }
+                                    </td>
+
+                                    <td class="text-center">@(string.IsNullOrEmpty(item.Phone) ? "-" : item.Phone)</td>
+                                    <td class="text-center">@item.RegistrationDate?.ToString("yyyy/MM/dd")</td>
+
+                                    <td class="text-center">
+                                        @if (item.IsActive)
+                                        {
+                                            <span class="badge rounded-pill bg-success px-3 py-2">
+                                                <i class="fa-solid fa-circle-check me-1"></i>啟用中
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge rounded-pill bg-danger px-3 py-2">
+                                                <i class="fa-solid fa-ban me-1"></i>已停權
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td class="text-center">
+                                        <div class="btn-group shadow-sm" role="group">
+                                            <a asp-action="Edit" asp-route-id="@item.MemberId" class="btn btn-sm btn-light border" title="編輯">
+                                                <i class="fa-solid fa-pen text-primary"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-light border"
+                                                    onclick="resetPassword(@item.MemberId, '@item.Name')" title="重設密碼">
+                                                <i class="fa-solid fa-key text-warning"></i>
+                                            </button>
+                                            @if (item.IsActive)
+                                            {
+                                                <button type="button" class="btn btn-sm btn-light border"
+                                                        onclick="toggleStatus(@item.MemberId, false)" title="停權">
+                                                    <i class="fa-solid fa-ban text-danger"></i>
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button type="button" class="btn btn-sm btn-light border"
+                                                        onclick="toggleStatus(@item.MemberId, true)" title="啟用">
+                                                    <i class="fa-solid fa-check text-success"></i>
+                                                </button>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="8" class="text-center py-5 text-muted">
+                                    <i class="fa-solid fa-folder-open fa-3x mb-3 text-secondary opacity-50"></i>
+                                    <p>找不到符合的會員資料</p>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card-footer bg-white py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="text-muted small">
+                    顯示第 @Model.PageIndex 頁，共 @Model.TotalPages 頁
+                </div>
+                <nav>
+                    <ul class="pagination mb-0">
+                        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                            <a class="page-link page-link-custom"
+                               asp-action="Index"
+                               asp-route-pageNumber="@(Model.PageIndex - 1)"
+                               asp-route-keyword="@ViewBag.Keyword"
+                               asp-route-sortOrder="@ViewData["CurrentSort"]">
+                                <i class="fa-solid fa-chevron-left"></i> 上一頁
+                            </a>
+                        </li>
+                        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                            <a class="page-link page-link-custom ms-2"
+                               asp-action="Index"
+                               asp-route-pageNumber="@(Model.PageIndex + 1)"
+                               asp-route-keyword="@ViewBag.Keyword"
+                               asp-route-sortOrder="@ViewData["CurrentSort"]">
+                                下一頁 <i class="fa-solid fa-chevron-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        var successMsg = @Html.Raw(Json.Serialize(TempData["SuccessMessage"]));
+
+        if (successMsg) {
+            Swal.fire({
+                title: '成功',
+                text: successMsg,
+                icon: 'success',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+
+        function toggleStatus(id, toActive) {
+            var actionText = toActive ? "啟用" : "停權";
+            var confirmColor = toActive ? "#28a745" : "#dc3545";
+
+            Swal.fire({
+                title: `確定要${actionText}嗎？`,
+                text: toActive ? "該會員將恢復登入權限" : "該會員將無法登入",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: confirmColor,
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: `是，${actionText}`,
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post("/User/Members/ToggleActive", { id: id }, function (res) {
+                        if (res.success) {
+                            Swal.fire({
+                                title: '成功',
+                                text: res.message,
+                                icon: 'success',
+                                timer: 1500,
+                                showConfirmButton: false
+                            }).then(() => { location.reload(); });
+                        } else {
+                            Swal.fire('失敗', res.message, 'error');
+                        }
+                    });
+                }
+            });
+        }
+
+        function resetPassword(id, name) {
+            Swal.fire({
+                title: '重設密碼',
+                text: `確定要將 ${name} 的密碼重設為 "123456" 嗎？`,
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#ffc107',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: '確認重設',
+                cancelButtonText: '取消'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.post("/User/Members/ResetMemberPassword", { id: id }, function (res) {
+                        if (res.success) {
+                            Swal.fire('已重設', res.message, 'success');
+                        } else {
+                            Swal.fire('失敗', res.message, 'error');
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

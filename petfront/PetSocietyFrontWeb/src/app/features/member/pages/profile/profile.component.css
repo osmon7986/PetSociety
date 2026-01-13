@@ -1,0 +1,214 @@
+/* ===========================
+   局部變數對應 (Scoped)
+   Accent: #D8C3A5 (奶茶拿鐵)
+   Dark: #5E5344 (柔和可可灰)
+   Light Dark: #8E8375 (奶粉灰/副文字)
+   Border: #E8E2DA (奶油灰)
+   Light Grey: #F7F3EF (奶霜白)
+   Primary BG Subtle: #F2EBE5 (奶泡色)
+   =========================== */
+
+:host {
+  --primary-color: #D8C3A5;
+  /* Accent 奶茶拿鐵 */
+  --primary-hover: #C7B29A;
+  /* 濃奶茶 (Hover) */
+  --text-dark: #5E5344;
+  /* 柔可可灰 */
+  --text-muted: #8E8375;
+  /* 奶粉灰 */
+  --border-color: #E8E2DA;
+  /* 奶油灰 */
+  --bg-cream: #F7F3EF;
+  /* 奶霜白 (區塊背景) */
+  --bg-icon: #FDFBF9;
+  /* 極淡暖白 (Icon底) */
+  --danger-soft: #D98E73;
+  /* 柔和紅 */
+}
+
+/* 文字顏色工具 */
+.text-dark-brown {
+  color: var(--text-dark) !important;
+}
+
+.text-muted-custom {
+  color: var(--text-muted) !important;
+}
+
+.text-accent {
+  color: var(--primary-color) !important;
+}
+
+.text-danger-custom {
+  color: var(--danger-soft) !important;
+}
+
+/* 背景工具 */
+.bg-cream {
+  background-color: var(--bg-cream) !important;
+}
+
+/* 邊框顏色工具 */
+.border-accent {
+  border-color: var(--primary-color) !important;
+}
+
+.border-dark-subtle {
+  border-color: var(--text-dark) !important;
+  opacity: 0.5;
+}
+
+.border-bottom-cream {
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* --- 卡片樣式 --- */
+.custom-card {
+  border: 1px solid var(--border-color);
+  background-color: #fff;
+  border-radius: 0.75rem;
+  /* 圓潤一點 */
+  box-shadow: 0 4px 20px rgba(94, 83, 68, 0.05) !important;
+  /* 淡淡的可可色陰影 */
+  overflow: hidden;
+  /* 解決標題背景蓋住圓角導致的「缺角」問題 */
+
+}
+
+
+/* --- 自定義實心按鈕 (Primary) --- */
+.btn-primary-custom {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+  /* 全域樣式設定 btn-primary 字是白的 */
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-primary-custom:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  box-shadow: 0 4px 12px rgba(216, 195, 165, 0.4);
+  /* 奶茶光暈 */
+  transform: translateY(-1px);
+}
+
+.btn-primary-custom:disabled {
+  background-color: var(--border-color);
+  border-color: var(--border-color);
+}
+
+/* --- 自定義外框按鈕 (Outline) --- */
+.btn-outline-custom {
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-custom:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+/* --- 頭像樣式 --- */
+.avatar-wrapper {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 4px solid var(--bg-cream);
+  /* 內圈改用奶霜白 */
+  outline: 2px solid var(--primary-color);
+  /* 外圈奶茶色 */
+  transition: all 0.3s ease;
+}
+
+.avatar-wrapper:hover .avatar-img {
+  outline-color: var(--primary-hover);
+}
+
+.avatar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(94, 83, 68, 0.6);
+  /* 使用深可可色半透明 */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.avatar-wrapper:hover .avatar-overlay {
+  opacity: 1;
+}
+
+/* --- Icon 盒子 --- */
+.icon-box {
+  width: 45px;
+  height: 45px;
+  background-color: var(--bg-cream);
+  /* 奶霜白背景 */
+  color: var(--primary-color);
+  /* 奶茶色 Icon */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  border: 1px solid var(--border-color);
+}
+
+/* --- Hover 特效 --- */
+.hover-accent {
+  transition: color 0.3s ease;
+}
+
+.hover-accent:hover {
+  color: var(--primary-color) !important;
+}
+
+/* --- 表單控制 (Form Control) --- */
+.form-control {
+  border: 1px solid var(--border-color);
+  color: var(--text-dark);
+  background-color: #fff;
+}
+
+/* 浮動標籤 Floating Label */
+.form-floating>label {
+  color: var(--text-muted);
+}
+
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label {
+  color: var(--primary-color);
+  opacity: 0.8;
+}
+
+.form-floating>.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.25rem rgba(216, 195, 165, 0.25);
+}
+
+/* --- Modal 樣式修正 --- */
+.modal-backdrop {
+  z-index: 1050;
+  background-color: rgba(94, 83, 68, 0.5);
+  /* 讓背景罩也是深暖色調 */
+}
+
+.modal-content {
+  border: none;
+  background-color: #fff;
+}

@@ -1,0 +1,286 @@
+﻿@model PetSocietyWeb.Areas.User.ViewModels.MemberDashboardVM
+
+@{
+    ViewData["Title"] = "會員數據中心";
+}
+
+@section Styles {
+    <style>
+        /* 定義 Pet Society 色票 */
+        :root {
+            --pet-brown: #5e503f;
+            --pet-beige: #E6D4C2;
+            --pet-light: #f8f9fa;
+        }
+
+        .text-pet-brown {
+            color: var(--pet-brown) !important;
+        }
+
+        .bg-pet-beige {
+            background-color: var(--pet-beige) !important;
+        }
+
+        /* 卡片優化 */
+        .stat-card {
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 12px;
+            transition: transform 0.2s;
+            background: #fff;
+            overflow: hidden; /* 確保標題圓角不被切掉 */
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+            }
+
+        /* ★★★ 新增：統一的卡片標題樣式 ★★★ */
+        .pet-card-header {
+            background-color: var(--pet-beige);
+            color: var(--pet-brown);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 1rem 1.25rem;
+        }
+
+        .stat-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        /* 表格優化 CSS (修改為簡約風格，因為外層已有標題) */
+        .table-custom th {
+            font-weight: 600;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            background-color: #fff; /* 改回白色 */
+            color: #888; /* 改成深灰色，比較有層次 */
+            border-bottom: 2px solid var(--pet-beige); /* 下方留一條米色線呼應 */
+            text-transform: uppercase; /* 英文大寫 (如果有英文的話)，增加質感 */
+            letter-spacing: 0.5px;
+        }
+
+        .table-custom td {
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .table-custom tbody tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+}
+
+<div class="container-fluid px-4">
+    <div class="d-flex justify-content-between align-items-center mt-4 mb-4">
+        <div>
+            <h2 class="fw-bold text-pet-brown mb-0">
+                <i class="fa-solid fa-chart-line me-2"></i>會員數據中心
+            </h2>
+            <p class="text-muted small mb-0">Pet Society 會員系統概況與分析</p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-arrow-left me-1"></i> 返回列表
+        </a>
+    </div>
+
+    <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted small text-uppercase fw-bold mb-1">總會員數</div>
+                            <div class="h2 mb-0 fw-bold text-pet-brown">@Model.TotalMembers</div>
+                        </div>
+                        <div class="stat-icon-box" style="background-color: #E6D4C2; color: #5e503f;">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted small text-uppercase fw-bold mb-1">今日新增</div>
+                            <div class="h2 mb-0 fw-bold text-pet-brown">@Model.NewMembersToday</div>
+                        </div>
+                        <div class="stat-icon-box" style="background-color: #d4edda; color: #155724;">
+                            <i class="fa-solid fa-user-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted small text-uppercase fw-bold mb-1">24H 活躍</div>
+                            <div class="h2 mb-0 fw-bold text-pet-brown">@Model.ActiveUsers24h</div>
+                        </div>
+                        <div class="stat-icon-box" style="background-color: #fff3cd; color: #856404;">
+                            <i class="fa-solid fa-fire"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card stat-card h-100 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <div class="text-muted small text-uppercase fw-bold mb-1">沉睡會員</div>
+                            <div class="h2 mb-0 fw-bold text-secondary">@Model.InactiveUsers</div>
+                        </div>
+                        <div class="stat-icon-box" style="background-color: #f8d7da; color: #721c24;">
+                            <i class="fa-solid fa-bed"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xl-8 mb-4">
+            <div class="card stat-card h-100">
+                <div class="card-header pet-card-header">
+                    <h5 class="mb-0 fw-bold"><i class="fa-solid fa-arrow-trend-up me-2"></i>近 7 天註冊趨勢</h5>
+                </div>
+                <div class="card-body pt-4">
+                    <canvas id="registrationChart" width="100%" height="40"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-4 mb-4">
+            <div class="card stat-card h-100">
+                <div class="card-header pet-card-header">
+                    <h5 class="mb-0 fw-bold"><i class="fa-solid fa-crown me-2"></i>活躍會員 Top 5</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0 table-custom">
+                            <thead>
+                                <tr>
+                                    <th class="ps-4 py-3 text-start rounded-0">會員</th>
+                                    <th class="py-3 text-center">登入次數</th>
+                                    <th class="pe-4 py-3 text-end rounded-0">最後上線時間</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.TopActiveMembers != null && Model.TopActiveMembers.Any())
+                                {
+                                    @foreach (var item in Model.TopActiveMembers)
+                                    {
+                                        <tr>
+                                            <td class="ps-4 py-3">
+                                                <div class="d-flex align-items-center">
+                                                    @if (item.ProfilePic != null && item.ProfilePic.Length > 0)
+                                                    {
+                                                        <img src="@Url.Action("GetProfilePic", new { id = item.MemberId })"
+                                                             class="rounded-circle me-3 border shadow-sm"
+                                                             style="width: 35px; height: 35px; object-fit:cover;">
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="rounded-circle bg-light text-secondary d-flex justify-content-center align-items-center me-3 border shadow-sm"
+                                                             style="width: 35px; height: 35px; font-size: 14px;">
+                                                            <i class="fa-solid fa-user"></i>
+                                                        </div>
+                                                    }
+                                                    <span class="fw-bold text-pet-brown">@item.Name</span>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="fw-bolder fs-5 text-pet-brown">@item.LoginCount</span>
+                                            </td>
+                                            <td class="text-end pe-4 text-muted small">
+                                                @(item.LastloginDate.HasValue? item.LastloginDate.Value.ToString("MM/dd HH:mm") : "-")
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="3" class="text-center py-4 text-muted">目前沒有數據</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        var ctx = document.getElementById('registrationChart');
+        var labels = @Html.Raw(Json.Serialize(Model.ChartLabels));
+        var dataValues = @Html.Raw(Json.Serialize(Model.ChartData));
+
+        var gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(230, 212, 194, 0.8)');
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0.1)');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '新增會員',
+                    data: dataValues,
+                    backgroundColor: gradient,
+                    borderColor: '#5e503f',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#fff',
+                    pointBorderColor: '#5e503f',
+                    pointRadius: 4,
+                    pointHoverRadius: 6,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: '#5e503f',
+                        titleColor: '#fff',
+                        bodyColor: '#fff',
+                        padding: 10,
+                        cornerRadius: 8,
+                        displayColors: false
+                    }
+                },
+                scales: {
+                    x: { grid: { display: false } },
+                    y: {
+                        beginAtZero: true,
+                        grid: { borderDash: [5, 5] },
+                        ticks: { stepSize: 1 }
+                    }
+                }
+            }
+        });
+    </script>
+}

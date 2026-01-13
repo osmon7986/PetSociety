@@ -1,0 +1,114 @@
+.course-card {
+  background: #fff;
+  border-radius: 12px;
+  transition: 0.2s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.course-img-container {
+  background-color: #F2EBE5;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+}
+
+.course-thumb {
+  width: 120px;
+  height: 90px;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 8px;
+  /* --- 慢慢出現的效果設定 --- */
+  opacity: 0;
+  /* 初始狀態：完全透明 */
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* 載入後的狀態 - 確保這裡的選擇器權重夠高 */
+.course-thumb.is-visible {
+  opacity: 1;
+  transform: scale(1);
+  /* 縮回原大小 */
+}
+
+.section-header {
+  position: relative;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-header h5 {
+  color: #4a3f35;
+}
+
+.section-title-lg i {
+  font-size: 1.1em;
+  vertical-align: -2px;
+}
+
+/* 標題下方的淺色線條 */
+
+.section-header::after {
+  content: '';
+  display: block;
+  width: 35%;
+  max-width: 260px;
+  min-width: 140px;
+  height: 3px;
+  margin-top: 0.6rem;
+  border-radius: 999px;
+  background: linear-gradient(to right,
+      #d8c3a5,
+      rgba(216, 195, 165, 0.25));
+}
+
+.btn-download {
+  background-color: var(--ps-cocoa-gray);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+
+  &:disabled {
+    background-color: lighten(#5E5344, 15%);
+    color: var(--ps-white);
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+
+
+  .loading-paw {
+    color: var(--ps-primary);
+
+    animation: subtle-bounce 1s infinite alternate ease-in-out;
+  }
+}
+
+
+@keyframes subtle-bounce {
+  from {
+    transform: translateY(0);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}

@@ -1,0 +1,26 @@
+<app-card>
+  <a [routerLink]="['/academy/course', course.courseDetailId]">
+
+    <div class="course-img-box">
+      <img [src]="course.imageUrl">
+      <button class="btn-favorite position-absolute top-0 end-0 m-2 rounded-circle border-0 shadow-sm"
+        style="width: 35px; height: 35px; z-index: 10; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.9);"
+        [class.text-danger]="course.isFavorite" [class.text-secondary]="!course.isFavorite"
+        (click)="onFavoriteClick($event)">
+        <i class="pi" [class.pi-heart-fill]="course.isFavorite" [class.pi-heart]="!course.isFavorite"
+          style="font-size: 1.2rem;"></i>
+      </button>
+    </div>
+  </a>
+  <h5 class="course-title">{{ course.title }}</h5>
+
+  <!-- 訂閱人數 -->
+  <div class="subs-info">
+    <i class="pi pi-users"></i>
+    <span class="course-subscount">{{ course.subsCount || 0 | number}} 人學習</span>
+  </div>
+
+  <!-- 講師 -->
+  <p class="course-instructor">{{ course.instructorName }}</p>
+
+</app-card>

@@ -1,0 +1,80 @@
+.sticky-header-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1030;
+  /* 比 Bootstrap navbar 高即可 */
+  background-color: #fff;
+}
+
+/* 🛒 購物車垃圾桶專用樣式 */
+.btn-trash-soft {
+  color: #a0a0a0;
+  /* 平常是柔和的淺灰色 */
+  background-color: transparent;
+  /* 背景透明 */
+  transition: all 0.2s ease;
+  /* 讓變色過程有 0.2秒 的動畫，比較滑順 */
+}
+
+/* 滑鼠移上去的樣子 */
+.btn-trash-soft:hover {
+  color: #d9534f;
+  /* 變成稍微深一點的紅色 (不要太鮮豔) */
+  background-color: #f8f9fa;
+  /* 背景變成極淡的灰色 */
+  transform: scale(1.1);
+  /* 微微放大 1.1 倍，增加互動感 */
+}
+
+/* 數量調整按鈕專用樣式 */
+.btn-qty {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dee2e6;
+  background-color: #fff;
+  transition: all 0.2s;
+}
+
+.btn-qty:hover {
+  background-color: #f8f9fa;
+  /* 滑鼠移上去變淺灰 */
+}
+
+.btn-qty:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 中間數字顯示區 */
+.qty-display {
+  width: 35px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  background-color: #fff;
+  font-size: 0.9rem;
+}
+
+/* 當連結被加上 active class 時，裡面的 icon 變色 */
+a.active iconify-icon {
+  color: var(--primary-color);
+  /* 使用你的主題色 (奶茶色) */
+  /* 或者使用深色： color: var(--text-dark); */
+
+  /* 可以加一點陰影讓它發光 */
+  filter: drop-shadow(0 0 2px rgba(216, 195, 165, 0.5));
+}
+
+/* 滑鼠移過去原本就會變色 (這是原本可能就有的) */
+a:hover iconify-icon {
+  color: var(--primary-color);
+}

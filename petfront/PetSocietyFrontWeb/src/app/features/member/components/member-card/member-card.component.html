@@ -1,0 +1,12 @@
+<div class="d-flex flex-column align-items-center w-100">
+
+  <img [src]="avatarUrl" class="rounded-circle mb-3 avatar-border" alt="User Avatar"
+    style="height: 150px; width: 150px; object-fit: cover;" (error)="avatarUrl='assets/default-avatar.png'">
+
+  <div class="text-center w-100 px-2">
+    <h5 class="fw-bold text-dark-brown mb-1">{{ member?.name || '會員' }}</h5>
+
+    <p class="text-muted-custom small mb-0 email-fix">{{ member?.email }}</p>
+  </div>
+
+</div>

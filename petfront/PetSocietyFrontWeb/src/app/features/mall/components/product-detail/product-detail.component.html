@@ -1,0 +1,77 @@
+<div class="grid grid-nogutter" style="min-height: 450px;">
+
+  <div class="col-12 md:col-6 flex align-items-center justify-content-center bg-bluegray-50 p-3">
+    <p-galleria [value]="images" [responsiveOptions]="responsiveOptions" [numVisible]="4" [circular]="true"
+      [showItemNavigators]="true" [showThumbnails]="true" [containerStyle]="{'max-width': '100%'}">
+
+      <ng-template pTemplate="item" let-item>
+        <div class="flex align-items-center justify-content-center position-relative"
+          style="height: 350px; width: 100%;">
+
+          <div class="badge-wrapper">
+            <span *ngIf="product.totalSold > 50" class="product-badge badge-hot">HOT</span>
+            <span *ngIf="isNew(product.createDate)" class="product-badge badge-new">NEW</span>
+          </div>
+
+          <img [src]="item.itemImageSrc" [alt]="item.alt"
+            (error)="item.itemImageSrc ='https://placehold.co/400x400/F2EBE5/5E5344?text=No+Image'"
+            style="max-width: 100%; max-height: 100%; object-fit: contain;" />
+        </div>
+      </ng-template>
+
+      <ng-template pTemplate="thumbnail" let-item>
+        <div class="grid grid-nogutter justify-content-center">
+          <img [src]="item.itemImageSrc" [alt]="item.alt"
+            (error)="item.itemImageSrc ='https://placehold.co/400x400/F2EBE5/5E5344?text=No+Image'"
+            style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;" />
+        </div>
+      </ng-template>
+
+    </p-galleria>
+  </div>
+
+  <div class="col-12 md:col-6 flex flex-column p-5">
+
+    <div class="flex gap-2 mb-3">
+      <p-tag [value]="product.categoryName" severity="info"></p-tag>
+      <p-tag *ngIf="product.stock > 0" value="現貨" severity="success"></p-tag>
+      <p-tag *ngIf="product.stock === 0" value="缺貨" severity="danger"></p-tag>
+    </div>
+
+    <h2 class="text-3xl font-bold text-900 m-0 mb-2">{{ product.productName }}</h2>
+    <div class="text-2xl text-primary font-bold mb-4">NT$ {{ product.price }}</div>
+
+    <div class="surface-100 p-3 border-round flex-grow-1 overflow-auto mb-4" style="max-height: 150px;">
+      <div class="font-bold mb-2 text-700">商品介紹</div>
+      <div class="line-height-3 text-600" style="white-space: pre-wrap;">
+        {{ product.description || '店長很懶，還沒有寫描述...' }}
+      </div>
+    </div>
+
+    <div class="mt-auto">
+      <div class="flex align-items-center gap-3 mb-3">
+        <span class="font-bold text-lg">數量</span>
+        <p-inputNumber [(ngModel)]="quantity" [showButtons]="true" buttonLayout="horizontal" spinnerMode="horizontal"
+          [step]="1" [min]="1" [max]="product.stock" inputStyleClass="w-3rem text-center font-bold"
+          decrementButtonClass="p-button-secondary p-button-outlined"
+          incrementButtonClass="p-button-secondary p-button-outlined" [disabled]="product.stock === 0">
+        </p-inputNumber>
+        <span class="text-500 text-sm">(庫存: {{product.stock}})</span>
+      </div>
+
+      <div class="flex gap-3 mt-4 w-full">
+
+        <button type="button" class="custom-btn btn-close" (click)="ref.close()">
+          <i class="pi pi-times"></i>
+          <span>再看看</span>
+        </button>
+
+        <button type="button" class="custom-btn btn-cart" (click)="addToCart()" [disabled]="product.stock === 0">
+          <i class="pi pi-shopping-cart"></i>
+          <span>加入購物車</span>
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+/* 表格標題列樣式 */
+.activity-table th {
+  background-color: #D8C3A5;
+  color: white;
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+}
+
+
+/* 頂部篩選按鈕列樣式 (僅用於模擬結構) */
+.filter-buttons {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.filter-buttons button {
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.filter-buttons .active {
+  background-color: #007bff;
+  /* 藍色，代表選中 */
+  color: white;
+  border-color: #007bff;
+}
+
+/* 頂部文字標題 */

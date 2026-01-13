@@ -1,0 +1,113 @@
+﻿/* ----- 全域背景 ----- */
+body {
+    background: #f3f4f6 !important;
+}
+
+/* ----- 卡片外框 ----- */
+.admin-card {
+    background: #fff;
+    padding: 28px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 30px;
+}
+
+/* ----- 區段標題 ----- */
+.admin-section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 18px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+/* ----- 表單欄位間距 ----- */
+.admin-group {
+    margin-bottom: 20px;
+}
+
+/* ----- 兩欄布局 ----- */
+.admin-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+/* ----- 上傳圖片盒子 ----- */
+.admin-upload-box {
+    border: 2px dashed #d1d5db;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    background: #fafafa;
+    cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+    .admin-upload-box:hover {
+        border-color: #6366f1;
+        background: #f0f2ff;
+    }
+
+    .admin-upload-box i {
+        font-size: 48px;
+        color: #6366f1;
+    }
+
+
+
+/* ----- 預覽圖片 ----- */
+.admin-upload-preview {
+    max-width: 280px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+/* ----- 送出按鈕區 ----- */
+.admin-actions {
+    text-align: right;
+    margin-top: 25px;
+}
+
+.btn-primary:hover {
+    color: white;
+    background-color: #5C4F42;
+    border-color: #5C4F42;
+}
+
+.form-control {
+color: #4A3A2A !important;
+}
+
+.page-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #4A3A2A; /* 主棕色 */
+}
+
+.sub-title {
+    font-size: 20px;
+    color: #8B7E74; /* 淺棕灰 */
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.btn-primary {
+    background-color: #7C6958;
+    border-color: #7C6958;
+}
+
+select,
+select option {
+    color: #4A3A2A;
+}
+
+select option:checked {
+    background-color: #E6D8C3; /* 淺棕色 */
+    color: #4A3A2A;
+}
+

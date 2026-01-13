@@ -1,0 +1,36 @@
+/* 基礎表格樣式 */
+.activity-table {
+  width: 100%;
+  border-collapse: collapse;
+  /* 移除雙線 */
+  font-family: Arial, sans-serif;
+}
+
+/* 表格標題列樣式 */
+.activity-table th {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 2px solid #ddd;
+  font-weight: bold;
+}
+
+/* 表格內文儲存格樣式 */
+.activity-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  /* 淺分隔線 */
+  vertical-align: top;
+  /* 內容置頂 */
+}
+
+.header {
+  font-size: 1.5em;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.subheader {
+  font-size: 0.9em;
+  color: #666;
+  margin-bottom: 15px;
+}

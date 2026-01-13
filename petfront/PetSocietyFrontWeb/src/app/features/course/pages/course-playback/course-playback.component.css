@@ -1,0 +1,190 @@
+/* 全站背景：維持 PetSociety 奶霜白，確保舒適 */
+.playback-page {
+  background-color: #F7F3EF;
+  padding: 24px;
+  min-height: 100vh;
+}
+
+.playback-layout {
+  display: flex;
+  gap: 32px;
+  /* 加大間距，減少壓迫感 */
+  padding: 20px 0;
+}
+
+/* 左側主內容 */
+.left-content {
+  flex: 1;
+  min-width: 0;
+  border-radius: 20px;
+  background-color: #ffffff;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(94, 83, 68, 0.08);
+}
+
+/* 課程資訊區 */
+.course-info {
+  margin-top: 28px;
+  border-bottom: 2px solid #E8E2DA;
+  /* 稍微加粗邊框線 */
+  padding-bottom: 20px;
+}
+
+.course-title {
+  /* 使用極深可可褐，大幅提升辨識度 */
+  color: #2C2620;
+  font-size: 32px;
+  /* 字體再加大 */
+  font-weight: 800;
+  margin-bottom: 12px;
+  letter-spacing: -0.5px;
+}
+
+.course-id {
+  /* 深灰褐色 */
+  color: #5E5344;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* 章節資訊區塊（影片下方） */
+.chapter-info {
+  margin-top: 32px;
+  padding: 28px;
+  background-color: #F2EBE5;
+  /* 奶泡淺色 */
+  border-radius: 16px;
+}
+
+.chapter-info h3 {
+  color: #2C2620;
+  /* 極深色標題 */
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.chapter-summary {
+  /* 內文使用高對比深色，確保閱讀不吃力 */
+  color: #3D352E;
+  line-height: 1.85;
+  font-size: 17px;
+}
+
+/* 右側章節欄 */
+.chapter-sidebar {
+  width: 360px;
+  position: sticky;
+  top: 24px;
+  height: calc(100vh - 48px);
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 1px solid #E8E2DA;
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.chapter-sidebar h4 {
+  color: #2C2620;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 3px solid #D8C3A5;
+  /* 強調線 */
+}
+
+/* 章節列表清單 */
+.chapter-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 章節列表清單項目 */
+.chapter-item {
+  display: flex;
+  align-items: center;
+  /* 垂直居中 */
+  gap: 16px;
+  /* 加大編號與文字的間距 */
+  padding: 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  color: #4A4238;
+  /* 深褐色文字 */
+  transition: all 0.25s ease;
+}
+
+/* 章節編號專屬樣式 */
+.chapter-index {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  /* 數字用無襯線體較專業 */
+  font-weight: 800;
+  /* 加粗數字 */
+  font-size: 15px;
+  color: #8E8375;
+  /* 預設使用奶粉灰，區分標題 */
+  min-width: 24px;
+  /* 固定寬度防止對齊跑掉 */
+}
+
+.chapter-item:hover .chapter-index {
+  color: #2C2620;
+  /* 懸停時編號變深 */
+}
+
+/* 當前活動章節的特殊樣式 */
+.chapter-item.active {
+  background-color: #ccb199;
+}
+
+.chapter-item.active .chapter-index,
+.chapter-item.active .chapter-name {
+  color: #ffffff;
+  /* 選中時文字與編號全部變白 */
+  font-weight: 700;
+}
+
+.chapter-name {
+  flex: 1;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 500;
+}
+
+/* 測驗區塊（更明顯的視覺分段） */
+.quiz-section {
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 2px dashed #E8E2DA;
+}
+
+.quiz-card {
+
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-primary-cta {
+  background-color: #c5ab87;
+  color: #ffffff;
+  border: none;
+  padding: 14px 36px;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 15px rgba(216, 195, 165, 0.4);
+}
+
+.btn-primary-cta:hover {
+  background-color: #5E5344;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(44, 38, 32, 0.25);
+}

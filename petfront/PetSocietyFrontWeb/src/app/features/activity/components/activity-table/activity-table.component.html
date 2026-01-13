@@ -1,0 +1,21 @@
+@if (activityTable && activityTable.length > 0) {
+<app-table class="activity-table py-5">
+  <th header-content>活動日期</th>
+  <th header-content>活動名稱</th>
+  <th header-content>地點</th>
+  <th header-content></th>
+
+  @for (item of activityTable; track item.activityId) {
+  <tr body-content>
+    <td>{{ item.startTime | date: 'yyyy/MM/dd' }}</td>
+    <td><a [routerLink]="['/activity/guide',item.activityId]">{{ item.title }}</a></td>
+    <td>{{ item.location }}</td>
+    <td>{{ item.description }}</td>
+  </tr>
+  }
+</app-table>
+} @else {
+<div class="no-activities">
+  <p>目前沒有任何活動</p>
+</div>
+}

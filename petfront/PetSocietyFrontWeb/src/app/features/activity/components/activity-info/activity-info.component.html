@@ -1,0 +1,24 @@
+<div class="info-section">
+  @if (activityInfo){
+  <div class="info-item">
+    <div class="label">活動日期</div>
+    <div class="value">{{this.activityInfo.startTime | date: 'yyyy/MM/dd'}}</div>
+  </div>
+  <div class="info-item">
+    <div class="label">報名期限</div>
+    <div class="value">{{this.activityInfo.registrationEndTime | date: 'yyyy/MM/dd'}}</div>
+  </div>
+  <div class="info-item">
+    <div class="label">活動地點</div>
+    <div class="value">{{this.activityInfo.location}}</div>
+  </div>
+  <div class="info-item">
+    <div class="label">活動承辦單位</div>
+    <div class="value">{{this.activityInfo.organizerName}}</div>
+  </div>
+  <div class="info-item">
+    <div class="label">報名人數上限</div>
+    <div class="value">{{this.activityInfo.maxCapacity}}</div>
+  </div>
+  }
+</div>

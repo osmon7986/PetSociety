@@ -1,0 +1,250 @@
+@if (!isLoading && member) {
+<div class="container py-5 profile-container">
+  <div class="row justify-content-center">
+
+    <div class="col-lg-4 col-md-5 mb-4">
+      <div class="card custom-card h-100">
+        <div class="card-body text-center d-flex flex-column align-items-center justify-content-center">
+
+          <div class="avatar-wrapper mb-3 position-relative" (click)="fileInput.click()">
+            <img [src]="avatarUrl" (error)="handleImageError($event)" class="rounded-circle img-thumbnail avatar-img">
+            <div class="avatar-overlay rounded-circle d-flex align-items-center justify-content-center">
+              <i class="bi bi-camera-fill text-white fs-2"></i>
+            </div>
+          </div>
+
+          <input #fileInput type="file" class="d-none" (change)="onFileSelected($event)" accept="image/*">
+
+          @if (selectedFile) {
+          <div class="animate__animated animate__fadeIn mb-3">
+            <span class="badge bg-cream text-dark-brown mb-2">{{ selectedFile.name }}</span>
+            <br>
+            <button class="btn btn-primary-custom btn-sm rounded-pill px-4" (click)="onUploadAvatar()">
+              <i class="bi bi-cloud-upload me-1"></i> 確認上傳
+            </button>
+          </div>
+          }
+
+          <h4 class="card-title fw-bold mb-1 text-dark-brown">{{ member.name }}</h4>
+          <p class="text-muted-custom small mb-3">會員編號: #{{ member.memberId }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-8 col-md-7">
+
+      <div class="card custom-card mb-4">
+        <div class="card-header bg-white border-0 pt-4 pb-0 d-flex justify-content-between align-items-center">
+          <h5 class="mb-0 fw-bold text-dark-brown border-start border-4 border-accent ps-3">基本資料</h5>
+          <button class="btn btn-outline-custom btn-sm" (click)="openEditModal()">
+            <i class="bi bi-pencil-square me-1"></i> 編輯
+          </button>
+        </div>
+
+        <div class="card-body pt-3">
+          <div class="list-group list-group-flush">
+
+            <div class="list-group-item border-bottom-cream px-0 py-3">
+              <div class="d-flex align-items-center">
+                <div class="icon-box me-3 rounded-circle bg-cream d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px; min-width: 40px;">
+                  <i class="bi bi-person fs-5 text-dark-brown"></i>
+                </div>
+                <div>
+                  <small class="text-muted-custom d-block">姓名</small>
+                  <span class="fw-medium text-dark-brown">{{ member.name }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="list-group-item border-bottom-cream px-0 py-3">
+              <div class="d-flex align-items-center">
+                <div class="icon-box me-3 rounded-circle bg-cream d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px; min-width: 40px;">
+                  <i class="bi bi-award fs-5 text-dark-brown"></i>
+                </div>
+                <div>
+                  <small class="text-muted-custom d-block">會員等級</small>
+                  <span class="badge bg-cream text-dark-brown rounded-pill px-3 mt-1">
+                    {{ member.role === 0 ? '一般會員' : '管理員' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="list-group-item border-bottom-cream px-0 py-3">
+              <div class="d-flex align-items-center">
+                <div class="icon-box me-3 rounded-circle bg-cream d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px; min-width: 40px;">
+                  <i class="bi bi-calendar-check fs-5 text-dark-brown"></i>
+                </div>
+                <div>
+                  <small class="text-muted-custom d-block">加入時間</small>
+                  <span class="fw-medium text-dark-brown letter-spacing-1">
+                    @if (member.registrationDate && !member.registrationDate.startsWith('0001')) {
+                    {{ member.registrationDate | date:'yyyy/MM/dd' }}
+                    } @else {
+                    <span class="text-muted small">資料讀取錯誤</span>
+                    }
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="list-group-item border-bottom-cream px-0 py-3">
+              <div class="d-flex align-items-center">
+                <div class="icon-box me-3 rounded-circle bg-cream d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px; min-width: 40px;">
+                  <i class="bi bi-envelope fs-5 text-dark-brown"></i>
+                </div>
+                <div>
+                  <small class="text-muted-custom d-block">Email 信箱</small>
+                  <span class="fw-medium text-dark-brown">{{ member.email }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="list-group-item border-bottom-cream px-0 py-3">
+              <div class="d-flex align-items-center">
+                <div class="icon-box me-3 rounded-circle bg-cream d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px; min-width: 40px;">
+                  <i class="bi bi-phone fs-5 text-dark-brown"></i>
+                </div>
+                <div>
+                  <small class="text-muted-custom d-block">手機號碼</small>
+                  <span class="fw-medium text-dark-brown">{{ member.phone || '(未填寫)' }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="list-group-item border-0 px-0 py-3">
+              <div class="d-flex align-items-center">
+                <div class="icon-box me-3 rounded-circle bg-cream d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px; min-width: 40px;">
+                  <i class="bi bi-clock-history fs-5 text-dark-brown"></i>
+                </div>
+                <div>
+                  <small class="text-muted-custom d-block">上次活躍時間</small>
+                  <span class="fw-medium text-dark-brown letter-spacing-1">
+                    {{ member.lastLoginDate ? (member.lastLoginDate | date:'yyyy/MM/dd HH:mm') : '尚未登入' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="card custom-card">
+        <div class="card-header bg-white border-0 pt-4 pb-0 d-flex justify-content-between align-items-center">
+          <h5 class="mb-0 fw-bold text-dark-brown border-start border-4 border-accent ps-3">帳號安全</h5>
+          <button class="btn btn-sm text-muted-custom" (click)="toggleChangePassword()">
+            <i class="bi" [class.bi-chevron-down]="!isChangePasswordVisible"
+              [class.bi-chevron-up]="isChangePasswordVisible"></i>
+            {{ isChangePasswordVisible ? '收起' : '展開' }}
+          </button>
+        </div>
+
+        <div class="card-body">
+          @if (!isChangePasswordVisible) {
+          <div class="d-flex align-items-center text-muted-custom hover-accent" (click)="toggleChangePassword()"
+            style="cursor: pointer;">
+            <i class="bi bi-shield-lock me-2 fs-4"></i>
+            <span>點擊此處修改您的密碼</span>
+          </div>
+          }
+
+          @if (isChangePasswordVisible) {
+          <div class="bg-cream p-4 rounded-3 animate__animated animate__fadeIn mt-3">
+            <form (ngSubmit)="onSubmitPassword()">
+              <div class="mb-3">
+                <label class="form-label small text-muted-custom">舊密碼</label>
+                <input type="password" class="form-control" [(ngModel)]="passwordData.oldPassword" name="oldPassword"
+                  placeholder="請輸入目前的密碼" required>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label small text-muted-custom">新密碼</label>
+                  <input type="password" class="form-control" [(ngModel)]="passwordData.newPassword" name="newPassword"
+                    placeholder="至少 6 碼" required minlength="6" #newPwd="ngModel">
+                  @if (newPwd.invalid && (newPwd.dirty || newPwd.touched)) {
+                  <div class="mt-2 text-danger-custom small fw-bold">
+                    <i class="bi bi-exclamation-circle"></i> 密碼長度需至少 6 碼
+                  </div>
+                  }
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label small text-muted-custom">確認新密碼</label>
+                  <input type="password" class="form-control" [(ngModel)]="passwordData.confirmNewPassword"
+                    name="confirmNewPassword" placeholder="再次輸入新密碼" required>
+                  @if (passwordData.newPassword !== passwordData.confirmNewPassword && passwordData.confirmNewPassword)
+                  {
+                  <div class="mt-2 text-danger-custom small fw-bold">
+                    <i class="bi bi-x-circle"></i> 密碼不一致
+                  </div>
+                  }
+                </div>
+              </div>
+
+              <div class="text-end mt-2">
+                <button type="button" class="btn btn-link text-muted-custom text-decoration-none me-2"
+                  (click)="toggleChangePassword()">取消</button>
+                <button type="submit" class="btn btn-primary-custom px-4 text-white"
+                  [disabled]="!passwordData.oldPassword || !passwordData.newPassword || !passwordData.confirmNewPassword || (passwordData.newPassword !== passwordData.confirmNewPassword) || passwordData.newPassword.length < 6">
+                  確認修改
+                </button>
+              </div>
+            </form>
+          </div>
+          }
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+@if (isEditModalVisible) {
+<div class="modal-backdrop fade show"></div>
+<div class="modal fade show d-block" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content custom-card border-0 shadow">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title fw-bold text-dark-brown">編輯個人資料</h5>
+        <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+      </div>
+      <div class="modal-body p-4">
+        <form (ngSubmit)="onSubmitEdit()">
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatingName" [(ngModel)]="editData.name" name="name" required
+              placeholder="姓名">
+            <label for="floatingName" class="text-muted-custom">姓名</label>
+          </div>
+
+          <div class="form-floating mb-4">
+            <input type="tel" class="form-control" id="floatingPhone" [(ngModel)]="editData.phone" name="phone"
+              placeholder="手機號碼">
+            <label for="floatingPhone" class="text-muted-custom">手機號碼</label>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-outline-custom" (click)="closeEditModal()">取消</button>
+            <button type="submit" class="btn btn-primary-custom px-4 text-white">儲存變更</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+} @else {
+<div class="d-flex justify-content-center align-items-center vh-50 mt-5">
+  <div class="text-center">
+    <div class="spinner-border text-accent" role="status" style="width: 3rem; height: 3rem;"></div>
+    <p class="mt-3 text-muted-custom letter-spacing-1">資料讀取中...</p>
+  </div>
+</div>
+}

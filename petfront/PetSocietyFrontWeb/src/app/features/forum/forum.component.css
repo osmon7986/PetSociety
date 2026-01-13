@@ -1,0 +1,602 @@
+/* src/app/features/home/home.component.css */
+
+/* --- 基礎設定與容器 --- */
+.home-container {
+  max-width: 2000px;
+  /* 稍微放大容器寬度 */
+  margin-left: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* --- 導航列 (假設在 app.component.css 中) --- */
+/*
+nav.navbar, footer.footer 的樣式通常放在 app.component.css
+這裡只提供 home.component 相關的樣式
+*/
+
+
+/* --- Hero 英雄區塊 --- */
+.hero-section {
+  text-align: center;
+  background-color: #e8ded6;
+  padding: 60px;
+  /* border-radius: 15px; */
+  /* 更圓潤的邊角 */
+  margin-bottom: 40px;
+  /* box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); */
+  height: 253px;
+}
+
+.hero-section h2 {
+  /* color: #5E5344; */
+  /* 深粉色/莓紅色 */
+  /* font-size: 2.8em; */
+  font-weight: bold;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.hero-section h3 {
+  color: #8E8375;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.hero-section h4 {
+  color: #5E5344;
+  font-size: 1.1em;
+  margin-bottom: 0px;
+}
+
+/* 發布最新文章 */
+.primary-button {
+  background-color: white;
+  font-style: #5E5344;
+  border: 2px solid #5E5344;
+  border-color: #5E5344;
+  padding: 10px 20px;
+  border-radius: 30px;
+  /* 藥丸形按鈕 */
+  cursor: pointer;
+  font-size: 18px;
+  /* font-weight: bold; */
+
+  /* transition: background-color 0.3s ease, transform 0.1s; */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); */
+}
+
+.primary-button:hover {
+  background-color: #4F473A;
+  color: #FFFFFF;
+  /* 懸停時顏色加深 */
+  transform: translateY(-1px);
+}
+
+.btn-favorites {
+  background-color: white;
+  font-style: #5E5344;
+  border: 2px solid #5E5344;
+  border-color: #5E5344;
+  padding: 10px 20px;
+  border-radius: 30px;
+  /* 藥丸形按鈕 */
+  cursor: pointer;
+  font-size: 18px;
+  /* font-weight: bold; */
+
+  /* transition: background-color 0.3s ease, transform 0.1s; */
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); */
+}
+
+.btn-favorites:hover {
+  background-color: #4F473A;
+  color: #FFFFFF;
+  /* 懸停時顏色加深 */
+  transform: translateY(-1px);
+}
+
+/* --- 最新文章區塊與側邊欄佈局 --- */
+.latest-posts-section {
+  /* 使用 Grid 佈局，定義兩欄 */
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  /* 文章列表 (大) : 側邊欄 (小) */
+  gap: 30px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+.latest-posts-section h2 {
+  grid-column: 1 / span 2;
+  /* 標題橫跨兩欄 */
+  color: #5E5344;
+  border-bottom: 3px solid #5E5344;
+
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+}
+
+/* --- 區塊標題和過濾控制 --- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  margin: 0;
+  color: #5E5344;
+  font-size: 1.8em;
+}
+
+.filter-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-controls select {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 14px;
+  min-width: 120px;
+}
+
+.filter-controls select:focus {
+  outline: none;
+  border-color: #5E5344;
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(0, 121, 107, 0.1);
+}
+
+/* --- 文章表格樣式 --- */
+.post-table {
+  width: 1250px;
+  border-collapse: separate;
+  /* 使用 separate 讓 border-radius 生效 */
+  border-spacing: 0;
+  margin-top: 10px;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  /* 確保邊角圓潤 */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 標題欄位 */
+.post-table thead th {
+  background-color: #e8ded6;
+  color: #4a4a4a;
+  font-weight: 600;
+  padding: 15px 12px;
+  text-align: left;
+}
+
+.post-table tbody tr {
+  transition: background-color 0.3s ease;
+}
+
+.post-table tbody tr:hover {
+  background-color: #f7f7f7;
+  /* 懸停效果 */
+}
+
+.post-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95em;
+}
+
+.post-table tbody tr:last-child td {
+  border-bottom: none;
+  /* 最後一行不要底線 */
+}
+
+.post-title a {
+  color: #1a237e;
+  /* 深藍色標題 */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.post-title a:hover {
+  color: #3f51b5;
+  text-decoration: underline;
+}
+
+
+/* --- 分類標籤樣式 --- */
+.post-category {
+  font-size: 0.85em;
+  padding: 4px 10px;
+  border-radius: 20px;
+  /* 橢圓形標籤 */
+  color: white;
+  text-align: center;
+  display: inline-block;
+  font-weight: bold;
+}
+
+/* 使用 Sass/Scss 可以在這裡用 map 處理，但在純 CSS 中需要逐一定義 */
+
+/* 綠色 */
+.category-狗狗 {
+  background-color: #4caf50;
+}
+
+/* 紫色 */
+.category-貓咪 {
+  background-color: #9c27b0;
+}
+
+
+/* --- 側邊欄樣式 --- */
+.sidebar {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-left: 3px solid #5E5344;
+  /* 左側強調色 */
+  height: fit-content;
+  /* 讓背景只到內容高度 */
+  width: fit-content;
+  /* 讓寬度適應內容 */
+  min-width: 250px;
+  /* 設置最小寬度以保持美觀 */
+}
+
+.sidebar h3 {
+  font-size: 1.5em;
+  color: #5E5344;
+  border-bottom: 2px solid #5E5344;
+  padding-bottom: 10px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 8px;
+}
+
+.sidebar li a {
+  display: block;
+  padding: 10px 0;
+  text-decoration: none;
+  color: #444;
+  font-weight: 500;
+  border-bottom: 1px dashed #eee;
+  transition: color 0.3s, padding-left 0.3s;
+}
+
+.sidebar li a:hover {
+  color: #8E8375;
+  padding-left: 5px;
+  /* 懸停時略微縮進 */
+}
+
+.sidebar li a.active {
+  color: #5E5344;
+  font-weight: bold;
+  background-color: #e8ded6;
+  border-left: 1px solid #5E5344;
+  padding-left: 10px;
+}
+
+/* 排序圖示容器 */
+.sort-icon {
+  margin-left: 5px;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  opacity: 0.3;
+  /* 預設較淡 */
+}
+
+/* 向上箭頭 (升序 ASC) */
+.sort-asc {
+  border-bottom: 5px solid #333;
+  /* 指向上方 */
+  opacity: 1;
+  /* 當前活動時加深 */
+}
+
+/* 向下箭頭 (降序 DESC) */
+.sort-desc {
+  border-top: 5px solid #333;
+  /* 指向下方 */
+  opacity: 1;
+  /* 當前活動時加深 */
+}
+
+/* 讓標題可點擊時有指標 */
+.sortable {
+  cursor: pointer;
+  position: relative;
+}
+
+/* Modal 覆蓋層：讓背景變暗並阻擋點擊 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal 內容框 */
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-title {
+  margin-top: 0;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 15px;
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+/* 表單樣式 */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.btn-submit {
+  background-color: white;
+  font-style: #5E5344;
+  border: 2px solid #5E5344;
+  border-color: #5E5344;
+  padding: 2px 15px;
+  border-radius: 10px;
+  /* 藥丸形按鈕 */
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn-submit:hover {
+  background-color: #5E5344;
+  color: #FFFFFF;
+  /* 懸停時顏色加深 */
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: white;
+  font-style: #5E5344;
+  border: 2px solid #5E5344;
+  border-color: #5E5344;
+  padding: 2px 15px;
+  border-radius: 10px;
+  /* 藥丸形按鈕 */
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 5px;
+}
+
+.btn-secondary:hover {
+  background-color: #5E5344;
+  color: #FFFFFF;
+  /* 懸停時顏色加深 */
+  transform: translateY(-1px);
+}
+
+.btn-reply {
+  background-color: white;
+  font-style: #5E5344;
+  border: 2px solid #5E5344;
+  border-color: #5E5344;
+  padding: 2px 15px;
+  border-radius: 10px;
+  /* 藥丸形按鈕 */
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn-reply:hover {
+  background-color: #4F473A;
+  color: #FFFFFF;
+  /* 懸停時顏色加深 */
+  transform: translateY(-1px);
+}
+
+.form-actions {
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+/* 唯讀模式樣式 (針對 viewDetails) */
+.readonly-form input[readonly],
+.readonly-form textarea[readonly],
+.readonly-form select[disabled],
+.readonly-form span {
+  background-color: #f7f7f7;
+  border: 1px solid #eee;
+  color: #555;
+  padding: 8px 12px;
+  border-radius: 4px;
+  display: inline-block;
+  min-height: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.9em;
+  margin-top: 5px;
+}
+
+/* 搜尋按鈕 */
+.btn-search {
+  background-color: white;
+  font-style: #5E5344;
+  border: 1px solid #5E5344;
+  border-color: #5E5344;
+  padding: 10px 20px;
+  border-radius: 30px;
+  /* 藥丸形按鈕 */
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn-search:hover {
+  background-color: #4F473A;
+  color: #FFFFFF;
+  /* 懸停時顏色加深 */
+}
+
+.btn-clear {
+  background-color: white;
+  font-style: #5E5344;
+  border: 1px solid #5E5344;
+  border-color: #5E5344;
+  padding: 10px 20px;
+  border-radius: 30px;
+  /* 藥丸形按鈕 */
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.btn-clear:hover {
+  background-color: #4F473A;
+  color: #FFFFFF;
+  /* 懸停時顏色加深 */
+  transform: translateY(-1px);
+}
+
+.btn-pagination {
+  background-color: white;
+  font-style: #5E5344;
+  border: 1px solid #5E5344;
+  border-color: #5E5344;
+  /* padding: 10px 20px; */
+  border-radius: 5px;
+  margin: 0px 5px;
+  /* 藥丸形按鈕 */
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* 讚/倒讚按鈕樣式 */
+.vote-section {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* 預設按鈕 (灰色) */
+.btn-like,
+.btn-dislike {
+  background-color: #f0f0f0;
+  color: #555;
+  border: 1px solid #ddd;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+/* 按讚成功 (綠色) */
+.btn-like.voted-green {
+  background-color: #0870e7 !important;
+  color: white !important;
+  border-color: #001aff;
+}
+
+/* 倒讚成功 (紅色) */
+.btn-dislike.voted-red {
+  background-color: #dc3545 !important;
+  color: white !important;
+  border-color: #c82333;
+}
+
+/* 滑鼠懸停效果 */
+.btn-like:hover:not(.voted-green),
+.btn-dislike:hover:not(.voted-red) {
+  background-color: #e2e2e2;
+}
+
+
+
+/* --- 響應式設計 (RWD) --- */
+@media (max-width: 900px) {
+  .latest-posts-section {
+    /* 在小螢幕上，將佈局改為單欄，文章在上方，側邊欄在下方 */
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    padding: 40px 10px;
+  }
+
+  .hero-section h1 {
+    font-size: 2em;
+  }
+
+  /* 在極小螢幕上隱藏一些表格欄位以節省空間 */
+  .post-table thead th:nth-child(3),
+  .post-table tbody tr td:nth-child(3),
+  /* 作者 */
+  .post-table thead th:nth-child(5),
+  .post-table tbody tr td:nth-child(5) {
+    /* 最後更新 */
+    display: none;
+  }
+}

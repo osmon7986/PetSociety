@@ -1,0 +1,95 @@
+<div class="quiz-page-wrapper">
+
+  @if (chapterQuiz(); as quiz) {
+  <div class="quiz-container">
+    <div class="container mt-3">
+      <app-back-button [buttonLabel]="backButtonLabel" (back)="goback()"></app-back-button>
+    </div>
+    <header class="quiz-header">
+      <div class="badge">CHAPTER QUIZ</div>
+      <h1 class="quiz-title">{{ quiz.title }}</h1>
+      <div class="quiz-meta">
+        <span>測驗編號 #{{ quiz.quizId }}</span>
+        <span class="dot">·</span>
+        <span>共 {{ quiz.questions.length }} 題</span>
+        <div class="quiz-demo" (click)="autoQuiz()">快速作答</div>
+      </div>
+    </header>
+
+    <main class="quiz-content">
+      @for (question of quiz.questions; track question.questionId; let i = $index) {
+      <div class="question-card">
+        <div class="question-header">
+          <span class="q-index">Q{{ i + 1 }}</span>
+          <h3 class="q-text">{{ question.questionText }}</h3>
+        </div>
+
+        <div class="options-group">
+          @for (option of question.options; track option.optionId) {
+          <button class="option-btn" type="button"
+            (click)="!quizResult() && selectOption(question.questionId, option.optionId)"
+            [class.is-selected]="selectedAnswers()[question.questionId] === option.optionId"
+            [class.is-correct]="isCorrectOption(question.questionId, option.optionId)"
+            [class.is-wrong]="isWrongSelected(question.questionId, option.optionId)"
+            [disabled]="quizResult() !== undefined">
+            <!-- angular 查覺到 selectedAnswers 有更新，就會來畫面改變效果 -->
+            <!-- selectedAnswers物件[key]，取得value是否等於option -->
+            <span class="option-label"></span>
+            <span class="option-text">{{ option.optionText }}</span>
+          </button>
+          }
+        </div>
+      </div>
+      }
+    </main>
+
+    <footer class="quiz-footer">
+      <button class="btn-submit" (click)="submitQuiz()" [hidden]="quizResult() !== undefined">確認提交測驗</button>
+    </footer>
+  </div>
+
+  } @else {
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>正在為您開啟 PetSociety 教室...</p>
+  </div>
+  }
+</div>
+<p-confirmDialog [draggable]="false"></p-confirmDialog>
+<p-dialog header="測驗完成" [(visible)]="displayResult" [modal]="true" [closable]="false" styleClass="modern-result-dialog"
+  appendTo="body" [draggable]="false">
+
+  @if (quizResult(); as result) {
+  <div class="result-content-wrapper" [ngClass]="result.score >= 60 ? 'status-success' : 'status-fail'">
+
+    <div class="result-header">
+      <h2 class="result-title">
+        {{ result.score >= 60 ? '太棒了！表現優異' : '差一點點，再加把勁喔！' }}
+      </h2>
+      <p class="result-subtitle">
+        {{ result.score >= 60 ? '你對毛孩的了解又更進一步了！' : '相信你下次一定能拿滿星！' }}
+      </p>
+    </div>
+
+    <div class="hero-stars-container">
+      <p-rating [(ngModel)]="result.correctCount" [readonly]="true" [stars]="result.totalQuestions"
+        styleClass="hero-gold-rating">
+      </p-rating>
+
+      <div class="stats-badge">
+        本次答對 {{ result.correctCount }} 題
+      </div>
+    </div>
+
+    <div class="action-buttons flex flex-column gap-2 sm:flex-row sm:justify-content-center">
+      <button pButton label="返回題目" class="p-button-text review-button" (click)="displayResult = false">
+      </button>
+      @if (result.correctCount !== result.totalQuestions) {
+      <button pButton label="再挑戰一次" icon="pi pi-refresh" class="theme-button" (click)="resetQuiz()">
+      </button>
+      }
+
+    </div>
+  </div>
+  }
+</p-dialog>

@@ -1,0 +1,4 @@
+<h1>{{title}}</h1>
+<angular-editor [(ngModel)]="htmlContent" (ngModelChange)="this.onContentChange.emit($event)"
+  [config]="config"></angular-editor>
+<app-preview-editor [innerHTML]="htmlContent"></app-preview-editor>

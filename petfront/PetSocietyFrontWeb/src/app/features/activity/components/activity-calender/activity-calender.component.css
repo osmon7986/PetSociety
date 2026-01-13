@@ -1,0 +1,53 @@
+:host {
+  --fc-border-color: #efdfcc;
+  --fc-day-bg-color: #fdfaf5;
+  --fc-today-bg-color: #c5934d;
+  --fc-button-bg-color: #D8C3A5;
+  --fc-button-text-color: #53493e;
+  --fc-button-border-color: #D8C3A5;
+  --fc-button-hover-bg-color: #C9B29B;
+  --fc-button-hover-border-color: #C9B29B;
+  --fc-button-active-bg-color: #C9B29B;
+  --fc-button-active-border-color: #C9B29B;
+
+  --fc-event-bg-color: #D8C3A5;
+  --fc-event-border-color: #D8C3A5;
+  --fc-event-text-color: #53493e;
+}
+
+:host ::ng-deep .fc td.fc-day {
+  background-color: #f7f1e6 !important;
+  /* 淺紅色背景 */
+}
+
+:host ::ng-deep .fc td.fc-day-today {
+  background-color: #c5934d !important;
+  /* 深一點的紅，區分今天 */
+}
+
+:host ::ng-deep .fc .fc-toolbar-title {
+  color: #53493e;
+}
+
+:host ::ng-deep .fc .fc-daygrid-day-number {
+  color: #7d6d5d;
+}
+
+:host ::ng-deep .fc .fc-col-header-cell-cushion {
+  color: #7d6d5d;
+}
+
+:host ::ng-deep .fc-daygrid-event {
+  white-space: normal;
+}
+
+:host ::ng-deep .my-registered-event {
+  background-color: #d4edda !important;
+  border-color: #c3e6cb !important;
+}
+
+:host ::ng-deep .my-registered-event .fc-event-title,
+:host ::ng-deep .my-registered-event .fc-event-time {
+  color: #155724 !important;
+  font-weight: bold;
+}

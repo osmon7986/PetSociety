@@ -1,0 +1,24 @@
+.activity-img-box {
+  width: 100%;
+  height: 170px;
+  /* 可調整高度 */
+  background: #f2f2f2;
+  /* 淺灰底 */
+  border-radius: 12px;
+  /* 圓角 */
+  overflow: hidden;
+  /* 讓圖片放大時不會超出邊界 */
+  margin-bottom: 12px;
+  /* 與文字區隔 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.activity-img-box img {
+  width: 100%;
+  height: 100%;
+  object-position: center top;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}

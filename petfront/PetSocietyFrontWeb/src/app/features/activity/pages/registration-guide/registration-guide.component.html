@@ -1,0 +1,21 @@
+<app-breadcrumb-banner [bannerTitle]="'所有活動'" [bannerSubtitle]="'與毛孩一起參與各項活動'" [breadcrumbItem]="breadcrumbData"
+  [currentTitle]="'活動簡章'"></app-breadcrumb-banner>
+<div class="container py-5 my-5">
+  <div class="container mt-3 my-3">
+    <div class="d-flex align-items-center justify-content-between">
+
+      <app-back-button [buttonLabel]="backButtonLabel" (back)="goBack()"></app-back-button>
+
+      <button type="button" class="btn btn-primary" (click)="goRegistration()">
+        前往報名
+      </button>
+
+    </div>
+  </div>
+
+  <app-activity-info></app-activity-info>
+  <app-activity-block></app-activity-block>
+  <app-activity-map [showSearch]="false" [showInfoWindow]="true"></app-activity-map>
+  <app-activity-comment></app-activity-comment>
+  <app-activity-new-comment></app-activity-new-comment>
+</div>

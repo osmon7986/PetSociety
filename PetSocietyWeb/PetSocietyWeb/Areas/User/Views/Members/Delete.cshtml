@@ -1,0 +1,43 @@
+﻿@model PetSocietyWeb.Areas.User.ViewModels.MemberVM
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container mt-4">
+    <div class="alert alert-danger shadow-sm border-0" role="alert">
+        <h4 class="alert-heading"><i class="fa-solid fa-triangle-exclamation"></i> 警告</h4>
+        <p>確定要刪除這位會員嗎？此動作無法復原。</p>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3 col-md-2 text-muted">名字</dt>
+                <dd class="col-sm-9 col-md-10 fw-bold">@Model.Name</dd>
+
+                <dt class="col-sm-3 col-md-2 text-muted">Email</dt>
+                <dd class="col-sm-9 col-md-10">@Model.Email</dd>
+
+                <dt class="col-sm-3 col-md-2 text-muted">角色</dt>
+                <dd class="col-sm-9 col-md-10">
+                    @(Model.Role == 1 ? "管理員" : "一般會員")
+                </dd>
+
+                <dt class="col-sm-3 col-md-2 text-muted">照片</dt>
+                <dd class="col-sm-9 col-md-10">
+                    <partial name="_ShowPhotoPartial" model="Model" />
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-light border-0 d-flex">
+            <form asp-action="Delete">
+                <input type="hidden" asp-for="MemberId" />
+                <button type="submit" class="btn btn-danger">
+                    <i class="fa-solid fa-trash-can"></i> 確認刪除
+                </button>
+            </form>
+            <a asp-action="Index" class="btn btn-secondary ms-2">取消</a>
+        </div>
+    </div>
+</div>

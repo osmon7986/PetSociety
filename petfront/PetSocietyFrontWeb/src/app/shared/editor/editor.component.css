@@ -1,0 +1,8 @@
+:host ::ng-deep .angular-editor-textarea {
+  background-color: #fff !important;
+  color: #000 !important; /* Also ensure text color is readable */
+}
+
+:host ::ng-deep .angular-editor-toolbar {
+  background-color: #f8f9fa; /* Light grey for toolbar */
+}

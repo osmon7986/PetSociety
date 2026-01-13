@@ -1,0 +1,16 @@
+<section class="course-banner">
+  <div class="container text-center">
+    <h1 class="banner-title">{{bannerTitle}}</h1>
+    <p class="banner-subtitle">{{bannerSubtitle}}</p>
+
+    <nav class="breadcrumb-nav">
+      <span><a routerLink="/">首頁</a></span>
+      @for(item of breadcrumbItem; track $index){
+      <span> / </span>
+      <span><a [routerLink]="item.link">{{item.label}}</a></span>
+      }
+      <span> / </span>
+      <span class="current">{{currentTitle}}</span>
+    </nav>
+  </div>
+</section>

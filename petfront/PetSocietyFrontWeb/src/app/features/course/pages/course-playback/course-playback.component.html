@@ -1,0 +1,63 @@
+<div class="playback-page">
+  <div class="container my-4">
+    <div class="container mt-3">
+      <app-back-button [buttonLabel]="backButtonLabel" (back)="goback()"></app-back-button>
+    </div>
+    @if (playback) {
+    <div class="playback-layout">
+
+      <!-- 左側：影片 + 資訊 -->
+      <div class="left-content">
+
+        <!-- YouTube 播放器 -->
+        <div class="video-box">
+          <youtube-player [videoId]="playback.currentChapter?.videoUrl" suggestedQuality="highres" [height]="450"
+            [width]="800">
+          </youtube-player>
+        </div>
+
+        <!-- 課程資訊 -->
+        <div class="course-info">
+          <h2 class="course-title">{{ playback.courseTitle }}</h2>
+
+        </div>
+
+        <!-- 章節資訊 -->
+        @if (playback.currentChapter) {
+        <div class="chapter-info">
+          <h3>{{ playback.currentChapter.chapterName }}</h3>
+          <p class="chapter-summary">
+            {{ playback.currentChapter.chapterSummary }}
+          </p>
+        </div>
+        <div class="quiz-section">
+          <div class="quiz-card">
+            <button class="btn-primary-cta" (click)="navigateToQuiz()">
+              <span>點我開始測驗</span>
+            </button>
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- 右側：章節清單（固定） -->
+      <aside class="chapter-sidebar">
+        <h4>課程章節</h4>
+
+        <ul class="chapter-list">
+          @for (chapter of playback.chapters; track chapter.chapterId; let i = $index) {
+          <!-- 更換觀看章節 -->
+          <li (click)="selectChapter(chapter)" class="chapter-item"
+            [class.active]="chapter.chapterId === playback.currentChapter?.chapterId">
+            <span class="chapter-index">
+              {{ (i + 1) < 10 ? '0' + (i + 1) : (i + 1) }} </span>
+                <span class="chapter-name">{{ chapter.chapterName }}</span>
+          </li>
+          }
+        </ul>
+      </aside>
+
+    </div>
+    }
+  </div>
+</div>

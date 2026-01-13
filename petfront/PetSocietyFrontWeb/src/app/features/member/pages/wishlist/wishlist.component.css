@@ -1,0 +1,246 @@
+/* ===========================
+   變數設定 (與個人資料頁面一致)
+   =========================== */
+:host {
+  /* 核心色票 */
+  --primary-color: #D8C3A5;
+  /* 奶茶拿鐵 */
+  --primary-hover: #C7B29A;
+  /* 濃奶茶 */
+  --text-dark: #5E5344;
+  /* 柔和可可灰 */
+  --text-muted: #8E8375;
+  /* 奶粉灰 */
+  --border-color: #E8E2DA;
+  /* 奶油灰 */
+  --bg-cream: #F7F3EF;
+  /* 奶霜白 */
+  --bg-icon: #FDFBF9;
+  /* 極淡暖白 */
+  --danger-soft: #D98E73;
+  /* 柔和紅 */
+}
+
+/* ===========================
+   文字與背景工具類
+   =========================== */
+.text-dark-brown {
+  color: var(--text-dark) !important;
+}
+
+.text-muted-custom {
+  color: var(--text-muted) !important;
+}
+
+.text-accent {
+  color: var(--primary-color) !important;
+}
+
+.bg-cream {
+  background-color: var(--bg-cream) !important;
+}
+
+/* ===========================
+   卡片通用樣式 (外層容器)
+   =========================== */
+.custom-card {
+  border: 1px solid var(--border-color);
+  background-color: #fff;
+  border-radius: 0.75rem;
+  /* 圓潤一點 */
+  box-shadow: 0 4px 20px rgba(94, 83, 68, 0.05) !important;
+  /* 淡淡的可可色陰影 */
+  overflow: hidden;
+}
+
+/* ===========================
+   Tab 分頁籤樣式 (針對 Wishlist 優化)
+   =========================== */
+.nav-tabs {
+  border-bottom: 1px solid var(--border-color);
+  /* 底線改為奶油灰 */
+}
+
+.nav-link {
+  border: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  background-color: transparent;
+  margin-bottom: -1px;
+  /* 蓋住底線 */
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+  background-color: rgba(216, 195, 165, 0.1);
+  /* 淡淡的奶茶色背景 */
+}
+
+
+/* 激活狀態 (Active)  */
+.nav-link.active {
+  color: var(--text-dark) !important;
+  /* 深咖啡色文字 */
+
+  /* 背景改成奶霜色，讓它看起來像個有顏色的標籤 */
+  background-color: var(--bg-cream) !important;
+
+  /* 上方加一條深色邊框，增加立體感 (可選) */
+  border-top: 3px solid var(--primary-color) !important;
+
+  /* 底部邊框透明 */
+  border-bottom-color: transparent !important;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+/* 非激活狀態 (沒點到的) - 讓滑鼠移過去也有點反應 */
+.nav-link:hover {
+  background-color: #fcfcfc;
+  /* 極淡的灰 */
+  color: var(--primary-color);
+}
+
+/* ===========================
+   商品/課程列表卡片 (內部小卡)
+   =========================== */
+.transition-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color) !important;
+}
+
+.hover-shadow:hover {
+  transform: translateY(-5px);
+  /* 懸浮上移 */
+  box-shadow: 0 10px 25px rgba(94, 83, 68, 0.1) !important;
+  /* 加深陰影 */
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* 圖片容器 */
+.object-fit-cover {
+  object-fit: cover;
+}
+
+/* 磨砂玻璃效果 (用在左上角分類標籤) */
+.backdrop-blur {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* ===========================
+   按鈕樣式 (繼承並優化)
+   =========================== */
+
+/* 1. 自定義外框按鈕 (去逛逛、查看詳情) */
+.btn-outline-custom {
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom:active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+  transform: translateY(-2px);
+  /* 微微浮起 */
+  box-shadow: 0 4px 12px rgba(216, 195, 165, 0.4);
+  /* 奶茶光暈 */
+}
+
+/* 2. 刪除按鈕 (紅色圓形) */
+.btn-danger {
+  background-color: var(--danger-soft);
+  border-color: var(--danger-soft);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+  /* 確保在最上層 */
+}
+
+.btn-danger:hover {
+  background-color: #c0785d;
+  /* 深一點的柔和紅 */
+  transform: scale(1.1);
+  /* 放大效果 */
+}
+
+/* 3. 線上課程標籤 (Badge) */
+.badge.border-secondary {
+  border-color: var(--text-muted) !important;
+  color: var(--text-muted) !important;
+}
+
+/* ===========================
+   空狀態 (Empty State)
+   =========================== */
+.bi-box2-heart {
+  font-size: 5rem;
+  /* 特大圖示 */
+  color: var(--border-color);
+  /* 使用奶油灰，讓它看起來像背景浮水印 */
+}
+
+/* ===========================
+   Loading 轉圈圈
+   =========================== */
+.spinner-border.text-accent {
+  color: var(--primary-color) !important;
+}
+
+/* =========================================
+   [修復] PrimeFlex 衝突與圖片跑版修正
+   ========================================= */
+
+/* 1. 強制修正 Bootstrap Grid 的欄位寬度
+   (防止 PrimeFlex 讓卡片變成 100% 寬) */
+@media (min-width: 768px) {
+
+  /* 平板以上：強制 50% (一列兩個) */
+  :host .row.row-cols-md-2>.col {
+    flex: 0 0 auto !important;
+    width: 50% !important;
+  }
+}
+
+@media (min-width: 992px) {
+
+  /* 電腦以上：強制 33.33% (一列三個) */
+  :host .row.row-cols-lg-3>.col {
+    flex: 0 0 auto !important;
+    width: 33.333333% !important;
+  }
+}
+
+/* 2. 圖片容器專用樣式 (改用長寬比控制) */
+.card-img-fixed-height {
+  width: 100% !important;
+  aspect-ratio: 16 / 9;
+  height: auto !important;
+
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: calc(0.75rem - 1px);
+  border-top-right-radius: calc(0.75rem - 1px);
+  background-color: #f0f0f0;
+}
+
+/* 3. 圖片填滿模式 */
+.card-img-fixed-height>img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center;
+}

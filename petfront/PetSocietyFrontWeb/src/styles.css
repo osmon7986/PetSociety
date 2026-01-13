@@ -1,0 +1,87 @@
+@import "primeicons/primeicons.css";
+
+html {
+  overflow-y: scroll;
+  /* 固定顯示卷軸，讓header不晃動 */
+  background-color: #F7F3EF;
+
+  /* 讓捲動更優雅 */
+  scroll-behavior: smooth;
+}
+
+body {
+  padding-top: 120px;
+  /* 保留上方空間給 header nav */
+}
+
+
+:root {
+  /* 選中狀態的背景與文字顏色 */
+  --p-paginator-nav-button-selected-background: #5E5344 !important;
+  --p-paginator-nav-button-selected-color: #ffffff !important;
+
+  /* 滑鼠移上去 (Hover) 的背景 */
+  --p-paginator-nav-button-hover-background: #E8E2DA !important;
+  --p-paginator-nav-button-hover-color: color: rgba(0, 0, 0, 0.65) !important;
+
+}
+
+.p-paginator .p-paginator-page:not(.p-paginator-page-selected) {
+  color: rgba(0, 0, 0, 0.65) !important;
+}
+
+/* 2. 確保箭頭在「可選狀態」但「未 Hover」時也是這個顏色 */
+.p-paginator .p-paginator-nav-button:not(.p-disabled):not(:hover) .p-icon {
+  color: rgba(0, 0, 0, 0.65) !important;
+  fill: rgba(0, 0, 0, 0.65) !important;
+}
+
+.p-paginator .p-paginator-nav-button:not(.p-disabled) .p-icon {
+  color: rgba(0, 0, 0, 0.65) !important;
+  fill: rgba(0, 0, 0, 0.65) !important;
+}
+
+.p-paginator .p-paginator-current {
+  color: rgba(0, 0, 0, 0.65) !important;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-right: 1rem;
+}
+
+.swal2-container {
+  z-index: 99999 !important;
+}
+
+
+/* 1. 定義動畫關鍵影格 */
+@keyframes breathing-glow {
+  0% {
+    transform: scale(0.8);
+    /* 縮得更小 */
+    opacity: 0.5;
+    /* 變得更透明 */
+  }
+
+  50% {
+    transform: scale(1.3);
+    /* 放得更大 */
+    opacity: 1;
+    /* 光暈變強！改用深色主題色 (--color-primary) 讓它更亮 */
+    filter: drop-shadow(0 0 20px var(--color-primary));
+  }
+
+  100% {
+    transform: scale(0.8);
+    /* 回到更小 */
+    opacity: 0.5;
+  }
+}
+
+/* 2. 定義要套用的 Class */
+.loading-heart-icon {
+  font-size: 7rem;
+  /* 稍微再調大一點點 */
+  color: var(--color-primary);
+  /* 時間縮短一點點 (1.5s)，讓它跳快一點，感覺更有活力 */
+  animation: breathing-glow 1.5s ease-in-out infinite;
+}

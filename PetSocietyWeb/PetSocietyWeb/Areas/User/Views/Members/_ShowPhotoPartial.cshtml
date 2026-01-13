@@ -1,0 +1,18 @@
+﻿@model PetSocietyWeb.Areas.User.ViewModels.MemberVM
+
+@{
+    var member = Model;
+
+    if (member != null && member.ProfilePic != null)
+    {
+        <img src="@Url.Action("GetProfilePic", "Members", new { area = "User", id = member.MemberId })"
+             title="@member.Name"
+             style="width:320px;height:340px;object-fit:cover;border-radius:8px;" />
+    }
+    else
+    {
+        <img src="~/images/noimage.png"
+             asp-append-version="true"
+             style="width:320px;height:340px;object-fit:cover;border-radius:8px;" />
+    }
+}

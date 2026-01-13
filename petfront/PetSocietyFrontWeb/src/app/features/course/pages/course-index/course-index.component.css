@@ -1,0 +1,172 @@
+.p-inputtext {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  line-height: 1;
+
+  &::placeholder {
+    color: #cccccc;
+    opacity: 1;
+  }
+}
+
+.category-container {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  overflow-x: auto;
+  /* 手機版可以橫向滑動 */
+}
+
+.chip-btn {
+  border: 1px solid #e8e2dc;
+  padding: 0px 10px;
+  border-radius: 8px;
+  background-color: #F7F3EF;
+  color: #5E5344;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 16px;
+  transition: all 0.25s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.chip-btn:hover {
+  background-color: #F2EBE5;
+}
+
+
+.chip-btn.active {
+  background-color: #5E5344;
+  color: #ffffff;
+}
+
+.hot-banner {
+  background-color: #F7F3EF;
+}
+
+/* Carousel 的指示點與按鈕 */
+:host ::ng-deep .p-carousel-indicator-button {
+  background-color: #E8E2DA;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+:host ::ng-deep .p-carousel-indicator.p-carousel-indicator-active .p-carousel-indicator-button {
+  background-color: #D8C3A5 !important;
+  transform: scale(1.1);
+}
+
+:host ::ng-deep .p-carousel-next-button,
+:host ::ng-deep .p-carousel-prev-button {
+  background-color: #FFFFFF;
+  border-radius: 50% !important;
+  transition: all 0.3s ease !important;
+  z-index: 10;
+}
+
+.p-carousel-prev:hover,
+.p-carousel-next:hover {
+  background: #F2EBE5;
+}
+
+:host ::ng-deep .p-carousel-prev-button .p-icon,
+:host ::ng-deep .p-carousel-next-button .p-icon,
+:host ::ng-deep .p-carousel-prev-button svg,
+:host ::ng-deep .p-carousel-next-button svg {
+  color: #D8C3A5 !important;
+  fill: #D8C3A5 !important;
+  width: 1.2rem !important;
+}
+
+.ps-carousel-container {
+  width: 1500px;
+  padding: 1rem 0;
+  margin: 0 auto;
+
+  .section-title {
+    color: #5E5344;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+  }
+}
+
+:host ::ng-deep .p-carousel-items-container {
+  width: 100%;
+}
+
+
+
+/* 確保橫式卡片在 Carousel 內有適當間距 */
+.ps-horizontal-card {
+  width: 100%;
+  margin: 0 60px;
+  display: flex;
+  overflow: hidden;
+  text-decoration: none;
+  height: 180px;
+  transition: all 0.3s ease-in-out;
+}
+
+.ps-horizontal-card .course-content {
+  flex: 1;
+  padding: 20px;
+  /* 這裡的 Padding 是為了讓文字不要貼著邊框 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* 讓標題在頂部，價格在底部 */
+}
+
+.course-img-box {
+  flex: 0 0 45%;
+  overflow: hidden;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  background-color: #FFFFFF80;
+  ;
+}
+
+.course-thumb {
+  width: 100%;
+  height: 100%;
+  object-position: center top;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.course-thumb.is-visible {
+  opacity: 1;
+  transform: scale(1);
+  /* 縮回原大小 */
+}
+
+/* 當卡片被 Hover 時，觸發內部圖片放大 */
+.ps-horizontal-card:hover .course-img-box img {
+  transform: scale(1.1);
+}
+
+.course-instructor {
+  font-size: small;
+  color: #868E96;
+}
+
+.course-subscount {
+  font-size: small;
+  color: #3D352C;
+}
+
+.subs-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+}
+
+.course-title {
+  font-weight: bold;
+  color: #3D352C;
+}

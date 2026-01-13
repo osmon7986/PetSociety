@@ -1,0 +1,222 @@
+<section id="banner" class="py-5 banner-section">
+  <div class="container text-center">
+    <h2 class="display-4 fw-bold mb-3 section-title">會員中心</h2>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item"><a href="#" class="text-decoration-none text-muted-custom">首頁</a></li>
+        <li class="breadcrumb-item active-custom" aria-current="page">會員登入</li>
+      </ol>
+    </nav>
+  </div>
+</section>
+
+<section class="login-tabs py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+
+        <div class="card shadow-sm rounded-4 overflow-hidden custom-card">
+          <div class="card-body p-4 p-md-5">
+
+            <nav class="mb-4">
+              <div class="nav nav-pills nav-fill custom-nav-pills" id="nav-tab" role="tablist">
+                <button class="nav-link fw-bold active rounded-pill me-2" id="nav-sign-in-tab" data-bs-toggle="tab"
+                  data-bs-target="#nav-sign-in" type="button" role="tab">
+                  登入
+                </button>
+                <button class="nav-link fw-bold rounded-pill" id="nav-register-tab" data-bs-toggle="tab"
+                  data-bs-target="#nav-register" type="button" role="tab">
+                  註冊
+                </button>
+              </div>
+            </nav>
+
+            <div class="tab-content" id="nav-tabContent">
+
+              <div class="tab-pane fade show active" id="nav-sign-in" role="tabpanel">
+
+                <div class="d-flex justify-content-center mb-4">
+                  <div id="google-btn"></div>
+                </div>
+
+                <div class="position-relative text-center mb-4">
+                  <hr class="divider-line opacity-25">
+                  <span
+                    class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted-custom small">
+                    或使用 Email 登入
+                  </span>
+                </div>
+
+                <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+
+                  <div class="form-floating mb-3">
+                    <input type="email" class="form-control rounded-3" id="loginEmail" name="loginEmail"
+                      [(ngModel)]="loginData.email" placeholder="name@example.com" required
+                      style="text-transform: none !important;">
+                    <label for="loginEmail" class="text-muted-custom">請輸入 Email 信箱</label>
+                  </div>
+
+                  <div class="form-floating mb-3">
+                    <input type="password" class="form-control rounded-3" id="loginPassword" name="loginPassword"
+                      [(ngModel)]="loginData.password" placeholder="Password" required>
+                    <label for="loginPassword" class="text-muted-custom">請輸入密碼</label>
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="form-floating flex-grow-1">
+                        <input type="text" class="form-control rounded-3" id="captchaInput"
+                          [(ngModel)]="userCaptchaInput" name="captcha" placeholder="驗證碼" maxlength="4"
+                          autocomplete="off" required>
+                        <label for="captchaInput" class="text-muted-custom">請輸入右圖驗證碼</label>
+                      </div>
+
+                      <canvas #captchaCanvas width="120" height="58" (click)="generateCaptcha()"
+                        class="rounded-3 border-custom" style="cursor: pointer;" title="看不清楚？點擊換一張">
+                      </canvas>
+                    </div>
+
+                    @if (userCaptchaInput && userCaptchaInput.toUpperCase() !== captchaCode) {
+                    <div class="mt-2 text-danger-custom small fw-bold ps-1">
+                      <i class="bi bi-exclamation-circle-fill me-1"></i>驗證碼錯誤
+                    </div>
+                    }
+                  </div>
+
+                  <div class="d-flex justify-content-end mb-4">
+                    <a routerLink="/member/forgot-password"
+                      class="text-decoration-none text-muted-custom small hover-primary">
+                      忘記密碼？
+                    </a>
+                  </div>
+                  <div class="d-flex gap-2 justify-content-center mb-3">
+                    <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3"
+                      (click)="fillTestUser()">
+                      <i class="bi bi-person-fill me-1"></i>一般會員
+                    </button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3"
+                      (click)="fillDemoUser()">
+                      <i class="bi bi-person-plus-fill me-1"></i>Demo會員
+                    </button>
+                    <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3"
+                      (click)="fillAdminUser()">
+                      <i class="bi bi-shield-lock-fill me-1"></i>管理員
+                    </button>
+                  </div>
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-dark btn-lg rounded-pill py-3 fw-bold"
+                      [disabled]="!loginForm.valid">
+                      立即登入
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+              <div class="tab-pane fade" id="nav-register" role="tabpanel">
+                <p class="text-center text-muted-custom mb-4">建立您的 Pet Society 帳號</p>
+
+                <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+
+                  <div class="mb-3">
+                    <div class="form-floating">
+                      <input type="text" class="form-control rounded-3" id="regName" name="regName"
+                        [(ngModel)]="registerData.name" placeholder="您的名字" required autocomplete="off"
+                        #regNameModel="ngModel"
+                        [class.is-invalid]="regNameModel.invalid && (regNameModel.dirty || regNameModel.touched)">
+                      <label for="regName" class="text-muted-custom">請輸入您的名字</label>
+                    </div>
+                    @if (regNameModel.invalid && (regNameModel.dirty || regNameModel.touched)) {
+                    <div class="mt-2 text-danger-custom small fw-bold ps-1">
+                      <i class="bi bi-exclamation-circle-fill me-1"></i>請輸入名字
+                    </div>
+                    }
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="form-floating">
+                      <input type="email" class="form-control rounded-3" id="regEmail" name="regEmail"
+                        [(ngModel)]="registerData.email" placeholder="name@example.com" required email
+                        style="text-transform: none !important;" #regEmailModel="ngModel"
+                        [class.is-invalid]="regEmailModel.invalid && (regEmailModel.dirty || regEmailModel.touched)">
+                      <label for="regEmail" class="text-muted-custom">請輸入 Email 信箱</label>
+                    </div>
+                    @if (regEmailModel.invalid && (regEmailModel.dirty || regEmailModel.touched)) {
+                    @if (regEmailModel.errors?.['required']) {
+                    <div class="mt-2 text-danger-custom small fw-bold ps-1">
+                      <i class="bi bi-exclamation-circle-fill me-1"></i>請輸入 Email
+                    </div>
+                    }
+                    @if (regEmailModel.errors?.['email']) {
+                    <div class="mt-2 text-danger-custom small fw-bold ps-1">
+                      <i class="bi bi-exclamation-circle-fill me-1"></i>Email 格式不正確
+                    </div>
+                    }
+                    }
+                  </div>
+
+                  <div class="mb-3">
+                    <div class="form-floating">
+                      <input type="password" class="form-control rounded-3" id="regPwd" name="regPwd"
+                        [(ngModel)]="registerData.password" placeholder="設定密碼" required minlength="6"
+                        #regPwdModel="ngModel"
+                        [class.is-invalid]="regPwdModel.invalid && (regPwdModel.dirty || regPwdModel.touched)">
+                      <label for="regPwd" class="text-muted-custom">請設定至少 6 位數密碼</label>
+                    </div>
+                    @if (regPwdModel.invalid && (regPwdModel.dirty || regPwdModel.touched)) {
+                    @if (regPwdModel.errors?.['required']) {
+                    <div class="mt-2 text-danger-custom small fw-bold ps-1">
+                      <i class="bi bi-exclamation-circle-fill me-1"></i>請設定密碼
+                    </div>
+                    }
+                    @if (regPwdModel.errors?.['minlength']) {
+                    <div class="mt-2 text-danger-custom small fw-bold ps-1">
+                      <i class="bi bi-exclamation-circle-fill me-1"></i>密碼長度不足 6 碼
+                    </div>
+                    }
+                    }
+                  </div>
+
+                  <div class="mb-4">
+                    <div class="form-floating">
+                      <input type="password" class="form-control rounded-3" id="regConfirmPwd" name="regConfirmPwd"
+                        [(ngModel)]="registerData.confirmPassword" placeholder="確認密碼" required
+                        #regConfirmModel="ngModel"
+                        [class.is-invalid]="regConfirmModel.invalid && (regConfirmModel.dirty || regConfirmModel.touched)">
+                      <label for="regConfirmPwd" class="text-muted-custom">請再次輸入密碼</label>
+                    </div>
+                    @if (regConfirmModel.invalid && (regConfirmModel.dirty || regConfirmModel.touched)) {
+                    <div class="mt-2 text-danger-custom small fw-bold ps-1">
+                      <i class="bi bi-exclamation-circle-fill me-1"></i>請再次輸入密碼
+                    </div>
+                    }
+                    @if (!regConfirmModel.invalid && registerData.password !== registerData.confirmPassword &&
+                    registerData.confirmPassword) {
+                    <div class="mt-2 text-danger-custom small fw-bold ps-1">
+                      <i class="bi bi-exclamation-triangle-fill me-1"></i>兩次密碼輸入不一致
+                    </div>
+                    }
+                  </div>
+
+                  <div class="d-flex gap-2 justify-content-center mb-3">
+                    <button type="button" class="btn btn-outline-secondary btn-sm rounded-pill px-3"
+                      (click)="fillDemoRegisterUser()">
+                      <i class="bi bi-person-plus-fill me-1"></i>Demo
+                    </button>
+                  </div>
+
+                  <div class="d-grid">
+                    <button type="submit" class="btn btn-dark btn-lg rounded-pill py-3 fw-bold"
+                      [disabled]="!registerForm.valid || registerData.password !== registerData.confirmPassword">
+                      註冊帳號
+                    </button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

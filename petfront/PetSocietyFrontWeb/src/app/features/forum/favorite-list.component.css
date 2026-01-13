@@ -1,0 +1,49 @@
+/* --- 基礎設定與容器 --- */
+.home-container {
+  max-width: 2000px;
+  /* 稍微放大容器寬度 */
+  margin-left: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* --- Hero 英雄區塊 --- */
+.hero-section {
+  text-align: center;
+  background-color: #e8ded6;
+  padding: 60px;
+  /* border-radius: 15px; */
+  /* 更圓潤的邊角 */
+  margin-bottom: 40px;
+  /* box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1); */
+  height: 253px;
+}
+
+.hero-section h2 {
+  /* color: #5E5344; */
+  /* 深粉色/莓紅色 */
+  /* font-size: 2.8em; */
+  font-weight: bold;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.hero-section h3 {
+  color: #8E8375;
+  font-size: 1.1em;
+  margin-bottom: 20px;
+}
+
+.hero-section h4 {
+  color: #5E5344;
+  font-size: 1.1em;
+  margin-bottom: 0px;
+}
+
+.row {
+  width: 1250px;
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-right: 250px; */
+}

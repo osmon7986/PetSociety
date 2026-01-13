@@ -1,0 +1,93 @@
+﻿@model PetSocietyWeb.Models.Generated.Comment
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>新增</h1>
+
+@* <h4>Comment</h4> *@
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Article" class="control-label"></label>
+                <select asp-for="ArticleId" class ="form-control" asp-items="ViewBag.ArticleId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member" class="control-label"></label>
+                <select asp-for="MemberId" class ="form-select" asp-items="ViewBag.MemberId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostDate" class="control-label"></label>
+                <input asp-for="PostDate" class="form-control" />
+                <span asp-validation-for="PostDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Picture" class="control-label"></label>
+                <input asp-for="Picture" class="form-control" />
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+            <div class="mt-2">
+                <input type="file" id="imageInput" />
+                <button type="button" onclick="uploadImage()">上傳圖片</button>
+                <p id="imageUrl"></p>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="儲存" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        function uploadImage() {
+            var input = document.getElementById("imageInput");
+            var file = input.files[0];
+            if (!file) {
+                alert("請選擇一張圖片！");
+                return;
+            }
+
+            // imgBB 的 API 金鑰
+            var apiKey = 'd25e155d259cedb3954587a69e1b653d';  // 在這裡替換成你的 API 金鑰
+
+            var formData = new FormData();
+            formData.append("image", file);
+
+            fetch("https://api.imgbb.com/1/upload?key=" + apiKey, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("Picture").value = data.data.url;
+                    document.getElementById("imageUrl").innerHTML = "圖片上傳成功！";
+                } else {
+                    alert("上傳失敗，請再試一次！");
+                }
+            })
+                .catch(error => {
+                console.error('錯誤:', error);
+                alert("發生錯誤！");
+            });
+        }
+    </script>
+
+    </script>
+}

@@ -1,0 +1,215 @@
+/* --- 1. 定義 CSS 變數 (依據您的色票) --- */
+:root {
+  /* 核心色票 */
+  --accent-color: #D8C3A5;
+  /* 奶茶拿鐵 */
+  --primary-color: #C9B29B;
+  /* 奶香米杏 */
+  --light-primary-color: #F2EBE5;
+  /* 奶泡淺色 */
+  --dark-color: #5E5344;
+  /* 柔可可灰 */
+  --light-dark-color: #8E8375;
+  /* 奶粉灰 */
+  --grey-color: #E8E2DA;
+  /* 邊框奶油灰 */
+  --light-grey-color: #F7F3EF;
+  /* 奶霜白背景 */
+  --white-color: #FFFFFF;
+}
+
+/* --- 2. 基礎全站設定 --- */
+body {
+  background-color: var(--light-grey-color);
+  /* 全站背景 */
+  color: var(--dark-color);
+  /* 預設文字顏色 */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.fw-bold {
+  color: var(--dark-color);
+}
+
+.text-muted {
+  color: var(--light-dark-color) !important;
+}
+
+/* --- 3. Bootstrap 元件覆寫 (讓 btn-primary 變色) --- */
+
+/* Primary: 使用「奶茶拿鐵 #D8C3A5」作為主要互動色 */
+.btn-primary {
+  background-color: var(--accent-color);
+  border-color: var(--accent-color);
+  color: var(--dark-color);
+  /* 淺色背景配深色字較清晰 */
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: #C7B29A;
+  /* 稍微深一點的拿鐵 */
+  border-color: #C7B29A;
+  color: var(--dark-color);
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+  /* 文字使用較深的奶香米杏 */
+}
+
+.bg-primary {
+  background-color: var(--primary-color) !important;
+}
+
+/* Secondary: 使用「奶粉灰 #8E8375」 */
+.btn-secondary {
+  background-color: var(--light-dark-color);
+  border-color: var(--light-dark-color);
+  color: #fff;
+}
+
+.text-secondary {
+  color: var(--light-dark-color) !important;
+}
+
+.bg-secondary {
+  background-color: var(--light-dark-color) !important;
+}
+
+/* Dark: 使用「柔可可灰 #5E5344」 */
+.btn-dark {
+  background-color: var(--dark-color);
+  border-color: var(--dark-color);
+}
+
+.text-dark {
+  color: var(--dark-color) !important;
+}
+
+/* Outline 樣式 */
+.btn-outline-primary {
+  color: var(--dark-color);
+  /* 字色用深色 */
+  border-color: var(--accent-color);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--accent-color);
+  color: var(--dark-color);
+}
+
+/* 色票區塊樣式 (配合您的 HTML) */
+.color-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(94, 83, 68, 0.05);
+  /* 淡淡的可可色陰影 */
+}
+
+.color-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 10px;
+  margin-right: 20px;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.color-info h6 {
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.color-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--light-dark-color);
+}
+
+/* --- 4. 評論區塊樣式 (Comment Section) --- */
+.comment-container {
+  margin-top: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comment {
+  /* 使用「奶泡淺色」做背景，或使用白色並加邊框 */
+  background-color: var(--white-color);
+  border: 1px solid var(--grey-color);
+  /* 奶油灰邊框 */
+  border-radius: 16px;
+  /* 圓角大一點比較溫柔 */
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+/* Hover 效果：讓卡片浮起來，背景微調 */
+.comment:hover {
+  background-color: var(--light-primary-color);
+  /* Hover 時變成奶泡色 */
+  border-color: var(--accent-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(94, 83, 68, 0.1);
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+  border-bottom: 1px dashed var(--grey-color);
+  /* 虛線分隔 */
+  padding-bottom: 12px;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px;
+  object-fit: cover;
+  border: 2px solid var(--accent-color);
+  /* 頭像加上奶茶色邊框 */
+  background-color: var(--grey-color);
+  /* 圖片未載入時的底色 */
+}
+
+.comment-author {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: 700;
+  color: var(--dark-color);
+  /* 姓名用深色 */
+  font-size: 1.05rem;
+}
+
+
+.date {
+  color: var(--light-dark-color);
+  /* 日期用奶粉灰 */
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+.comment-body {
+  margin-top: 5px;
+  color: var(--dark-color);
+  line-height: 1.6;
+  /* 增加行高，閱讀更舒適 */
+  font-size: 0.95rem;
+}

@@ -1,0 +1,119 @@
+<div class="container py-5 fadein animation-duration-500" style="max-width: 1200px; margin: 0 auto;">
+
+  <div class="flex align-items-center justify-content-between mb-5 px-3">
+    <div class="flex align-items-center gap-3">
+      <i class="pi pi-list text-4xl text-primary"></i>
+      <h1 class="text-3xl font-bold m-0 text-900">我的訂單紀錄</h1>
+    </div>
+    <button pButton label="繼續購物" icon="pi pi-arrow-left" class="p-button-outlined" routerLink="/mall"></button>
+  </div>
+
+  <div *ngIf="isLoading" class="flex flex-column justify-content-center align-items-center w-full"
+    style="min-height: 400px;">
+    <i class="pi pi-heart-fill loading-heart-icon mb-3"></i>
+    <div class="text-primary font-bold text-xl">正在尋找您的回憶... 🧾✨</div>
+  </div>
+
+  <div *ngIf="!isLoading">
+
+    <div *ngIf="orders.length > 0; else emptyState">
+
+      <p-accordion styleClass="shadow-2 border-round-2xl overflow-hidden">
+
+        <p-accordion-panel *ngFor="let order of orders" [value]="order.orderId">
+
+          <p-accordion-header>
+            <div class="flex align-items-center justify-content-between w-full pr-3">
+
+              <div class="flex flex-column gap-1">
+                <div class="flex align-items-center gap-2">
+                  <span class="font-bold text-lg">#{{ order.orderId }}</span>
+                  <span class="text-500 text-sm">
+                    <i class="pi pi-calendar mr-1"></i>{{ order.orderDate | date:'yyyy/MM/dd HH:mm' }} 下單
+                  </span>
+                </div>
+                <div *ngIf="order.paymentDate" class="text-green-600 text-sm">
+                  <i class="pi pi-check-circle mr-1"></i>{{ order.paymentDate | date:'yyyy/MM/dd HH:mm' }} 付款
+                </div>
+              </div>
+
+              <div class="flex align-items-center gap-3">
+                <span class="text-xl font-bold text-900">NT$ {{ order.totalAmount | number }}</span>
+
+                <p-tag [value]="getStatusName(order.status)" [severity]="getStatusSeverity(order.status)"></p-tag>
+
+                <div *ngIf="order.status === 'Pending'" class="flex align-items-center gap-2">
+                  <button pButton type="button" label="取消" icon="pi pi-times"
+                    class="p-button-sm p-button-outlined p-button-secondary shadow-1"
+                    (click)="onCancelOrder(order.orderId); $event.stopPropagation()">
+                  </button>
+                  <button pButton type="button" label="付款" icon="pi pi-credit-card"
+                    class="p-button-sm p-button-danger shadow-2"
+                    (click)="payNow(order.orderId); $event.stopPropagation()">
+                  </button>
+                </div>
+
+                <div *ngIf="order.status === 'Cancelled' || order.status === 'Completed'"
+                  class="flex align-items-center">
+                  <button pButton type="button" icon="pi pi-trash" pTooltip="刪除此紀錄" tooltipPosition="top"
+                    class="p-button-rounded p-button-text p-button-secondary hover:surface-200"
+                    (click)="onDeleteOrder(order.orderId); $event.stopPropagation()">
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </p-accordion-header>
+          <p-accordion-content>
+            <div class="p-3 surface-50 border-round">
+              <h4 class="m-0 mb-3 text-700">商品明細</h4>
+
+              <div *ngFor="let item of order.details"
+                class="flex align-items-center py-2 border-bottom-1 surface-border">
+                <img
+                  [src]="item.thumbnail ? item.thumbnail : 'https://placehold.co/400x400/F2EBE5/5E5344?text=No+Image'"
+                  class="w-4rem h-4rem border-round mr-3 shadow-1" style="object-fit: cover;" alt="商品圖片">
+
+                <div class="flex-1">
+                  <div class="font-bold text-900">{{ item.productName }}</div>
+                  <div class="text-500 text-sm">單價: ${{ item.price }}</div>
+                </div>
+                <div class="text-right">
+                  <div class="font-bold">x {{ item.quantity }}</div>
+                  <div class="text-primary font-bold">NT$ {{ item.price * item.quantity | number }}</div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-top-1 surface-border text-sm text-600">
+                <div><i class="pi pi-user mr-2"></i> 收件人：{{ order.receiverName }}</div>
+                <div class="mt-1"><i class="pi pi-phone mr-2"></i> 電話：{{ order.receiverPhone }}</div>
+                <div class="mt-1"><i class="pi pi-map-marker mr-2"></i> 地址：{{ order.receiverAddress }}</div>
+              </div>
+            </div>
+          </p-accordion-content>
+
+        </p-accordion-panel>
+      </p-accordion>
+    </div>
+
+    <ng-template #emptyState>
+      <div
+        class="flex flex-column align-items-center justify-content-center p-5 text-center fadein animation-duration-500">
+
+        <img src="images/naiyue-empty-box.png" alt="No Orders" class="w-full max-w-20rem mb-4"
+          style="object-fit: contain;">
+
+        <h2 class="text-900 font-bold mb-2">這裡空空的...</h2>
+        <p class="text-600 text-xl mb-5" style="max-width: 400px;">
+          箱子裡冷颼颼的...<br>
+          把拔馬麻要不要買點禮物填滿它呢？🥺
+        </p>
+
+        <button pButton label="商城傳送門" icon="pi pi-shopping-bag" class="p-button-rounded p-button-lg shadow-4"
+          routerLink="/mall">
+        </button>
+      </div>
+    </ng-template>
+
+  </div>
+</div>

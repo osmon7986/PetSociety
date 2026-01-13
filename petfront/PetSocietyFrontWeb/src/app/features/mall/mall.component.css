@@ -1,0 +1,507 @@
+/* =========================================
+   全域變數設定 (Variables)
+   ========================================= */
+:host {
+  /* --- 色彩系統 (日系奶茶風) --- */
+  --color-primary: #C9B29B;
+  /* 奶香米杏色 (主色) */
+  --color-primary-light: #F2EBE5;
+  /* 奶泡色 (淺主色) */
+  --color-text-dark: #5E5344;
+  /* 柔可可灰 (深色文字) */
+  --color-text-light: #8E8375;
+  /* 奶粉灰 (次要文字) */
+  --color-btn: #D8C3A5;
+  /* 奶茶拿鐵色 (按鈕) */
+  --color-btn-hover: #C7B29A;
+  /* 按鈕懸浮色 */
+  --color-light-gray: #F7F3EF;
+  /* 奶霜白 (背景) */
+
+  /* --- 介面元件 --- */
+  --border-radius: 12px;
+  /* 圓角 */
+  --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  /* 輕微陰影 */
+}
+
+/* =========================================
+   佈局與共用樣式 (Layout & Common)
+   ========================================= */
+.mall-container {
+  max-width: 1600px;
+  margin: auto;
+  padding: 0 20px;
+  color: var(--color-text-dark);
+}
+
+/* --- Banner 區域 --- */
+.hero-banner {
+  /* 1. 背景圖設定：加上半透明漸層讓文字更清晰 */
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),
+    url('/images/Mall-banner-bg.png');
+  background-size: cover;
+  background-position: center 65%;
+  /* 微調垂直位置，讓狗狗露出來 */
+  background-repeat: no-repeat;
+
+  /* 2. 外觀設定 */
+  border-radius: var(--border-radius);
+  padding: 60px 20px;
+  margin-bottom: 50px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(199, 178, 154, 0.2);
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+
+.hero-banner h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--color-text-dark);
+}
+
+.hero-banner p {
+  color: var(--color-text-light);
+}
+
+/* --- 主內容排版 (Flexbox) --- */
+.main-content {
+  display: flex;
+  gap: 30px;
+}
+
+/* 手機版響應式 (RWD) */
+@media(max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+  }
+}
+
+/* =========================================
+   左側側邊欄 (Sidebar)
+   ========================================= */
+.sidebar {
+  flex: 0 0 250px;
+}
+
+.sidebar .filter-group {
+  margin-bottom: 30px;
+}
+
+.sidebar .filter-group h3 {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  border-bottom: 2px solid var(--color-text-dark);
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+.sidebar .filter-group ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* --- 分類清單 --- */
+.sidebar .filter-group ul li {
+  padding: 10px 15px;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: var(--color-text-dark);
+  font-size: 0.95rem;
+}
+
+.sidebar .filter-group ul li:hover {
+  background-color: #F8F5F2;
+  /* 淡淡的奶茶色 */
+  transform: translateX(5px);
+}
+
+.sidebar .filter-group ul li.active {
+  background-color: var(--color-btn);
+  color: #fff;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(216, 195, 165, 0.4);
+}
+
+/* --- 價格輸入框 --- */
+.sidebar .filter-group .price-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.sidebar .filter-group .price-inputs .price-field {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #e0e0e0;
+  background-color: #fff;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--color-text-dark);
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.sidebar .filter-group .price-inputs .price-field:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(141, 110, 99, 0.1);
+}
+
+.sidebar .filter-group .price-inputs .price-field::placeholder {
+  color: #ccc;
+  font-size: 0.85rem;
+}
+
+.sidebar .filter-group .price-inputs .separator {
+  color: #999;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* --- 篩選按鈕 --- */
+.sidebar .filter-group .btn-filter {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--color-btn);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.sidebar .filter-group .btn-filter:hover {
+  background-color: var(--color-btn-hover);
+}
+
+.sidebar .filter-group .btn-filter:active {
+  background-color: #A9937B;
+  transition: none;
+  transform: scale(0.98);
+}
+
+/* 禁用狀態 (Loading時) */
+.disabled-sidebar {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: wait;
+  transition: opacity 0.3s;
+}
+
+/* =========================================
+   右側商品列表 (Product Grid)
+   ========================================= */
+.product-grid-section {
+  flex: 1;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: var(--color-text-light);
+}
+
+.toolbar select {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: var(--color-text-dark);
+}
+
+/* --- 網格設定 --- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+/* --- 商品卡片主體 --- */
+.product-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 30px rgba(141, 110, 99, 0.15);
+}
+
+/* --- 圖片區域 --- */
+.product-card .card-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  /* ★ 關鍵：強制相對定位，讓標籤 (Badge) 可以參考這裡 */
+  position: relative !important;
+  overflow: hidden;
+  padding: 20px;
+  /* 留白讓商品更有質感 */
+  border-radius: 16px 16px 0 0;
+  /* 配合卡片圓角 */
+}
+
+.product-card .card-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: contrast(1.02);
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .card-image img {
+  transform: scale(1.08);
+  /* 微微放大 */
+}
+
+/* --- [已停用] 舊版標籤樣式 (留存備考，避免誤刪) --- */
+/*
+.product-card .badge {
+  background-color: #A3B18A;
+  font-weight: 500;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+*/
+
+/* --- 加入購物車按鈕 --- */
+.product-card .btn-add-cart {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  /* 預設藏在下方 */
+  width: 90%;
+  opacity: 0;
+  z-index: 3;
+  padding: 10px;
+  background-color: var(--color-btn);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+}
+
+.product-card:hover .btn-add-cart {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  /* 滑上來 */
+}
+
+.product-card .btn-add-cart:hover {
+  background-color: var(--color-btn-hover);
+}
+
+.product-card .btn-add-cart:active {
+  background-color: #A9937B;
+  transition: none;
+  transform: translateX(-50%) translateY(0) scale(0.95);
+}
+
+/* --- 卡片資訊區 --- */
+.product-card .card-info {
+  padding: 12px 18px 20px 18px;
+  text-align: left;
+}
+
+.product-card .card-info .product-category {
+  font-size: 0.75rem;
+  color: #999;
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.product-card .card-info .product-title {
+  font-size: 1rem;
+  margin: 0 0 8px;
+  font-weight: 600;
+  color: var(--color-text-dark);
+  line-height: 1.5;
+  height: 3em;
+  /* 兩行高度 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.product-card .price-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-card .price-row .price {
+  font-weight: 700;
+  color: #A9937B;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.product-card .price-row .original-price {
+  font-size: 0.9rem;
+  text-decoration: line-through;
+  color: #ccc;
+}
+
+/* =========================================
+   分頁樣式 (Pagination)
+   ========================================= */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+}
+
+.pagination button {
+  width: 35px;
+  height: 35px;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.pagination button.active,
+.pagination button:hover:not([disabled]) {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* =========================================
+   🔥 標籤系統 (Badge System) - 柔和版
+   ========================================= */
+
+/* 1. 標籤容器：負責定位與排列 */
+.badge-wrapper {
+  position: absolute;
+  top: 15px;
+  /* 離上面一點距離，不要貼太緊 */
+  left: 15px;
+  /* 離左邊一點距離 */
+  z-index: 10;
+
+  display: flex;
+  /* 啟動彈性排版 */
+  flex-direction: column;
+  /* 垂直排列 (若想並排改成 row) */
+  gap: 8px;
+  /* ★ 關鍵：標籤之間的呼吸空間 */
+  align-items: flex-start;
+  /* 靠左對齊 */
+}
+
+/* 2. 標籤本體：只負責長相，不負責位置 */
+.product-badge,
+.detail-badge {
+  /* 移除 absolute, top, left -> 交給 wrapper 管理 */
+  position: relative;
+
+  display: inline-block;
+  padding: 4px 10px;
+  /* 稍微小巧一點 */
+  border-radius: 4px;
+  /* 文青風微圓角 */
+  font-size: 0.75rem;
+  /* 字體縮小一點，更有質感 */
+  font-weight: 600;
+  color: white;
+  letter-spacing: 1px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* 柔和陰影 */
+}
+
+/* 3. 🔥 HOT 風格：莫蘭迪乾燥玫瑰 (Muted Rose) */
+.badge-hot {
+  background-color: #C08585;
+  /* 純色備案 */
+  background: linear-gradient(135deg, #D49E9E 0%, #B87A7A 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 4. 🌱 NEW 風格：莫蘭迪鼠尾草綠 (Sage Green) */
+.badge-new {
+  background-color: #95A58A;
+  /* 純色備案 */
+  background: linear-gradient(135deg, #A8B89C 0%, #899C7A 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* --- 搜尋框美化 --- */
+.search-box {
+  position: relative;
+  /* 為了讓 Icon 可以絕對定位 */
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  /* ★ 左邊留 40px 給 Icon 住 */
+  border: 1px solid #e0e0e0;
+  border-radius: 20px;
+  /* 圓潤的膠囊形狀 */
+  background-color: #fff;
+  font-size: 0.95rem;
+  color: var(--color-text-dark);
+  transition: all 0.3s ease;
+  outline: none;
+  /* 拿掉預設黑框 */
+}
+
+/* 當輸入框被點擊時，邊框變色 */
+.search-input:focus {
+  border-color: var(--color-primary);
+  /* 奶茶色 */
+  box-shadow: 0 0 0 3px rgba(199, 178, 154, 0.2);
+  /* 淡淡的光暈 */
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  /* 定位在左邊 */
+  top: 50%;
+  transform: translateY(-50%);
+  /* 垂直置中 */
+  color: #999;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+/* 滑鼠移過 Icon 變色 */
+.search-icon:hover {
+  color: var(--color-primary);
+}

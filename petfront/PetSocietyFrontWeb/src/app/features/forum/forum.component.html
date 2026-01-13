@@ -1,0 +1,337 @@
+<div class="home-container">
+  <header class="hero-section">
+    <h2>所有文章</h2>
+    <h3>分享你的寵物故事、交流飼養經驗！</h3>
+    <h4>首頁 / 論壇 / 所有文章</h4>
+  </header>
+  @if (showModal) {
+  <div class="modal-overlay" (click)="closeModal()">
+    <div style="margin-top: 100px; width: 80%;height: 80%; overflow: auto;" class="modal-content"
+      (click)="$event.stopPropagation()">
+      <h2 class="modal-title">
+        @if (modalMode === 'create') { 新增文章
+        <button type="button" (click)="fillDemoData()" class="btn-demo"
+          style="font-size: 12px; margin-left: 10px; padding: 2px 8px; cursor: pointer;">
+          一鍵帶入
+        </button> }
+        @else if (modalMode === 'edit') { 編輯文章 }
+        @else { 文章詳情 }
+      </h2>
+      <button class="modal-close" (click)="closeModal()">&times;</button>
+      <form [formGroup]="articleForm" (ngSubmit)="submitForm()">
+        <div [ngClass]="{'readonly-form': modalMode === 'view'}">
+          <div class="form-group">
+            <label for="category">分類：</label>
+            @if (modalMode === 'edit' || modalMode === 'view') {
+            <div class="static-value-box">
+              {{ editingArticle?.categoryName }}
+            </div>
+            <input type="hidden" formControlName="categoryId">
+            } @else {
+            <select id="category" formControlName="categoryId">
+              <option [value]="1">狗狗專區</option>
+              <option [value]="2">貓咪專區</option>
+            </select>
+            }
+          </div>
+          <div class="form-group">
+            <label for="tag">標籤：</label>
+            @if (modalMode === 'edit' || modalMode === 'view') {
+            <div class="static-value-box">
+              {{ editingArticle?.tagName }}
+            </div>
+            <input type="hidden" formControlName="tagId">
+            } @else {
+            <select id="tag" formControlName="tagId">
+              @for (t of getAvailableTags(); track t.id) {
+              <option [value]="t.id">{{ t.name }}</option>
+              }
+            </select>
+            }
+          </div>
+          <!-- <div class="form-group">
+            <label for="member">會員 (必填):</label>
+            <input id="member" type="text" formControlName="memberName" [readonly]="modalMode === 'view'">
+            @if (articleForm.get('MemberId')?.invalid && articleForm.get('MemberId')?.touched) {
+            <div class="error-message">會員是必填欄位。</div>
+            }
+          </div> -->
+          <div class="form-group">
+            <label for="member">會員名稱：</label>
+            @if (modalMode === 'edit' || modalMode === 'view') {
+            <div class="static-value-box">
+              <span class="member-name-text">{{ editingArticle?.memberName || '系統會員' }}</span>
+            </div>
+            <input type="hidden" formControlName="memberId">
+            }
+            @else {
+            <input id="member" type="text" list="memberOptions" (input)="onMemberInput($event)" placeholder="請輸入會員姓名"
+              class="form-control">
+            <datalist id="memberOptions">
+              @for (m of members; track m.memberId) {
+              <option [value]="m.name"></option>
+              }
+            </datalist>
+            <input type="hidden" formControlName="memberId">
+            @if (articleForm.get('memberId')?.invalid && articleForm.get('memberId')?.touched) {
+            <div class="error-message text-danger">請選擇正確的會員姓名。</div>
+            }
+            }
+          </div>
+          <div class="form-group">
+            <label for="title">標題：</label>
+            <input id="title" type="text" formControlName="title" [readonly]="modalMode === 'view'">
+            @if (articleForm.get('title')?.invalid && articleForm.get('title')?.touched) {
+            <div class="error-message">標題是必填欄位。</div>
+            }
+          </div>
+          <div class="form-group">
+            <label for="content">文章內容：</label>
+            <textarea id="content" formControlName="content" rows="5" [readonly]="modalMode === 'view'"
+              style="resize: none;"></textarea>
+            @if (articleForm.get('content')?.invalid && articleForm.get('content')?.touched) {
+            <div class="error-message">文章內容是必填欄位。</div>
+            }
+          </div>
+          <!-- <div class="form-group" style="visibility: hidden;"> -->
+          <!-- <label for="contentCount">回覆次數</label> -->
+          <!-- </div> -->
+          <!-- <div class="form-group" style="visibility: hidden;"> -->
+          <!-- <label for="postDate">發佈日期</label> -->
+          <!-- </div> -->
+          <!-- <div class="form-group" style="visibility: hidden;"> -->
+          <!-- <label for="lastUpdate">最後更新</label> -->
+          <!-- </div> -->
+          <!-- <div class="form-group" style="visibility: hidden;"> -->
+          <!-- <label for="contentCount">回覆次數</label> -->
+          <!-- </div> -->
+          <div class="form-group">
+            <label for="picture">圖片</label>
+            @if (modalMode !== 'view') {
+            <input type="file" id="picture" accept="image/*" (change)="onFileSelected($event)"
+              class="form-control-file">
+            }
+            @if (imagePreview || articleForm.get('picture')?.value) {
+            <div class="image-display-box">
+              <img [src]="imagePreview || articleForm.get('picture')?.value" alt="文章圖片" class="preview-img">
+            </div>
+            } @else if (modalMode === 'view') {
+            <div class="no-image-text">此文章無附件圖片</div>
+            }
+          </div>
+        </div>
+        @if (modalMode !== 'view') {
+
+        <div class="form-actions">
+          <button type="submit" [disabled]="articleForm.invalid" class=" btn-submit">
+            {{ modalMode === 'create' ? '新增文章' : '儲存變更' }}
+          </button>
+          <button type="button" class=" btn-secondary" (click)="closeModal()">
+            取消
+          </button>
+        </div>
+        } @else {
+        <!-- 讚/倒讚切換，預設灰色，讚：綠/倒讚：紅 -->
+        <div class="form-actions">
+          <div class="vote-section">
+            <button type="button" class="btn-like" [class.voted-green]="editingArticle?.userVote === 'like'"
+              (click)="likeArticle(editingArticle!.articleId)">
+              👍 {{ editingArticle?.userVote === 'like' ? '已讚' : '讚' }}
+              ({{ editingArticle?.like ?? 0 }})
+            </button>
+
+            <button type="button" class="btn-dislike" [class.voted-red]="editingArticle?.userVote === 'dislike'"
+              (click)="dislikeArticle(editingArticle!.articleId)">
+              👎 {{ editingArticle?.userVote === 'dislike' ? '已倒讚' : '倒讚' }}
+              ({{ editingArticle?.disLike ?? 0 }})
+            </button>
+          </div>
+          <button type="button" class="btn-secondary" (click)="closeModal()">
+            關閉
+          </button>
+        </div>
+        <div class="comments-section" style="margin-top: 20px; border-top: 2px solid #eee; padding-top: 15px;">
+          <h4 style="color: #2c3e50; margin-bottom: 15px;">
+            <i class="fas fa-reply"></i> 全部回覆 ({{ articleComments.length }})
+          </h4>
+          <div class="comment-scroll-box" style="max-height: 400px; overflow-y: auto; margin-bottom: 20px;">
+            @for (comment of articleComments; track comment.commentId) {
+            <div class="comment-item"
+              style="background: #f8f9fa; border-radius: 10px; padding: 12px; margin-bottom: 10px; border-left: 4px solid #8E8375;">
+              <div class="d-flex justify-content-between align-items-center">
+                <strong style="color: #34495e;">{{ comment.memberName }}</strong>
+                <small class="text-muted">{{ formatDate(comment.postDate) }}</small>
+              </div>
+              <p style="margin: 8px 0 0; color: #444; white-space: pre-wrap;">{{ comment.content }}</p>
+            </div>
+            } @empty {
+            <div style="text-align: center; padding: 30px; color: #999;">
+              <p>目前還沒有人回覆，快來留言吧！</p>
+            </div>
+            }
+          </div>
+          <div class="reply-input-area" [formGroup]="commentForm">
+            <textarea formControlName="content" class="form-control" placeholder="撰寫你的回覆..." rows="3"
+              style="resize: none; border-radius: 8px; margin-bottom: 10px;"></textarea>
+            <div style="text-align: right;">
+              <button class="btn-reply " [disabled]="commentForm.invalid" (click)="submitComment()">
+                發佈回覆
+              </button>
+            </div>
+          </div>
+        </div>
+        }
+      </form>
+    </div>
+  </div>
+  }
+  <section class="latest-posts-section">
+    <h2>最新文章
+      <!-- 標籤篩選  下拉式選單 -->
+      <div class="filter-controls">
+        <select class="select" id="tagFilter" [(ngModel)]="selectedTag" (change)="onTagFilterChange($event)">
+          <option value="全部標籤">全部標籤</option>
+          @for(tag of getAvailableTags(); track tag.id) {
+          <option [value]="tag.id">{{ tag.name }}</option>
+          }
+        </select>
+        <div class="search-group" style="display: flex; gap: 5px;">
+          <input type="text" [(ngModel)]="searchKeyword" placeholder="搜尋文章..." (keyup.enter)="onSearch()"
+            class="form-control" style="width: 180px; height: 38px;">
+          <button type="button" class="btn-search" (click)="onSearch()"
+            style="border:1px solid #5E5344; white-space: nowrap;">
+            搜尋
+          </button>
+          @if (searchKeyword) {
+          <button type="button" class="btn-clear btn-outline-secondary" (click)="clearSearch()"
+            style="border:1px solid #5E5344; white-space: nowrap;">
+            清除
+          </button>
+          }
+        </div>
+        <button style="border:1px solid #5E5344; white-space: nowrap;" class="primary-button"
+          (click)="createNewArticle()">發佈新貼文</button>
+        <button style="border:1px solid #5E5344; white-space: nowrap;" class="btn-favorites"
+          routerLink="/forum/favorites">
+          <i class="fa-regular fa-bookmark"></i> 我的收藏
+        </button>
+      </div>
+    </h2>
+    <table class="post-table">
+      <thead>
+        <!-- 標題欄位 -->
+        <tr>
+          <th style="width: 0px;"></th>
+          <th style="width: 55px;">收藏</th>
+          <th style="width: 75px;" (click)="sortArticles('categoryId')" [class.sortable]="true">類別
+            <span class="sort-icon" [ngClass]="getSortIcon('categoryId')">
+            </span>
+          </th>
+          <th style="width: 90px;" (click)="sortArticles('tagId')" [class.sortable]="true">標籤
+            <span class="sort-icon" [ngClass]="getSortIcon('tagId')">
+            </span>
+          </th>
+          <th style="width: 65px;">作者</th>
+          <th style="width: 100px;">文章標題</th>
+          <th style="width: 100px;">文章內容</th>
+          <th style="width: 90px;">回覆次數</th>
+          <th style="width: 100px;">發佈日期</th>
+          <th style="width: 100px;" (click)="sortArticles('lastUpdate')" [class.sortable]="true">最後更新<span
+              class="sort-icon" [ngClass]="getSortIcon('lastUpdate')">
+            </span>
+          </th>
+          <th style="width: 95px;" (click)="sortArticles('popular')" [class.sortable]="true">熱門度
+            <span class="sort-icon" [ngClass]="getSortIcon('popular')">
+            </span>
+          </th>
+          <th style="width: 60px;">圖片</th>
+          <th style="width: 90px;">操作</th>
+        </tr>
+      </thead>
+      <tbody style="width: max-content;">
+        @for(post of recentPosts;track $index ){
+        <tr>
+          <td></td>
+          <td style="text-align: center;"> <!-- 收藏按鈕 -->
+            <button class="btn btn-link p-0" (click)="toggleFavorite(post); $event.stopPropagation()"
+              style="text-decoration: none; border: none; background: transparent;">
+              <i [class]="post.isFavorited ? 'fa-solid fa-bookmark' : 'fa-regular fa-bookmark'"
+                [style.color]="post.isFavorited ? '#e67e22' : '#95a5a6'" style="font-size: 1.2rem; cursor: pointer;">
+              </i>
+            </button>
+          </td>
+          <td>{{ post.categoryName }}</td>
+          <td>{{ post.tagName }}</td>
+          <td>{{ post.memberName }}</td>
+          <td style="max-width: 50px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ post.title }}
+          </td>
+          <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ post.content
+            }}</td>
+          <td>{{ post.commentCount }}</td>
+          <td>{{ formatDate(post.postDate) }}</td>
+          <td>{{ formatDate(post.lastUpdate) }}</td>
+          <td>{{ post.popular }}</td>
+          <td>
+            @if (post.picture) {
+            <img [src]="post.picture" alt="圖片" style="max-width: 100px;">
+            }
+          </td>
+          <!-- 詳細/修改/刪除 按鍵 -->
+          <td class="action-buttons">
+            <button class="btn btn-detail" (click)="viewDetails(post)">
+              詳細
+            </button>
+            <button class="btn btn-edit" (click)="editArticle(post)">
+              修改
+            </button>
+            <button class="btn btn-delete" (click)="deleteArticle(post.articleId)">
+              刪除
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    <!-- 側邊欄位 -->
+    <div class="sidebar">
+      <h3>分類瀏覽</h3>
+      <ul>
+        <li><a href="javascript:void(0)" (click)="selectCategory(null); $event.preventDefault()"
+            [class.active]="selectedCategory === null">全部</a></li>
+        <li><a href="javascript:void(0)" (click)="selectCategory(1); $event.preventDefault()"
+            [class.active]="selectedCategory === 1">狗狗專區</a></li>
+        <li><a href="javascript:void(0)" (click)="selectCategory(2); $event.preventDefault()"
+            [class.active]="selectedCategory === 2">貓咪專區</a></li>
+      </ul>
+    </div>
+    <!-- 每頁顯示幾筆 -->
+    <div class="pagination-controls">
+      <div class="page-size-selector">
+        <label for="pageSize">每頁顯示筆數：</label>
+        <select id="pageSize" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+          <option [ngValue]="5">5 筆</option>
+          <option [ngValue]="10">10 筆</option>
+          <option [ngValue]="25">25 筆</option>
+        </select>
+      </div>
+      <!-- 換頁按鍵 -->
+      <div class="pagination-buttons">
+        <button class="btn-pagination" [disabled]="currentPage === 1" (click)="goToPage(1) ">
+          &laquo;
+        </button>
+        <button class="btn-pagination" [disabled]="currentPage === 1" (click)="goToPage(currentPage - 1)">
+          &lsaquo;
+        </button>
+        <span>
+          第 {{ currentPage }} 頁 / 共 {{ totalPages }} 頁
+        </span>
+        <button class=" btn-pagination" [disabled]="currentPage === totalPages" (click)="goToPage(currentPage + 1)">
+          &rsaquo;
+        </button>
+        <button class=" btn-pagination" [disabled]="currentPage === totalPages" (click)="goToPage(totalPages)">
+          &raquo;
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

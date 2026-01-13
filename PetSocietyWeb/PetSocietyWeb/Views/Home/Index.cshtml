@@ -1,0 +1,257 @@
+﻿@{
+    ViewData["Title"] = "後台首頁";
+}
+@section Styles {
+ <style>
+        /* ====== KPI Cards ====== */
+        .dashboard-card {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #eee;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+            .dashboard-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        /* Soft Pet Color Theme */
+        .bg-orange {
+            background: #FFB380;
+        }
+
+        .bg-blue {
+            background: #7BC6CC;
+        }
+
+        .bg-green {
+            background: #9ED9A0;
+        }
+
+        .bg-purple {
+            background: #B8A6E4;
+        }
+
+        /* ====== 快速操作按鈕 ====== */
+        .quick-btn {
+            display: block;
+            background: #fff;
+            border-radius: 10px;
+            padding: 18px;
+            text-align: center;
+            border: 1px solid #eee;
+            font-weight: 600;
+            color: #444;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+            .quick-btn:hover {
+                background: #f7f7f7;
+                transform: translateY(-2px);
+            }
+
+            .quick-btn i {
+                font-size: 1.2rem;
+                margin-right: 6px;
+            }
+ </style>
+}
+
+<div class="container-fluid py-4">
+
+    <!-- ====== KPI Cards ====== -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-md-3">
+            <div class="dashboard-card p-3">
+                <div class="card-icon bg-orange"><i class="bi bi-people"></i></div>
+                <div class="card-title">今日新增會員</div>
+                <div class="card-value">132</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card p-3">
+                <div class="card-icon bg-blue"><i class="bi bi-cart-check"></i></div>
+                <div class="card-title">今日訂單</div>
+                <div class="card-value">48</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card p-3">
+                <div class="card-icon bg-green"><i class="bi bi-journal-richtext"></i></div>
+                <div class="card-title">課程購買數</div>
+                <div class="card-value">17</div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card p-3">
+                <div class="card-icon bg-purple"><i class="bi bi-chat-left-text"></i></div>
+                <div class="card-title">新增論壇貼文</div>
+                <div class="card-value">29</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ====== 最新訂單 + 最新課程 ====== -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header fw-bold">最新訂單（商城）</div>
+                <div class="table-responsive">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>訂單編號</th>
+                                <th>會員</th>
+                                <th>金額</th>
+                                <th>狀態</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ORD-202511</td>
+                                <td>小明</td>
+                                <td>$1,280</td>
+                                <td><span class="badge bg-success">已出貨</span></td>
+                            </tr>
+                            <tr>
+                                <td>ORD-202510</td>
+                                <td>阿狗</td>
+                                <td>$620</td>
+                                <td><span class="badge bg-warning text-dark">處理中</span></td>
+                            </tr>
+                            <tr>
+                                <td>ORD-202509</td>
+                                <td>PetKit</td>
+                                <td>$220</td>
+                                <td><span class="badge bg-secondary">已完成</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header fw-bold">最新課程（Academy）</div>
+                <div class="list-group list-group-flush">
+
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        幼犬社會化專班
+                        <span class="badge bg-success">上架</span>
+                    </div>
+
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        貓咪壓力識別課
+                        <span class="badge bg-warning text-dark">草稿</span>
+                    </div>
+
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        狗狗基礎服從課
+                        <span class="badge bg-secondary">下架</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ====== 最新貼文 + 活動列表 ====== -->
+    <div class="row g-3 mb-4">
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header fw-bold">最新論壇貼文（Forum）</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">小黑：為什麼我家貓咪半夜狂奔？</li>
+                    <li class="list-group-item">狗派：如何讓狗狗戒亂咬？</li>
+                    <li class="list-group-item">寵物新手：幼犬社會化要從哪開始？</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header fw-bold">即將開始的活動（Activity）</div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between">
+                        萌寵派對市集
+                        <span>2025/11/29</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        貓咪交流趴
+                        <span>2025/12/05</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        狗狗野餐日
+                        <span>2025/12/20</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ====== 快速操作 ====== -->
+    <div class="row g-3 mt-4">
+
+        <div class="col-md-3">
+            <a href="#" class="quick-btn">
+                <i class="bi bi-plus-circle"></i> 新增課程
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a href="#" class="quick-btn">
+                <i class="bi bi-bag-plus"></i> 新增商品
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a href="#" class="quick-btn">
+                <i class="bi bi-calendar-plus"></i> 新增活動
+            </a>
+        </div>
+
+        <div class="col-md-3">
+            <a href="#" class="quick-btn">
+                <i class="bi bi-megaphone"></i> 發布公告
+            </a>
+        </div>
+
+    </div>
+
+</div>

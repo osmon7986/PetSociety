@@ -1,0 +1,28 @@
+/* --- Base Card 外容器 --- */
+.pet-card {
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  background: #fff;
+  padding: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  /* cursor: pointer; */
+}
+
+/* --- Hover 上浮 + 陰影變深 --- */
+.pet-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* --- 通用圖片插槽 (optional, 子元件可使用) --- */
+.pet-card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.35s ease;
+}
+
+/* --- Hover 時圖片縮放 (只針對子元件有放 img 的情況) --- */
+.pet-card:hover img {
+  transform: scale(1.06);
+}

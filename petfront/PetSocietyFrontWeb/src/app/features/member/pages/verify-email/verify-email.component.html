@@ -1,0 +1,39 @@
+<div class="container d-flex justify-content-center align-items-center verify-container">
+  <div class="card border-0 shadow-lg custom-card">
+
+    <div class="card-header border-0 text-center py-4 header-custom">
+      <h3 class="mb-0 fw-bold text-dark-brown">帳號驗證</h3>
+    </div>
+
+    <div class="card-body p-4 p-md-5">
+      <p class="text-muted-custom text-center mb-4">
+        驗證碼已寄送至您的信箱，<br>請輸入 6 位數代碼啟用帳號。
+      </p>
+
+      <form (ngSubmit)="onSubmit()">
+
+        <div class="mb-3">
+          <label class="form-label text-muted-custom small">Email 信箱</label>
+          <input type="email" class="form-control rounded-3 bg-light-custom" [(ngModel)]="email" name="email" required
+            readonly style="text-transform: none !important;">
+        </div>
+
+        <div class="mb-4">
+          <label class="form-label text-dark-brown fw-bold">驗證碼</label>
+          <input type="text" class="form-control form-control-lg text-center code-input rounded-3" [(ngModel)]="code"
+            name="code" placeholder="------" maxlength="6" required autocomplete="off">
+        </div>
+
+        <button type="submit" class="btn btn-verify w-100 py-3 rounded-pill" [disabled]="!code || isLoading">
+          @if(isLoading) {
+          <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+          驗證中...
+          } @else {
+          啟用帳號
+          }
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>

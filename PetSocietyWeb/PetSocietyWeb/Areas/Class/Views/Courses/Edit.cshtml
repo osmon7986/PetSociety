@@ -1,0 +1,250 @@
+﻿@model PetSocietyWeb.Areas.Class.ViewModels.CourseFormViewModel
+
+@{
+    ViewData["Title"] = "編輯課程";
+}
+
+
+<!-- Content wrapper -->
+<div class="mx-auto" style="max-width: 800px;">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h3 class="mb-4 fw-bold">編輯課程</h3>
+        </div>
+
+        <a asp-action="List" class="btn btn-outline-primary btn-sm">
+            <i class="fa-solid fa-arrow-left"></i> 返回列表
+        </a>
+    </div>
+
+    <!-- Form -->
+    <div class="admin-card">
+        <div class="admin-section-title">課程基本資料</div>
+        <form asp-controller="Courses" asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Course.CourseId" />
+            <div class="admin-group">
+                <label asp-for="Course.Title" class="form-label"></label>
+                <input asp-for="Course.Title" class="form-control" />
+                <span asp-validation-for="Course.Title" class="text-danger"></span>
+            </div>
+            <div class="admin-group">
+                <label asp-for="Course.Description" class="form-label"></label>
+                <input asp-for="Course.Description" class="form-control" />
+                <span asp-validation-for="Course.Description" class="text-danger"></span>
+            </div>
+            <div class="admin-group">
+                <label asp-for="Course.CategoryId" class="form-label"></label>
+                <select asp-for="Course.CategoryId" class="form-select" asp-items="Model.CategoryList"></select>
+                <span asp-validation-for="Course.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-check admin-group">
+                <input class="form-check-input" asp-for="Course.Type" />
+                <label class="form-check-label" asp-for="Course.Type"></label>
+            </div>
+            <!-- 圖片區 -->
+            <div class="admin-card">
+                <div class="admin-section-title">課程封面圖片</div>
+                <div id="uploadBox" class="admin-upload-box">
+                    <i class="fa fa-cloud-upload-alt"></i>
+                    <div class="mt-2">拖曳圖片到此 或 點擊上傳</div>
+                </div>
+                <input type="file" id="imageInput" class="d-none">
+                <img id="previewImg" class="admin-upload-preview d-none" />
+                <input type="hidden" asp-for="Details.ImageUrl" id="courseImg">
+                <div id="imageUrl" class="mt-2 text-success"></div>
+                <span asp-validation-for="Details.ImageUrl" class="text-danger"></span>
+                @if (Model.Details != null)
+                {
+                    @* 顯示目前圖片 *@
+                    @if (!string.IsNullOrWhiteSpace(Model.Details.ImageUrl))
+                    {
+                        <div id="imgPreviewBox" class="mb-3">
+                            <img id="currentImg" src="@Model.Details.ImageUrl"
+                            alt="課程圖片"
+                            style="max-width: 300px; border: 1px solid #ccc;" />
+                        </div>
+                    }
+                    else
+                    {
+                        @* 如果原本沒有圖片，選取新圖片會顯示 *@
+                        <div id="imgPreviewBox" class="mb-3 d-none">
+                            <label>課程圖片</label><br />
+                            <img id="currentImg" src="@Model.Details.ImageUrl"
+                            alt="課程圖片"
+                            style="max-width: 300px; border: 1px solid #ccc;" />
+                        </div>
+                    }
+                }
+            </div>
+            <div class="admin-card">
+                <div class="admin-section-title">課程設定</div>
+                <div class="admin-grid-2">
+                    <div class="admin-group">
+                        <label asp-for="Details.Price" class="form-label"></label>
+                        <input asp-for="Details.Price" value="@(Model.Details.Price?.ToString("0") ?? "")" class="form-control" />
+                        <span asp-validation-for="Details.Price" class="text-danger"></span>
+                    </div>
+                    <div class="admin-group">
+                        <label asp-for="Details.AreaId" class="form-label"></label>
+                        <select asp-for="Details.AreaId" class="form-select" asp-items="Model.AreaList"></select>
+                        <span asp-validation-for="Details.AreaId" class="text-danger"></span>
+                    </div>
+                    <div class="admin-group">
+                        <label asp-for="Details.StartDate" class="form-label"></label>
+                        <input asp-for="Details.StartDate" class="form-control" />
+                        <span asp-validation-for="Details.StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="admin-group">
+                        <label asp-for="Details.EndDate" class="form-label"></label>
+                        <input asp-for="Details.EndDate" class="form-control" />
+                        <span asp-validation-for="Details.EndDate" class="text-danger"></span>
+                    </div>
+                    <div class="admin-group">
+                        <label asp-for="Details.InstructorId" class="form-label"></label>
+                        <select asp-for="Details.InstructorId" class="form-select" asp-items="Model.InstructorList"></select>
+                        <span asp-validation-for="Details.InstructorId" class="text-danger"></span>
+                    </div>
+                    <div class="admin-group">
+                        <label asp-for="Details.Status" class="form-label"></label>
+                        <select asp-for="Details.Status" asp-items="Model.StatusList" class="form-select"></select>
+                        <span asp-validation-for="Details.Status" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            @if (Model.Details.Chapters != null)
+            {
+                <div class="admin-card">
+                <div class="admin-section-title">課程章節</div>
+                    <div id="chapters-container">
+                        @foreach (var ch in Model.Details.Chapters)
+                        {
+                            <div class="chapter-card card p-4 mb-4 shadow-sm">
+                                <div class="mb-3">
+                                    <label asp-for="@ch.ChapterName" class="form-label"></label>
+                                    <input asp-for="@ch.ChapterName" class="form-control" />
+                                    <span asp-validation-for="@ch.ChapterName" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="@ch.Summary" class="form-label"></label>
+                                    <input asp-for="@ch.Summary" class="form-control" />
+                                    <span asp-validation-for="@ch.Summary" class="text-danger"></span>
+                                </div>
+                            </div>
+                        }
+                    <button type="button" id="addChapter" class="btn btn-primary btn-sm mb-3">
+                        <i class="fa-solid fa-plus"></i> 新增章節
+                    </button>
+                    </div>
+                </div>
+            }
+            <div class="admin-action">
+                <input type="submit" value="儲存" class="btn btn-primary px-4" />
+            </div>
+        </form>
+    </div>
+    <!-- End Form -->
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+	<script src="~/js/class/dragdropimg.js"></script>
+	<script src="~/js/class/addcoursechapter.js"></script>
+	<script src="~/js/class/extractyoutubeid.js"></script>
+    <script>
+        $(function() {
+            let imgApiKey = '7d1deb5642e14657cafaac965b150389';
+            // 監聽使用者選取圖片
+            $('#imageInput').on('change', (e) => {
+                const file = e.target.files[0];
+                if (file) previewImg(file);
+            });
+            // 使用者放下圖片
+            $('#uploadBox').on('drop', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).removeClass('dragover');
+                const file = e.originalEvent.dataTransfer.files[0];
+                if (file) {
+                    $('#imageInput')[0].files = e.originalEvent.dataTransfer.files;
+                    previewImg(file);
+                }
+              });
+
+            // 預覽圖片
+            function previewImg (file){
+
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const img = $('#previewImg');
+                    img.attr('src', ev.target.result); // 設定圖片
+                    img.removeClass('d-none');         // 顯示圖片
+                    $('#currentImg').addClass('d-none');
+                };
+                reader.readAsDataURL(file);
+                uploadToServer(file);
+            }
+
+
+             // 上傳圖片到 imgbb / Server
+            function uploadToServer(file){
+                let formData = new FormData();
+                formData.append('image', file);
+
+                $.ajax({
+                    url: "https://api.imgbb.com/1/upload?key=" + imgApiKey,
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data.success) {
+
+                            let directUrl = data.data.url;
+
+                            // 填入 hidden input（後端要存的）
+                            $("#courseImg").val(directUrl);
+
+                             // 顯示成功訊息
+                            $("#imageUrl").html(
+                                "<span class='text-success'>圖片上傳成功！</span>"
+                            );
+                            
+                        } else {
+                            $("#imageUrl").html(
+                                "<span class='text-danger'>上傳失敗，請再試一次。</span>"
+                            );
+                        }
+                    },
+                    error: function () {
+                        $("#imageUrl").html(
+                            "<span class='text-danger'>上傳錯誤！</span>"
+                        );
+                    }
+                });
+            }
+            $('#chapters-container').on('change', '.video-input', function () {
+                // 取得目前章節的索引
+                let index = $(this).data('index');
+                console.log(index);
+                // 抓使用者輸入的影片連結
+                let url = $(this).val();
+                // 取得影片ID
+                let videoId = extractYoutubeId(url);
+                if (videoId) {
+                    // value 改成 videoID
+                    $(this).val(videoId);
+                    $(`#video_${index}`).attr('src', 'https://www.youtube.com/embed/' + videoId);
+                    $(`#videoWrapper_${index}`).removeClass('d-none');
+                }
+                else {
+                    $(`#video_${index}`).attr('src', '');
+                    $(`#videoWrapper_${index}`).addClass('d-none');
+                }
+            });
+        })
+        
+
+    </script>
+}

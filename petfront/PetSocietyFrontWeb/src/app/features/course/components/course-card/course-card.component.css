@@ -1,0 +1,45 @@
+.course-img-box {
+  width: 100%;
+  height: 170px;
+  /* 可調整高度 */
+  background: #f2f2f2;
+  border-radius: 12px;
+  overflow: hidden;
+  /* 讓圖片放大時不會超出邊界 */
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.course-title {
+  font-weight: bold;
+  color: #3D352C;
+}
+
+.course-instructor {
+  font-size: small;
+  color: #868E96;
+}
+
+.course-subscount {
+  font-size: small;
+  color: #3D352C;
+}
+
+.course-img-box img {
+  width: 100%;
+  height: 100%;
+  object-position: center top;
+  object-fit: cover;
+  /* 很重要：維持比例並裁切填滿區塊 */
+  transition: transform 0.35s ease;
+}
+
+.subs-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  /* 讓圖示跟文字有固定間距 */
+  font-size: 0.9rem;
+}

@@ -1,0 +1,26 @@
+.info-section {
+  display: flex;
+  /* 啟用 Flexbox 讓子元素並排 */
+  justify-content: space-around;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+}
+
+.info-item {
+  flex-basis: 25%;
+  /* 讓每個項目平均分配寬度 */
+  padding: 10px;
+  text-align: left;
+  /* 虛線分隔 */
+}
+
+.label {
+  font-weight: bold;
+  color: #555;
+  background-color: #f0f0f0;
+  padding: 3px 8px;
+  border-radius: 3px;
+  display: inline-block;
+  /* 讓背景只包住文字 */
+  margin-bottom: 5px;
+}

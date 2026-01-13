@@ -1,0 +1,10 @@
+<app-card>
+  <a [routerLink]="['/activity/guide', activityIntroCard.activityId]">
+    <div class="activity-img-box pet-card img">
+      <img class="" [src]="activityIntroCard.activityImg">
+    </div>
+    <h6>{{activityIntroCard.title}}</h6>
+    <p>{{activityIntroCard.location}}</p>
+    <p>{{activityIntroCard.startTime | date}}</p>
+  </a>
+</app-card>

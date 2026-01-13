@@ -1,0 +1,265 @@
+﻿@model PetSocietyWeb.Areas.Class.ViewModels.CourseFormViewModel
+
+@{
+    ViewData["Title"] = "新增課程";
+}
+
+<!-- Content wrapper -->
+<div class="mx-auto" style="max-width: 800px;">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h3 class="mb-4 fw-bold">新增課程</h3>
+        </div>
+
+        <a asp-action="List" class="btn btn-outline-primary btn-sm">
+            <i class="fa-solid fa-arrow-left"></i> 返回列表
+        </a>
+        
+    </div>
+    <div id="autoFill">快速填入</div>
+    <!-- Form -->
+    <div class="admin-card">
+        <div class="admin-section-title">課程基本資料</div>
+        <form asp-controller="Courses" asp-action="Create" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Course.CourseId" />
+            <div class="admin-group">
+                <label asp-for="Course.Title" class="form-label"></label>
+                <input asp-for="Course.Title" class="form-control" />
+                <span asp-validation-for="Course.Title" class="text-danger"></span>
+            </div>
+            <div class="admin-group">
+                <label asp-for="Course.Description" class="form-label"></label>
+				<textarea asp-for="Course.Description" class="form-control" rows="3" ></textarea>
+                <span asp-validation-for="Course.Description" class="text-danger"></span>
+            </div>
+            <div class="admin-group">
+                <label asp-for="Course.CategoryId" class="form-label"></label>
+                <select asp-for="Course.CategoryId" class="form-select" asp-items="Model.CategoryList"></select>
+                <span asp-validation-for="Course.CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-check admin-group">
+                <input class="form-check-input" asp-for="Course.Type" />
+                <label class="form-check-label" asp-for="Course.Type"></label>
+            </div>
+
+            <!-- 圖片區 -->
+            <div class="admin-card">
+                <div class="admin-section-title">課程封面圖片</div>
+                <div id="uploadBox" class="admin-upload-box">
+                    <i class="fa fa-cloud-upload-alt"></i>
+                    <div class="mt-2">拖曳圖片到此 或 點擊上傳</div>
+                </div>
+                <input asp-for="Details.ImageFile" type="file" id="imageInput" class="d-none">
+                <img id="previewImg" class="admin-upload-preview d-none" />
+                @* <input type="hidden" asp-for="Details.ImageFile" id="courseImg"> *@
+                <div id="imageUrl" class="mt-2 text-success"></div>
+                <span asp-validation-for="Details.ImageFile" class="text-danger"></span>
+            </div>
+            <!-- 其他設定 -->
+            <div class="admin-card">
+                <div class="admin-section-title">課程設定</div>
+                <div class="admin-grid-2">
+                <div class="admin-group">
+                    <label asp-for="Details.Price" class="form-label"></label>
+                    <input asp-for="Details.Price" class="form-control" />
+                    <span asp-validation-for="Details.Price" class="text-danger"></span>
+                </div>
+                <div class="admin-group">
+                    <label asp-for="Details.AreaId" class="form-label"></label>
+                    <select asp-for="Details.AreaId" class="form-select" asp-items="Model.AreaList"></select>
+                    <span asp-validation-for="Details.AreaId" class="text-danger"></span>
+                </div>
+                    <div class="admin-group">
+                    <label asp-for="Details.StartDate" class="form-label"></label>
+                    <input asp-for="Details.StartDate" class="form-control" />
+                    <span asp-validation-for="Details.StartDate" class="text-danger"></span>
+                </div>
+                    <div class="admin-group">
+                    <label asp-for="Details.EndDate" class="form-label"></label>
+                    <input asp-for="Details.EndDate" class="form-control" />
+                    <span asp-validation-for="Details.EndDate" class="text-danger"></span>
+                </div>
+                <div class="admin-group">
+                    <label asp-for="Details.InstructorId" class="form-label"></label>
+                    <select asp-for="Details.InstructorId" class="form-select" asp-items="Model.InstructorList"></select>
+                    <span asp-validation-for="Details.InstructorId" class="text-danger"></span>
+                </div>
+                    <div class="admin-group">
+                    <label asp-for="Details.Status" class="form-label"></label>
+                    <select asp-for="Details.Status" asp-items="Model.StatusList" class="form-select"></select>
+                    <span asp-validation-for="Details.Status" class="text-danger"></span>
+                </div>
+                </div>
+            </div>
+            <!-- 課程章節 -->
+            <div class="admin-card">
+                <div class="admin-section-title">課程章節</div>
+                <div id="chapters-container">
+                    <div class="chapter-card card p-4 mb-4 shadow-sm">
+                        <!-- 顯示空白章節 -->
+                        @for (int i = 0; i < Model.Chapters.Count; i++)
+                        {
+                            <h5 class="mb-4 fw-bold">章節 @(i+1)</h5>
+                            <div class="mb-3">
+                                <label asp-for="Chapters[i].ChapterName" class="form-label"></label>
+                                <input asp-for="Chapters[i].ChapterName" class="form-control" />
+                                <input type="hidden" asp-for="Chapters[i].SortOrder" />
+                                <span asp-validation-for="Chapters[i].ChapterName" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Chapters[i].Summary" class="form-label"></label>
+                                <textarea asp-for="Chapters[i].Summary" class="form-control mt-2 summary" data-val="true" rows="7"></textarea>
+                                <span asp-validation-for="Chapters[i].Summary" class="text-danger"></span>
+                            </div>
+                            <p class="sum-status text-secondary">
+                                <span class="sumSpinner spinner-border spinner-border-sm me-2 d-none"></span>
+                                <span class="sumText"></span>
+                            </p>
+                            <div class="mb-3">
+                                <label asp-for="Chapters[i].Video.VideoUrl" class="form-label"></label>
+                                <input asp-for="Chapters[i].Video.FullVideoUrl" class="video-input form-control" data-index=@i />
+                                <input asp-for="Chapters[i].Video.VideoUrl" class="form-control" hidden data-index=@i />
+
+                                @* 使用者輸入url會顯示iframe *@
+                                <div class="ratio ratio-16x9 d-none" id="videoWrapper_0">
+                                    <iframe id="video_0" allowfullscreen></iframe>
+                                </div>
+                                <span asp-validation-for="Chapters[i].Video.VideoUrl" class="text-danger"></span>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <button type="button" id="addChapter" class="btn btn-primary btn-sm mb-3">
+                    <i class="fa-solid fa-plus"></i> 新增章節
+                </button>
+            </div>
+            <div class="admin-action">
+                <input type="submit" value="送出" class="btn btn-primary px-4" />
+            </div>
+        
+        </form>
+    </div>
+ </div>
+    <!-- End Form -->
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="~/js/class/extractyoutubeid.js"></script>
+	<script src="~/js/class/dragdropimg.js"></script>
+	<script src="~/js/class/addcoursechapter.js"></script>
+    <script>
+        $(function(){
+           
+            // 監聽使用者選取圖片
+            $('#imageInput').on('change', (e) => {
+                const file = e.target.files[0];
+                if (file) previewImg(file);
+            });
+
+            
+            $('#uploadBox').on('drop', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).removeClass('dragover');
+
+                const file = e.originalEvent.dataTransfer.files[0];
+                if (file) {
+					$('#imageInput')[0].files = e.originalEvent.dataTransfer.files;
+					previewImg(file);
+                }
+            });
+
+            // 預覽圖片
+            function previewImg (file){
+
+                const reader = new FileReader();
+                reader.onload = (ev) => {
+                    const img = $('#previewImg');
+                    img.attr('src', ev.target.result); // 設定圖片
+                    img.removeClass('d-none');         // 顯示圖片
+                };
+                reader.readAsDataURL(file);
+                uploadToServer(file);
+            }
+
+            // 使用者輸入影片網址自動轉成 ID 並生成影片大綱
+            $('#chapters-container').on('change', '.video-input', function () {
+                // 取得目前章節的索引
+                let index = $(this).data('index');
+                console.log(index);
+                // 抓使用者輸入的影片連結
+                let url = $(this).val();
+                // 取得影片ID
+                let videoId = extractYoutubeId(url);
+                if (videoId) {
+                    // value 改成 videoID
+                    $(`#Chapters_${index}__Video_VideoUrl`).val(videoId);
+                    $(`#video_${index}`).attr('src', 'https://www.youtube.com/embed/' + videoId);
+                    $(`#videoWrapper_${index}`).removeClass('d-none');
+
+                    generateSummary(videoId);
+                }
+                else {
+                    $(`#video_${index}`).attr('src', '');
+                    $(`#videoWrapper_${index}`).addClass('d-none');
+                }
+            });
+
+            // 產生AI摘要
+            async function generateSummary(id){
+                let baseAddress = 'https://localhost:7032';
+                try
+                {
+                    $('.sumText').text("自動生成摘要...");
+                    $('.sumSpinner').removeClass('d-none');
+
+                    // 建立body傳入id
+                    let body = new URLSearchParams();
+                    body.append("videoId", id);
+
+                    let response = await fetch(`${baseAddress}/Class/Courses/GenerateSummary`,{
+                           method: "POST",
+                           body: body
+                    })
+                    if(response.ok)
+                    {
+                        // 將JSON文件轉成JS物件
+                        let data = await response.json();
+                        // 取summary
+                        let summary = data.summary;
+                        summary = summary.trim();
+                        $('.summary').val(summary);
+
+                         $('.sumText').text("AI 摘要已成功生成!").addClass('text-success');
+                         $('.sumSpinner').addClass('d-none');
+                    }
+                }
+                catch(err)
+                {
+                    $('.sumSpinner').addClass('d-none');
+                    $('.sumText').text(err.message);
+                }
+            };
+                
+            $('#autoFill').click(function() {
+
+
+                $('#Course_Title').val('汪星人特技班');
+                $('#Course_Description').val('想讓你的毛孩成為公園的焦點嗎？本課程將採用「正向增強訓練法」，帶領飼主一步步教導狗狗完成擊掌、繞圈圈、裝死等趣味才藝，增進彼此的默契與信任感！');
+                $('#Course_CategoryId').val('4');
+                $('#Details_Price').val(0);
+                $('#Details_AreaId').val('');
+                $('#Details_StartDate').val('2026-03-01');
+                $('#Details_InstructorId').val('1');
+                $('#Details_Status').val('0');
+                $('#Chapters_0__ChapterName').val('萌力覺醒：3分鐘解鎖讓狗狗鑽入心窩的圈圈特技');
+            });
+
+        })
+    </script>
+}

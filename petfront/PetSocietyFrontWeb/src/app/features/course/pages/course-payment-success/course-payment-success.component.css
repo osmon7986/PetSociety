@@ -1,0 +1,112 @@
+/* 全站背景：奶霜白 #F7F3EF */
+.payment-container {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background-color: #F7F3EF;
+  font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  margin: 0;
+  /* 調整這個 padding-top 數值，可以精準控制卡片「往上」的高度 */
+  padding-top: 150px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 150px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* 卡片背景：白色 / 邊框：邊框奶油灰 #E8E2DA */
+.success-card {
+  background-color: #ffffff;
+  border: 1px solid #E8E2DA;
+  border-radius: 20px;
+  padding: 48px;
+  max-width: 450px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(94, 83, 68, 0.05);
+  /* 柔和可可色陰影 */
+}
+
+/* 圖示背景：奶泡淺色 #F2EBE5 */
+.icon-circle {
+  width: 96px;
+  height: 96px;
+  background-color: #F2EBE5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+/* 標題色：柔可可灰 #5E5344 */
+.title {
+  color: #5E5344;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* 副標題色：奶粉灰 #8E8375 */
+.subtitle {
+  color: #8E8375;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+/* 分隔線：邊框奶油灰 #E8E2DA */
+.divider {
+  height: 1px;
+  background-color: #E8E2DA;
+  margin-bottom: 32px;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* 主要按鈕：奶茶拿鐵 #D8C3A5 */
+.btn-main {
+  background-color: #D8C3A5;
+  color: #ffffff;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-main:hover {
+  background-color: #C9B29B;
+  /* 懸停切換到：品牌主色 */
+  transform: translateY(-2px);
+}
+
+/* 次要連結：奶粉灰 #8E8375 */
+.btn-back {
+  display: inline-block;
+
+  /* PetSociety 奶粉灰 */
+  color: #8E8375;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+
+  /* 關鍵：強制顯示手指，並增加點擊感 */
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  color: #5E5344;
+  /* 懸停切換到：柔可可灰 */
+}

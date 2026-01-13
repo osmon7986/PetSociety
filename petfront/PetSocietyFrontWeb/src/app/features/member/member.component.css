@@ -1,0 +1,112 @@
+/* 變數設定 */
+:host {
+  --primary-color: #D8C3A5;
+  /* 奶茶拿鐵 (邊框/Icon) */
+  --primary-subtle: #F9F3EC;
+  /* 極淺奶泡色 (選中背景) */
+  --text-dark: #5E5344;
+  /* 柔可可灰 (主要文字) */
+  --text-muted: #8E8375;
+  /* 奶粉灰 (次要文字) */
+  --bg-page: #F7F3EF;
+  /* 頁面背景 */
+  --border-color: #E8E2DA;
+  /* 邊框灰 */
+}
+
+/* 1. 頁面背景 */
+.member-layout {
+  background-color: var(--bg-page) !important;
+}
+
+/* 2. 側邊欄卡片 */
+.sidebar-card {
+  background-color: #fff;
+  border: 1px solid var(--border-color) !important;
+  overflow: hidden;
+  /* 確保內容不會溢出圓角 */
+}
+
+/* =========================================
+   [修復] Email 跑版 (針對截圖左邊紅圈)
+   ========================================= */
+/* 強制讓長單字 (如 Email) 在任意位置換行，避免撐開或掉字 */
+::ng-deep .card-body p.text-muted,
+::ng-deep .email-text,
+.email-fix {
+  word-break: break-all;
+  line-height: 1.4;
+  font-size: 0.9rem;
+}
+
+/* 3. 選單項目 (膠囊狀) */
+.menu-item {
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+
+  /* 預設透明邊框，避免 hover/active 切換時跳動 */
+  border: 1px solid transparent;
+}
+
+/* Icon */
+.icon-width {
+  width: 24px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+/* Hover 狀態 */
+.menu-item:hover {
+  background-color: #FAFAFA;
+  /* 極淺灰 */
+  color: var(--primary-color);
+}
+
+.menu-item:hover .icon-width {
+  color: var(--primary-color);
+}
+
+/* =========================================
+   [修復] Active 狀態 (針對截圖右邊紅圈)
+   改為：淺底 + 邊框，視覺「變平」，不再凸出來
+   ========================================= */
+.menu-item.active {
+  background-color: var(--primary-subtle);
+  /* 改用很淺的底色 */
+  color: var(--text-dark);
+  /* 深色文字，保持閱讀性 */
+  border: 1px solid var(--primary-color);
+  /* 加上細邊框 */
+  font-weight: 600;
+
+  /* 移除陰影，解決「凸出來」的視覺感 */
+  box-shadow: none;
+}
+
+.menu-item.active .icon-width {
+  color: var(--primary-color);
+  /* Icon 變奶茶色 */
+}
+
+/* 登出按鈕 */
+.text-danger-soft {
+  color: #D98E73;
+}
+
+.text-danger-soft:hover {
+  background-color: #FFF5F2;
+  color: #C07055;
+}
+
+/* 4. 右側內容區 */
+.main-content-card {
+  background-color: #fff;
+  border: 1px solid rgba(232, 226, 218, 0.5) !important;
+  min-height: 80vh;
+}

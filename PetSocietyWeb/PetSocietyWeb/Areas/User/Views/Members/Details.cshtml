@@ -1,0 +1,65 @@
+﻿@model PetSocietyWeb.Areas.User.ViewModels.MemberVM
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container mt-4">
+    <h2><i class="fa-solid fa-circle-info text-primary"></i> 會員詳情</h2>
+    <hr />
+
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3 col-md-2 text-muted">名字</dt>
+                <dd class="col-sm-9 col-md-10 fw-bold">@Model.Name</dd>
+
+                <dt class="col-sm-3 col-md-2 text-muted">Email</dt>
+                <dd class="col-sm-9 col-md-10">@Model.Email</dd>
+
+                <dt class="col-sm-3 col-md-2 text-muted">聯絡電話</dt>
+                <dd class="col-sm-9 col-md-10">@Model.Phone</dd>
+
+                <dt class="col-sm-3 col-md-2 text-muted">註冊時間</dt>
+                <dd class="col-sm-9 col-md-10">@Model.RegistrationDate?.ToString("yyyy-MM-dd HH:mm")</dd>
+
+                <dt class="col-sm-3 col-md-2 text-muted">帳號狀態</dt>
+                <dd class="col-sm-9 col-md-10">
+                    @if (Model.IsActive)
+                    {
+                        <span class="badge bg-success">啟用中</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-danger">已停權/未驗證</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3 col-md-2 text-muted">角色權限</dt>
+                <dd class="col-sm-9 col-md-10">
+                    @if (Model.Role == 1)
+                    {
+                        <span class="badge bg-primary">管理員</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">一般會員</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3 col-md-2 text-muted">照片</dt>
+                <dd class="col-sm-9 col-md-10">
+                    <partial name="_ShowPhotoPartial" model="Model" />
+                </dd>
+            </dl>
+        </div>
+        <div class="card-footer bg-light border-0">
+            <a asp-action="Edit" asp-route-id="@Model?.MemberId" class="btn btn-primary">
+                <i class="fa-solid fa-pen-to-square"></i> 編輯
+            </a>
+            <a asp-action="Index" class="btn btn-secondary ms-1">
+                <i class="fa-solid fa-arrow-left"></i> 返回列表
+            </a>
+        </div>
+    </div>
+</div>

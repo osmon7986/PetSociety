@@ -1,0 +1,17 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>預覽</h3>
+  <div class="d-flex bg-light rounded p-1 border" style="width: fit-content;">
+    <button type="button" class="btn btn-sm rounded px-3" [class.bg-white]="useRawCss" [class.shadow-sm]="useRawCss"
+      [class.fw-bold]="useRawCss" [class.text-secondary]="!useRawCss" style="border: none;"
+      (click)="setStyle(true)">樣式一</button>
+    <button type="button" class="btn btn-sm rounded px-3 ms-1" [class.bg-white]="!useRawCss"
+      [class.shadow-sm]="!useRawCss" [class.fw-bold]="!useRawCss" [class.text-secondary]="useRawCss"
+      style="border: none;" (click)="setStyle(false)">樣式二</button>
+  </div>
+</div>
+<div class="row mt-4">
+  <div class="col-md-6">
+    <div [innerHTML]="trustedCss"></div>
+    <div id="cms-content" [innerHTML]="trustedHtml"></div>
+  </div>
+</div>

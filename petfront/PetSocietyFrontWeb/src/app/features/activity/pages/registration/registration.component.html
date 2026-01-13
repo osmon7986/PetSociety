@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="container">
+
+    <header class="page-header">
+      <h1>建立新活動</h1>
+      <p class="description">填寫下列表單以建立新的活動頁面。</p>
+    </header>
+
+    <main class="content-card">
+
+      <section class="cover-photo-section">
+      </section>
+
+      <form [formGroup]="registrationForm" class="organizer-form" (ngSubmit)="onSubmit()">
+
+        <fieldset class="form-section">
+          <h3 class="section-title">報名基本資訊</h3>
+
+          <div class="form-group">
+            <label for="title" class="required">連絡電話</label>
+            <input id="title" type="text" class="form-control" formControlName="title" placeholder="請輸入連絡電話">
+
+            @if (registrationForm.get('title')?.touched && registrationForm.get('title')?.invalid) {
+            <small class="text-danger mt-1 d-block">
+              <i class="fa-solid fa-circle-exclamation me-1"></i> 連絡電話為必填項目
+            </small>
+            }
+          </div>
+          <div class="col-md-7">
+            <div class="form-group">
+              <label for="Name" class="required">參加者姓名</label>
+              <input id="Name" class="form-control" formControlName="maxCapacity" placeholder="請輸入名稱">
+            </div>
+            @if (registrationForm.get('title')?.touched && registrationForm.get('title')?.invalid) {
+            <small class="text-danger mt-1 d-block">
+              <i class="fa-solid fa-circle-exclamation me-1"></i> 參加者姓名為必填項目
+            </small>
+            }
+          </div>
+        </fieldset>
+
+        <fieldset class="form-section">
+          <h3 class="section-title">活動細節</h3>
+
+          <div class="col-md-7">
+            <div class="form-group">
+              <label>票種選擇</label>
+              <input type="number" class="form-control" formControlName="maxCapacity" placeholder="請輸入人數">
+            </div>
+          </div>
+        </fieldset>
+        <div class="form-actions d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+          <button type="submit" class="btn-create-organizer" style="width: auto; padding: 10px 30px;"
+            [disabled]="registrationForm.invalid">完成報名</button>
+        </div>
+
+      </form>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,6 @@
+:host {
+  display: block;
+  border: 5px solid #333;
+  /* 為了讓你看清楚邊界，加個粗框 */
+  padding: 20px;
+}

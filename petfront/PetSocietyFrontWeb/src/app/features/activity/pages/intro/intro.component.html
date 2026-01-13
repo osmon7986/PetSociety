@@ -1,0 +1,32 @@
+<app-breadcrumb-banner [bannerTitle]="'所有活動'" [bannerSubtitle]="'與毛孩一起參與各項活動'" [breadcrumbItem]="breadcrumbData"
+  [currentTitle]="'所有活動'"></app-breadcrumb-banner>
+<div class="container py-5 my-5">
+  <span class="containerTitle">近期活動</span>
+  <div class="row g-4 my-5">
+    @for (item of activityAdData; track $index) {
+    <div class="col-md-3 col-sm-6">
+      <app-activity-introcard [activityIntroCard]="item"></app-activity-introcard>
+    </div>
+    }
+  </div>
+</div>
+<!-- <div class="testsection">
+  <div class="container py-5 my-5">
+
+  </div>
+</div> -->
+
+<!-- todo:修成預設所有活動白底黑字，其他被選擇後白底黑字 -->
+<div class="table-section">
+  <div class="container py-5 my-5">
+    <div class="categoryRow">
+      <span class="categoryTag" [class.active]="selectedCategory === '所有活動'"
+        (click)="selectCategory('所有活動')">所有活動</span>
+      <span class="categoryTag" [class.active]="selectedCategory === '貓'" (click)="selectCategory('貓')">貓</span>
+      <span class="categoryTag" [class.active]="selectedCategory === '狗'" (click)="selectCategory('狗')">狗</span>
+      <span class="categoryTag" [class.active]="selectedCategory === '爬蟲'" (click)="selectCategory('爬蟲')">爬蟲</span>
+      <span class="categoryTag" [class.active]="selectedCategory === '其他'" (click)="selectCategory('其他')">其他</span>
+    </div>
+
+    <app-activity-table [activityTable]="activityTable"></app-activity-table>
+  </div>

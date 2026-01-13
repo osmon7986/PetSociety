@@ -1,0 +1,94 @@
+﻿@model IEnumerable<PetSocietyWeb.Models.Generated.Comment>
+
+@{
+    ViewData["Title"] = "Index";
+}
+@section Styles
+{
+    <link rel="stylesheet" href="~/lib/datatables/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fixed-header-table/1.3.0/fixedHeaderTable.min.css" />
+}
+
+<h1>留言管理</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped table-hover table-bordered table-responsive">
+    <thead class="table-light">
+        <tr>
+            <th>留言編號</th>
+            <th>文章內容</th>
+            <th>會員名稱</th>
+            <th>留言內容</th>
+            <th>留言時間</th>
+            <th>照片</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @section Scripts
+        {
+            <script src="~/lib/datatables/js/jquery.datatables.min.js"></script>">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/fixed-header-table/1.3.0/jquery.fixedheadertable.min.js"></script>
+            <script>
+                $(document).ready(function(){
+                    //alert("ready");
+                    $("table").dataTable({
+                        ajax:{
+                            type:"POST",
+                                    url: "/Community/Comments/IndexJson",
+                            dataSrc: function(data) {
+                                return data;
+                            }
+                        },
+                        columns:[
+                            { data:"commentId", width: "10%"},
+                            { data:"articleId", width: "10%"},
+                            { data:"memberId", width: "10%"},
+                            { data:"content", width: "10%",
+                                        // 添加 render 函數來截斷內容
+                        render: function (data, type, row) {
+                            const maxLength = 30; // 你可以自訂這個數字
+                            // 檢查是否為顯示類型，並且數據存在且長度大於限制
+                            if (type === 'display' && data && data.length > maxLength) {
+                                // 截斷文本並加上省略號
+                                return data.substr(0, maxLength) ;
+                            }
+                            // 否則返回原始數據
+                            return data;
+                        }
+                            },
+                            { data:"postDate", width: "10%",
+                                  "render": function (data, type, row) {
+                                  if (data && (type === 'display' || type === 'filter')) {
+                                    return moment(data).format('YYYY/MM/DD HH:mm');
+                                  }
+                                   return data;}
+                            },
+                            { data:"picture", width: "10%",
+                                    // "render": function (data, type, row) {
+                                    //  return `<img style="width:100px;height:78px" src="${data.article.picture}/> `;
+                                    //  },
+                            },
+                            {
+                                   "data": null,
+                                   "render": function (data, type, row) {
+                                           return  `<a href="/Community/Comments/Details/${data.articleId}"class="btn  mb-1">詳細</a>` +
+                                                   `<a href="/Community/Comments/Edit/${data.articleId}"class="btn  mb-1">編輯</a>` +
+                                                   `<a href="/Community/Comments/Delete/${data.articleId}"class="btn  mb-1">刪除</a>`;
+                                   },
+                                   "width": "10%"}
+                        ],
+                        fixedHeader:{
+                            header:true
+                        },
+                        language:{
+                            url: '//cdn.datatables.net/plug-ins/1.13.1/i18n/zh-HANT.json',
+                        }
+                    });
+                });
+            </script>
+        }
+    </tbody>
+</table>

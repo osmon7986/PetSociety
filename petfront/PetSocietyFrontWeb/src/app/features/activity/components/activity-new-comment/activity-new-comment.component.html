@@ -1,0 +1,8 @@
+<div class="new-comment-container">
+  <h3>留下你的留言</h3>
+  <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+    <textarea formControlName="comment" placeholder="留下你的看法..." rows="4"></textarea>
+    <button type="submit" [disabled]="!commentForm.valid">發表看法</button>
+    <button type="button" (click)="example()">不當留言範例</button>
+  </form>
+</div>

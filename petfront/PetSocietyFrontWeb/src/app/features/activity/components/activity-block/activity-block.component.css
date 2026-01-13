@@ -1,0 +1,125 @@
+.cms-content {
+  --primary-color: #007bff;
+  --secondary-color: #00a0e9;
+  --accent-color: #d4a373;
+  /* 奶茶色 */
+  --dark-color: #4a4a4a;
+  /* 深灰色 */
+  --light-dark-color: #666;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 8px rgba(0, 0, 0, 0.15);
+  --transition-speed: 0.3s;
+
+  /* 確保基本字體設定 */
+  display: block;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--dark-color);
+  background: #fdfdfd;
+  /* 讓背景稍微有點顏色 */
+}
+
+/* 2. 所有子元素選擇器前都加上 .cms-content */
+
+.cms-content .title-primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+}
+
+.cms-content .title-secondary {
+  background-color: var(--secondary-color);
+  color: white;
+  padding: 8px 15px;
+  margin-top: 30px;
+  margin-bottom: 15px;
+  border-left: 5px solid #ffcc00;
+}
+
+.cms-content .content-list-item {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+/* 3. 標題與裝飾 */
+/* 限制 h3 只影響 .cms-content 內部的 h3 */
+.cms-content h3 {
+  position: relative;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--dark-color);
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  padding-left: 1rem;
+  z-index: 1;
+}
+
+/* H3 背景裝飾 */
+.cms-content h3::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 120px;
+  height: 8px;
+  background: linear-gradient(90deg, var(--accent-color), rgba(255, 255, 255, 0));
+  z-index: -1;
+  border-radius: 4px;
+}
+
+/* H3 左側立體標記 */
+.cms-content h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 24px;
+  background: var(--dark-color);
+  border-radius: 3px;
+  box-shadow: 2px 2px 0px var(--accent-color);
+}
+
+/* UL 設定 */
+.cms-content ul {
+  padding-left: 0;
+  list-style: none;
+  margin-bottom: 2rem;
+}
+
+/* LI 卡片樣式 */
+.cms-content ul li {
+  position: relative;
+  background: #fff;
+  padding: 12px 16px 12px 42px;
+  /* 左邊留給 icon */
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: var(--shadow-sm);
+  color: var(--light-dark-color);
+  font-weight: 500;
+  cursor: default;
+  transition: all var(--transition-speed);
+}
+
+/* LI Hover 效果 */
+.cms-content ul li:hover {
+  transform: translateX(8px) translateY(-2px);
+  box-shadow: var(--shadow-hover);
+  border-left: 4px solid var(--accent-color);
+  color: var(--dark-color);
+}
+
+/* LI Icon */
+.cms-content ul li::before {
+  content: '✦';
+  position: absolute;
+  left: 16px;
+  top: 12px;
+  color: var(--accent-color);
+  font-size: 1.1em;
+  font-weight: bold;
+}

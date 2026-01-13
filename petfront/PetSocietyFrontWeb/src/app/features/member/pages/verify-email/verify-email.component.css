@@ -1,0 +1,102 @@
+/* 變數對應 */
+:host {
+  --accent-color: #D8C3A5;
+  /* 奶茶拿鐵 */
+  --accent-hover: #C7B29A;
+  /* 濃奶茶 */
+  --dark-color: #5E5344;
+  /* 柔和可可灰 */
+  --muted-color: #8E8375;
+  /* 奶粉灰 */
+  --bg-cream: #F7F3EF;
+  /* 奶霜白 */
+  --bg-input: #FAF8F6;
+  /* 極淺灰底 (Readonly用) */
+  --border-color: #E8E2DA;
+  /* 奶油灰 */
+}
+
+.verify-container {
+  min-height: 80vh;
+  /* 背景可以留白，或加上極淡的奶霜色讓卡片浮出來 */
+  background-color: transparent;
+}
+
+/* 卡片本體 */
+.custom-card {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 1rem;
+  overflow: hidden;
+  /* 確保 Header 圓角不被切掉 */
+  background-color: #fff;
+}
+
+/* 標題區塊 */
+.header-custom {
+  background-color: var(--accent-color);
+  border-radius: 1rem 1rem 0 0;
+}
+
+.text-dark-brown {
+  color: var(--dark-color);
+}
+
+.text-muted-custom {
+  color: var(--muted-color);
+}
+
+/* 輸入框樣式 */
+.form-control {
+  border: 1px solid var(--border-color);
+  color: var(--dark-color);
+}
+
+.form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 0.25rem rgba(216, 195, 165, 0.25);
+}
+
+/* Readonly Email 的背景 */
+.bg-light-custom {
+  background-color: var(--bg-input);
+  color: var(--muted-color);
+}
+
+/* 驗證碼專用輸入框 */
+.code-input {
+  font-size: 1.5rem;
+  letter-spacing: 0.5rem;
+  /* 字元間距加大 */
+  font-weight: 600;
+  color: var(--accent-color);
+  /* 輸入的數字呈現奶茶色 */
+}
+
+.code-input::placeholder {
+  color: #E0E0E0;
+  letter-spacing: 0.5rem;
+}
+
+/* 驗證按鈕 */
+.btn-verify {
+  background-color: var(--accent-color);
+  color: #fff;
+  /* 改為白色字體比較清晰，或維持深色看您喜好 */
+  font-weight: bold;
+  border: none;
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.btn-verify:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(216, 195, 165, 0.4);
+}
+
+.btn-verify:disabled {
+  background-color: var(--border-color);
+  color: #fff;
+  opacity: 0.8;
+}

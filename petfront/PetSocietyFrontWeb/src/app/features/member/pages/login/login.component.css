@@ -1,0 +1,140 @@
+/* ===========================
+   變數對應 (參考用，已直接應用在下方)
+   Accent: #D8C3A5 (奶茶拿鐵)
+   Dark: #5E5344 (柔和可可灰)
+   Light Dark: #8E8375 (奶粉灰)
+   Light Grey: #F7F3EF (奶霜白)
+   Border: #E8E2DA (奶油灰)
+   Subtle BG: #F2EBE5 (奶泡色)
+   =========================== */
+
+/* --- 1. Banner 區塊 --- */
+.banner-section {
+  background-color: #F2EBE5;
+  /* 奶泡色背景，與白色卡片區隔 */
+  color: #5E5344;
+}
+
+.section-title {
+  color: #5E5344;
+  /* 標題：柔可可灰 */
+}
+
+/* 麵包屑導航 */
+.text-muted-custom {
+  color: #8E8375 !important;
+  /* 副文字：奶粉灰 */
+  transition: color 0.3s ease;
+}
+
+.breadcrumb-item a:hover {
+  color: #D8C3A5 !important;
+  /* Hover 變奶茶色 */
+}
+
+.active-custom {
+  color: #D8C3A5;
+  /* 當前頁面：奶茶色 */
+}
+
+/* --- 2. 卡片樣式 --- */
+.custom-card {
+  border: 1px solid #E8E2DA;
+  /* 奶油灰邊框 */
+  background-color: #FFFFFF;
+}
+
+/* --- 3. 分頁按鈕 (Tabs) --- */
+.custom-nav-pills .nav-link {
+  color: #8E8375;
+  /* 未選中文字：奶粉灰 */
+  background-color: #F7F3EF;
+  /* 未選中背景：奶霜白 */
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.custom-nav-pills .nav-link:hover {
+  background-color: #E8E2DA;
+  /* Hover 稍微變深一點的奶油灰 */
+  color: #5E5344;
+}
+
+.custom-nav-pills .nav-link.active {
+  background-color: #D8C3A5;
+  /* 選中背景：奶茶拿鐵 */
+  color: #FFFFFF;
+  /* 選中文字：白 */
+  box-shadow: 0 4px 10px rgba(216, 195, 165, 0.4);
+  /* 奶茶色光暈 */
+}
+
+/* --- 4. 表單輸入框 (Form Control) --- */
+.form-control {
+  border: 1px solid #E8E2DA;
+  /* 預設邊框：奶油灰 */
+  color: #5E5344;
+  /* 輸入文字：柔可可灰 */
+}
+
+.form-control:focus {
+  border-color: #D8C3A5;
+  /* 聚焦邊框：奶茶拿鐵 */
+  background-color: #FDFBF9;
+  /* 聚焦背景：極淡的暖白 */
+  box-shadow: 0 0 0 0.25rem rgba(216, 195, 165, 0.25);
+  /* 奶茶色光暈 */
+  color: #5E5344;
+}
+
+/* Floating Label 的文字顏色 */
+.form-floating>label {
+  color: #8E8375;
+  /* 奶粉灰 */
+}
+
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label {
+  color: #D8C3A5;
+  /* 浮起來後變奶茶色，增加互動感 */
+  opacity: 0.8;
+}
+
+/* 分隔線 */
+.divider-line {
+  border-color: #E8E2DA !important;
+  /* 奶油灰 */
+}
+
+/* --- 5. 驗證碼區塊 --- */
+.border-custom {
+  border: 1px solid #E8E2DA !important;
+  background-color: #F7F3EF;
+  /* 畫布背景：奶霜白 */
+}
+
+.text-danger-custom {
+  color: #D98E73;
+  /* 調整過的紅色，帶一點暖橘，比較不刺眼，符合整體色調 */
+}
+
+/* --- 6. 連結與按鈕 --- */
+.hover-primary {
+  color: #8E8375 !important;
+  transition: all 0.3s ease;
+}
+
+.hover-primary:hover {
+  color: #D8C3A5 !important;
+  /* Hover 變奶茶色 */
+  text-decoration: none !important;
+  /* 取消下底線，或者你可以保留 */
+}
+
+/* 如果要覆蓋 btn-dark 的 disabled 樣式，讓它更柔和 */
+.btn-dark:disabled {
+  background-color: #E8E2DA;
+  /* 奶油灰 */
+  border-color: #E8E2DA;
+  color: #FFFFFF;
+}

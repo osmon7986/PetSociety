@@ -1,0 +1,106 @@
+/* 引入變數 (雖然這裡讀不到全域變數，但寫著當參考) */
+:host {
+  --color-primary-light: #F2EBE5;
+  --color-text-dark: #5E5344;
+  --color-btn: #D8C3A5;
+  --color-btn-hover: #C7B29A;
+}
+
+/* =========================================
+   1. 表格樣式深度客製化
+========================================= */
+
+/* 表頭：奶茶色背景、深色文字、無邊框 */
+:host ::ng-deep .p-datatable .p-datatable-thead>tr>th {
+  background-color: var(--color-primary-light) !important;
+  color: var(--color-text-dark) !important;
+  border: none !important;
+  font-weight: bold;
+  padding: 1.5rem 1rem;
+  /* 增加高度 */
+}
+
+/* 表格內容行：增加間距、底部細線 */
+:host ::ng-deep .p-datatable .p-datatable-tbody>tr>td {
+  border: none !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  /* 很淡的分隔線 */
+  padding: 1.5rem 1rem;
+  vertical-align: middle;
+  /* 垂直置中 */
+}
+
+/* Hover 效果：滑過時變得很淡的奶茶色 */
+:host ::ng-deep .p-datatable .p-datatable-tbody>tr:hover {
+  background-color: #fafafa !important;
+}
+
+/* 去掉最後一行的線 */
+:host ::ng-deep .p-datatable .p-datatable-tbody>tr:last-child>td {
+  border-bottom: none !important;
+}
+
+
+/* =========================================
+   2. 數量增減器 (InputNumber) 美化
+========================================= */
+
+/* 容器：加上柔和的邊框和圓角 */
+:host ::ng-deep .custom-input-number .p-inputnumber {
+  border: 1px solid #e0e0e0;
+  border-radius: 50px;
+  /* 圓弧形 */
+  overflow: hidden;
+  background-color: #fff;
+}
+
+/* 左右按鈕：透明背景、深色圖示 */
+:host ::ng-deep .custom-input-number .p-inputnumber-button {
+  background-color: transparent !important;
+  color: var(--color-text-dark) !important;
+  border: none !important;
+  width: 2.5rem;
+}
+
+/* 按鈕 Hover：變奶茶色 */
+:host ::ng-deep .custom-input-number .p-inputnumber-button:hover {
+  background-color: var(--color-primary-light) !important;
+  color: var(--color-btn) !important;
+}
+
+/* 中間輸入框：去掉預設樣式 */
+:host ::ng-deep .custom-input-number .p-inputnumber-input {
+  border: none !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
+
+
+/* =========================================
+   3. 右側摘要卡片與按鈕
+========================================= */
+
+/* 摘要卡片：更深的陰影，讓它浮起來 */
+.summary-card {
+  background: #ffffff;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* 結帳按鈕：奶茶色漸層感 */
+.custom-checkout-btn {
+  background-color: var(--color-btn);
+  border: none;
+  box-shadow: 0 8px 20px rgba(216, 195, 165, 0.3);
+  transition: all 0.3s ease;
+}
+
+.custom-checkout-btn:hover {
+  background-color: var(--color-btn-hover) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(199, 178, 154, 0.5);
+}
+
+.custom-checkout-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(199, 178, 154, 0.4);
+}

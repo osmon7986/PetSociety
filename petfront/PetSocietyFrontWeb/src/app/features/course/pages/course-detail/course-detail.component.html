@@ -1,0 +1,143 @@
+<div class="course-detail-wrapper">
+  <div class="course-detail-top">
+    <div class="page-center-wrapper">
+      <!-- Back Button Section -->
+
+      <div class="container mt-3">
+        <app-back-button [buttonLabel]="backButtonLabel" (back)="goBack()"></app-back-button>
+      </div>
+
+      <!-- Hero Section -->
+      <section class="py-4 bg-light-primary">
+        <div class="container d-flex flex-column flex-md-row align-items-start gap-5 justify-content-center">
+
+          <!-- Course Image -->
+          <div class="flex-shrink-0" style="max-width: 380px;">
+            <img [src]="courseDetail.imageUrl" alt="課程圖片" class="img-fluid rounded shadow">
+          </div>
+
+          <!-- Course Info -->
+          <div class="flex-grow-1">
+
+            <h1 class="fw-bold mb-2">{{ courseDetail.title }}</h1>
+
+            <!-- Meta Info -->
+            <ul class="list-unstyled text-dark">
+
+              <li class="mb-2">
+                <span>{{ courseDetail.instructorName }}</span>
+              </li>
+
+              <li class="info-item mb-2">
+                <i class="fa-solid fa-list icon"></i>
+                <span class="label">分類</span>
+                <span class="value">{{ courseDetail.categoryName }}</span>
+              </li>
+
+              <li class="info-item mb-2">
+                <i class="fa-solid fa-paw icon"></i>
+                <span class="label">類型</span>
+                <span class="value">{{ courseDetail.type ? '線上課程' : '實體課程' }}</span>
+              </li>
+
+              <li class="info-item mb-2">
+                <i class="fa-solid fa-tag icon"></i>
+                <span class="value">{{ courseDetail.price === 0 ? '免費' : 'NT$ ' + courseDetail.price}}</span>
+              </li>
+              <!-- <li class="mb-2">
+                <strong>總時長：</strong>
+                <span>{{ courseDetail.totalDuration }} 分鐘</span>
+              </li> -->
+
+            </ul>
+
+            <!-- Price + Button -->
+            <div class="d-flex align-items-center gap-3 mt-4">
+              <!-- 免費課程可以直接學習 -->
+              @if (courseDetail.price === 0){
+              <!-- 會員已訂閱可以直接回到上課畫面 -->
+              @if (hasSubscribed()) {
+              <button (click)="goToPlayback()" class="btn btn-ps-learning px-4 py-2">
+                繼續學習
+              </button>
+              }
+              <!-- 會員尚未訂閱，可以直接訂閱 -->
+              @else {
+              <button (click)="subscribeCourse()" class="btn btn-ps-learning px-4 py-2">
+                免費加入學習
+              </button>
+              }
+
+              }
+              <!-- 非免費課程須購買 -->
+              @else {
+              <!-- 會員已購買可以直接學習 -->
+              @if (hasPurchased()) {
+              <!-- 會員已訂閱可以回到課程撥放畫面 -->
+              @if (hasSubscribed()) {
+              <button (click)="goToPlayback()" class="btn btn-ps-learning px-4 py-2">
+                繼續學習
+              </button>
+              }
+              @else {
+              <!-- 會員尚未訂閱，可以直接訂閱 -->
+              <button (click)="subscribeCourse()" class="btn btn-ps-learning px-4 py-2">
+                開始進入教室
+              </button>
+              }
+              <button disabled class="btn btn-ps-purchase px-4 py-2">
+                <i class="fas fa-check me-2"></i>課程已購買
+              </button>
+              }
+              <!-- 尚未購買顯示購買課程按鈕 -->
+              @else {
+              <button (click)="checkout()" class="btn btn-ps-purchase px-4 py-2">
+                購買課程
+              </button>
+              @if (ecpayParams){
+              <form id="ecpay-form" [action]="ecpayUrl" method="POST">
+                @for(key of objectKeys; track $index) {
+                <input type="hidden" [name]="key" [value]="ecpayParams[key]">
+                }
+              </form>
+              }
+              }}
+
+              <!-- <button class="btn btn-primary px-4">
+            送禮
+          </button> -->
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- Description Section -->
+  <section class="py-5 page-center-wrapper">
+    <div class="container">
+      <h4 class="fw-bold mb-3 section-title">課程內容</h4>
+      <p class="text-dark lh-lg mb-0" style="font-size: 1.05rem;">
+        {{ courseDetail.description }}
+      </p>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <div class="container">
+      <h4 class="fw-bold mb-4 section-title">章節一覽</h4>
+      <div class="chapter-list">
+        @for(chapter of courseDetail.chapters; track $index) {
+        <div class="chapter-item d-flex align-items-center justify-content-between mb-3">
+          <div class="d-flex align-items-center">
+            <span class="chapter-badge me-3">{{ $index + 1 }}</span>
+            <span class="chapter-name">{{ chapter.chapterName }}</span>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+</div>

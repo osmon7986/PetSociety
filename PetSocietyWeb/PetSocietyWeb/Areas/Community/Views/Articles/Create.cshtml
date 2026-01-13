@@ -1,0 +1,137 @@
+﻿@model PetSocietyWeb.Models.Generated.Article
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>新增</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-select" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tag" class="control-label"></label>
+                <select asp-for="TagId" class="form-select" asp-items="ViewBag.TagId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Member" class="control-label"></label>
+                <select asp-for="MemberId" class="form-select" asp-items="ViewBag.MemberId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label"></label>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CommentCount" class="control-label"></label>
+                <input asp-for="CommentCount" class="form-control" />
+                <span asp-validation-for="CommentCount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PostDate" class="control-label"></label>
+                <input asp-for="PostDate" class="form-control" />
+                <span asp-validation-for="PostDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastUpdate" class="control-label"></label>
+                <input asp-for="LastUpdate" class="form-control" />
+                <span asp-validation-for="LastUpdate" class="text-danger"></span>
+            </div>
+            @* <div class="form-group">
+                <label asp-for="Like" class="control-label"></label>
+                <input asp-for="Like" class="form-control" />
+                <span asp-validation-for="Like" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DisLike" class="control-label"></label>
+                <input asp-for="DisLike" class="form-control" />
+                <span asp-validation-for="DisLike" class="text-danger"></span>
+            </div> *@
+            @* <div class="form-group">
+                <label asp-for="Popular" class="control-label"></label>
+                <input asp-for="Popular" class="form-control" />
+                <span asp-validation-for="Popular" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="Picture" class="control-label"></label>
+                <input asp-for="Picture" class="form-control" id="Picture" />
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+            <div class="mt-2">
+                <input type="file" id="imageInput" />
+                <button type="button" onclick="uploadImage()">上傳圖片</button>
+                <p id="imageUrl"></p>
+            </div>
+            <br>
+            <div class="form-group">
+                <input type="submit" value="儲存" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h2>圖片預覽</h2>
+        <img id="newImagePreview" style="width:300px;height:300px; border: 1px dashed #ccc;" src=" " alt="圖片預覽" />
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function uploadImage() {
+            var input = document.getElementById("imageInput");
+            var file = input.files[0];
+            var previewImg = document.getElementById('newImagePreview');
+
+            if (!file) {
+                alert("請選擇一張圖片！");
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            // imgBB 的 API 金鑰
+            var apiKey = 'd25e155d259cedb3954587a69e1b653d';
+
+            var formData = new FormData();
+            formData.append("image", file);
+
+            fetch("https://api.imgbb.com/1/upload?key=" + apiKey, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById("Picture").value = data.data.url;
+                    document.getElementById("imageUrl").innerHTML = "圖片上傳成功！";
+                } else {
+                    alert("上傳失敗，請再試一次！");
+                }
+            })
+            .catch(error => {
+                 console.error('錯誤:', error);
+                    alert("發生錯誤！");
+            });
+        }
+    </script>
+}

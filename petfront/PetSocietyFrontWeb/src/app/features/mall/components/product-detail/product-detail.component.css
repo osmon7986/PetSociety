@@ -1,0 +1,209 @@
+/* 1. 強制讓內容變成左右兩欄 */
+.custom-layout {
+  display: flex;
+  /* 彈性盒子 */
+  flex-direction: row;
+  /* 橫向排列 */
+  gap: 30px;
+  /* 左右間距 */
+  height: 100%;
+  /* 撐滿高度 */
+}
+
+/* 2. 左邊圖片區：固定佔 50% 寬度 */
+.left-col {
+  width: 50%;
+  flex-shrink: 0;
+  /* 不准被壓扁 */
+}
+
+/* 3. 右邊文字區：固定佔 50% 寬度 */
+.right-col {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  /* 垂直排列 */
+}
+
+/* 4. ★ 關鍵：強制鎖死 Galleria 圖片高度 ★ */
+/* 這裡設定 350px，這是最適合彈窗的高度，不會太大 */
+::ng-deep .p-galleria .p-galleria-item-container {
+  height: 350px !important;
+  width: 100% !important;
+}
+
+::ng-deep .p-galleria .p-galleria-item-container img {
+  object-fit: contain !important;
+  /* 保持比例，留白不變形 */
+  height: 100% !important;
+  width: 100% !important;
+  display: block;
+}
+
+/* 5. 描述區塊美化 */
+.desc-box {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 15px 0;
+  max-height: 150px;
+  /* 限制描述高度，太長出卷軸 */
+  overflow-y: auto;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #555;
+}
+
+/* 6. 手機版 RWD (小於 768px 時變回上下排) */
+@media screen and (max-width: 768px) {
+  .custom-layout {
+    flex-direction: column;
+  }
+
+  .left-col,
+  .right-col {
+    width: 100%;
+  }
+}
+
+.custom-btn {
+  /* ★ 強制排版設定 */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+
+  /* ★ 關鍵修正：絕對平分寬度 */
+  flex: 1 1 0 !important;
+  /* 讓寬度無視內容長度，強制均分 */
+  width: 0 !important;
+  /* 配合上一行，確保大家起跑點一樣 */
+
+  /* ★ 關鍵修正：鎖定高度 */
+  height: 48px !important;
+  /* 設定一個好看的高度 */
+  padding: 0 20px !important;
+  /* 左右留點空間 */
+  margin: 0 !important;
+
+  /* 外觀風格 */
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  white-space: nowrap;
+  /* 不准換行 */
+  transition: all 0.2s ease;
+
+  /* 清除預設 */
+  background: none;
+  line-height: normal;
+  box-sizing: border-box;
+  /* 確保 padding 不會撐大寬度 */
+}
+
+/* === 再看看 (次要按鈕) === */
+.btn-close {
+  background-color: #F2EBE5;
+  /* 淺奶色 */
+  color: #8E8375;
+  /* 深灰字 */
+}
+
+.btn-close:hover {
+  background-color: #e6ddd6;
+  transform: translateY(-2px);
+}
+
+/* === 加入購物車 (主要按鈕) === */
+.btn-cart {
+  background-color: #D8C3A5;
+  /* 主色 */
+  color: white;
+  box-shadow: 0 4px 10px rgba(216, 195, 165, 0.4);
+}
+
+.btn-cart:hover:not([disabled]) {
+  background-color: #C7B29A;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(199, 178, 154, 0.5);
+}
+
+.btn-cart:active:not([disabled]) {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn-cart[disabled] {
+  background-color: #e0e0e0;
+  color: #999;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* 確保 Icon 大小適中 */
+.custom-btn i {
+  font-size: 1rem;
+}
+
+/* =========================================
+   🔥 標籤系統 (Badge System) - 柔和版
+   ========================================= */
+
+/* 1. 標籤容器：負責定位與排列 */
+.badge-wrapper {
+  position: absolute;
+  top: 15px;
+  /* 離上面一點距離，不要貼太緊 */
+  left: 15px;
+  /* 離左邊一點距離 */
+  z-index: 10;
+
+  display: flex;
+  /* 啟動彈性排版 */
+  flex-direction: column;
+  /* 垂直排列 (若想並排改成 row) */
+  gap: 8px;
+  /* ★ 關鍵：標籤之間的呼吸空間 */
+  align-items: flex-start;
+  /* 靠左對齊 */
+}
+
+/* 2. 標籤本體：只負責長相，不負責位置 */
+.product-badge,
+.detail-badge {
+  /* 移除 absolute, top, left -> 交給 wrapper 管理 */
+  position: relative;
+
+  display: inline-block;
+  padding: 4px 10px;
+  /* 稍微小巧一點 */
+  border-radius: 4px;
+  /* 文青風微圓角 */
+  font-size: 0.75rem;
+  /* 字體縮小一點，更有質感 */
+  font-weight: 600;
+  color: white;
+  letter-spacing: 1px;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  /* 柔和陰影 */
+}
+
+/* 3. 🔥 HOT 風格：莫蘭迪乾燥玫瑰 (Muted Rose) */
+.badge-hot {
+  background-color: #C08585;
+  /* 純色備案 */
+  background: linear-gradient(135deg, #D49E9E 0%, #B87A7A 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 4. 🌱 NEW 風格：莫蘭迪鼠尾草綠 (Sage Green) */
+.badge-new {
+  background-color: #95A58A;
+  /* 純色備案 */
+  background: linear-gradient(135deg, #A8B89C 0%, #899C7A 100%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}

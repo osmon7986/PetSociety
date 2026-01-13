@@ -1,0 +1,11 @@
+.category {
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 400;
+  padding: 4px 16px;
+  white-space: nowrap;
+  color: #fff;
+  background-color: #ff93c2;
+  box-shadow: 0 2px 4px rgba(255, 147, 194, .3);
+}

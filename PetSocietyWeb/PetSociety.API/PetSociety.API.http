@@ -1,0 +1,6 @@
+@PetSociety.API_HostAddress = http://localhost:5003
+
+GET {{PetSociety.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

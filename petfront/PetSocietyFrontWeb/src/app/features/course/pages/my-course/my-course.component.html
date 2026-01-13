@@ -1,0 +1,117 @@
+<app-breadcrumb-banner [bannerTitle]="'我的課程'" [breadcrumbItem]="breadcrumbData"
+  [currentTitle]="'我的課程'"></app-breadcrumb-banner>
+<div class="container my-4">
+
+  <!-- 繼續學習（進行中） -->
+  <div class="mb-5">
+    <div class="section-header mb-4">
+      <h5 class="fw-bold section-title-lg mb-1"><i class="bi bi-play-circle me-2"></i>接著上次的進度繼續學習</h5>
+      <!-- <p class="text-muted small mb-3">從上次中斷的地方繼續上課</p> -->
+    </div>
+    <div class="row g-4">
+      @if (myCourses) {
+      @for (course of myCourses; track $index) {
+      @if ((course.progressPercent ?? 0) < 100) { <div class="col-md-6">
+        <div class="course-card d-flex align-items-center p-3 shadow-sm rounded">
+
+          <!-- 左側圖片 -->
+          <a [routerLink]="['/academy/course', course.courseDetailId]">
+            <div class="flex-shrink-0 course-img-container">
+              <img [src]="course.imageUrl" alt="課程封面圖片" class="course-thumb rounded" (load)="onLoad()"
+                [class.is-visible]="imageLoaded()">
+            </div>
+          </a>
+
+          <!-- 右側內容 -->
+          <div class="ms-3 flex-grow-1">
+            <a [routerLink]="['/academy/course', course.courseDetailId]">
+              <h5 class="fw-bold mb-1">{{ course.title }}</h5>
+            </a>
+
+            <!-- 進度條 -->
+            <div class="progress rounded-pill" style="height: 12px;">
+              <div class="progress-bar bg-primary" role="progressbar" [style.width.%]="course.progressPercent">
+              </div>
+            </div>
+
+            <div class="text-center mt-1 fw-semibold small">
+              {{ course.progressPercent }}%
+            </div>
+          </div>
+
+          <!-- 繼續按鈕 -->
+          <div class="ms-3">
+            <button class="btn btn-dark" title="接著上次的進度繼續學習" (click)="resume(course.courseDetailId)">
+              繼續課程
+            </button>
+          </div>
+
+        </div>
+    </div>
+    }
+    }
+    }
+  </div>
+</div>
+
+<!-- 已完成的課程 -->
+<div>
+  <div class="section-header mb-4">
+    <h5 class="fw-bold mb-1"><i class="bi bi-check-circle me-2"></i>已完成的課程</h5>
+  </div>
+
+  <div class="row g-4">
+    @if (myCourses) {
+    @for (course of myCourses; track $index) {
+    @if (course.progressPercent === 100) {
+    <div class="col-md-6">
+      <div class="course-card d-flex align-items-center p-3 shadow-sm rounded bg-light">
+
+        <!-- 左側圖片 -->
+        <a [routerLink]="['/academy/course', course.courseDetailId]">
+          <div class="flex-shrink-0">
+            <img [src]="course.imageUrl" alt="課程圖片" class="course-thumb rounded" (load)="onLoad()"
+              [class.is-visible]="imageLoaded()">
+          </div>
+        </a>
+
+        <!-- 右側內容 -->
+        <div class="ms-3 flex-grow-1">
+          <a [routerLink]="['/academy/course', course.courseDetailId]">
+            <h5 class="fw-bold mb-1">{{ course.title }}</h5>
+          </a>
+
+          <!-- 已完成狀態 -->
+          <div class="d-flex align-items-center gap-2 mt-2">
+            <span class="badge bg-primary">已完成</span>
+            <span class="text-muted small fw-semibold">100%</span>
+          </div>
+        </div>
+
+        <!-- 回顧按鈕 -->
+        <div class="ms-3">
+          <button class="btn btn-dark me-2" title="重新觀看課程" (click)="resume(course.courseDetailId)">
+            查看課程
+          </button>
+
+          <button class="btn btn-dark" title="下載課程證書" [disabled]="downloadingId() !== null"
+            (click)="downloadPdf(course.courseDetailId)">
+            <!-- 下載中ID為選中的ID，切換按鈕文字 -->
+            @if (downloadingId() === course.courseDetailId) {
+            <i class="fa-solid fa-paw fa-bounce loading-paw"></i>
+            <span> 證書製作中...</span>
+            } @else {
+            <span>下載證書</span>
+            }
+          </button>
+        </div>
+
+      </div>
+    </div>
+    }
+    }
+    }
+  </div>
+</div>
+
+</div>

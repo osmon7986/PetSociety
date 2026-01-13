@@ -1,0 +1,97 @@
+/* --- 新增留言區塊容器 --- */
+.new-comment-container {
+  background-color: var(--white-color);
+  margin-top: 30px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 24px;
+  /* 增加內距讓空間不擁擠 */
+  border: 1px solid var(--grey-color);
+  /* 改用奶油灰邊框 */
+  border-radius: 16px;
+  /* 與上方留言列表一致的柔和圓角 */
+  box-shadow: 0 4px 12px rgba(94, 83, 68, 0.05);
+  /* 極淡的暖色陰影 */
+}
+
+/* --- 標題 H3 --- */
+.new-comment-container h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: var(--dark-color);
+  /* 柔可可灰 */
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+/* --- 輸入框 Textarea --- */
+.new-comment-container textarea {
+  width: 100%;
+  padding: 15px;
+  background-color: var(--light-grey-color);
+  /* 預設背景為奶霜白，與白色容器區隔 */
+  border: 2px solid transparent;
+  /* 預留邊框寬度，避免 focus 時跳動 */
+  border-radius: 12px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+  color: var(--dark-color);
+  font-size: 1rem;
+  resize: vertical;
+  /* 允許垂直拉伸，禁止水平拉伸破壞版面 */
+  transition: all 0.3s ease;
+  /* 滑順過渡效果 */
+}
+
+/* 輸入框 Focus 狀態（點擊時） */
+.new-comment-container textarea:focus {
+  outline: none;
+  background-color: var(--white-color);
+  border-color: var(--accent-color);
+  /* 聚焦時顯示奶茶拿鐵色邊框 */
+  box-shadow: 0 0 0 4px rgba(216, 195, 165, 0.2);
+  /* 淡淡的奶茶光暈 */
+}
+
+/* 輸入框 Placeholder 文字顏色 */
+.new-comment-container textarea::placeholder {
+  color: var(--light-dark-color);
+  /* 奶粉灰 */
+}
+
+/* --- 送出按鈕 Button --- */
+.new-comment-container button {
+  background-color: var(--accent-color);
+  /* 奶茶拿鐵色 */
+  color: var(--dark-color);
+  /* 【重要】改用深色文字，因為背景較淺，配白色會看不清楚 */
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 按鈕 Hover 效果 */
+.new-comment-container button:hover {
+  background-color: #C7B29A;
+  /* 稍微深一點的拿鐵 */
+  transform: translateY(-1px);
+  /* 微幅上浮 */
+  box-shadow: 0 4px 8px rgba(94, 83, 68, 0.15);
+}
+
+/* 按鈕 Disabled 狀態 */
+.new-comment-container button:disabled {
+  background-color: var(--grey-color);
+  color: var(--light-dark-color);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}

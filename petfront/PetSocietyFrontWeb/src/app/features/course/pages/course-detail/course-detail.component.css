@@ -1,0 +1,182 @@
+:host ::ng-deep .flex-column {
+  flex-direction: unset !important;
+  /* 或是恢復成 initial */
+}
+
+.page-center-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.course-detail-top {
+  background-color: white;
+  border-bottom-right-radius: 100px;
+  padding-bottom: 18px;
+}
+
+.section-title {
+  border-left: 5px solid #C9B29B;
+  padding-left: 12px;
+  line-height: 1.2;
+  color: #3D352C;
+  display: flex;
+  align-items: center;
+}
+
+.btn-ps-learning {
+  background-color: #D8C3A5;
+  color: #FFFFFF;
+  border: none;
+  transition: all 0.3s ease;
+
+  &:hover {
+    filter: brightness(0.92);
+    box-shadow: 0 4px 8px rgba(94, 83, 68, 0.2);
+
+    transform: translateY(-1px);
+  }
+}
+
+.btn-ps-purchase {
+  background-color: #5E5344;
+  color: #FFFFFF;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: inline-block;
+
+  &:hover {
+    background-color: #5E5344 !important;
+    filter: brightness(1.25);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+    filter: brightness(0.9);
+  }
+}
+
+.course-detail-wrapper {
+  background-color: #FAF8F6;
+  min-height: 100vh;
+}
+
+/* 標題顏色 */
+.chapter-title {
+  color: #5E5344;
+  font-size: 1.25rem;
+}
+
+/* 章節清單容器 */
+.chapter-list {
+  display: flex;
+  flex-direction: column;
+}
+
+/* 章節項目卡片 */
+.chapter-item {
+  background-color: #F2EBE5;
+  color: #5E5344;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-ps-learning {
+  background-color: #D8C3A5;
+  color: #FFFFFF;
+  font-weight: 400;
+  border: none;
+  transition: opacity 0.3s;
+
+  &:hover {
+    filter: brightness(0.92);
+    box-shadow: 0 4px 8px rgba(94, 83, 68, 0.2);
+    transform: translateY(-1px);
+  }
+}
+
+.btn-ps-purchase {
+  background-color: #5E5344;
+  color: #FFFFFF;
+  font-weight: 400;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  &:hover {
+    background-color: #5E5344 !important;
+    font-weight: 400;
+    filter: brightness(1.2);
+    transform: translateY(-1px);
+  }
+}
+
+/* Hover 效果：輕微加深背景 */
+.chapter-item:hover {
+  background-color: #E8E2DA;
+}
+
+/* 圓圈數字標籤 */
+.chapter-badge {
+  background-color: #C9B29B;
+  color: #FFFFFF;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* 章節文字 */
+.chapter-name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #5E5344;
+}
+
+.section-divider {
+  height: 1px;
+  /* 給予高度 */
+  background-color: #E8E2DA;
+  /* 邊框奶油灰 */
+  margin: 40px auto;
+  /* 上下留白，左右置中 */
+  width: calc(100% - 30px);
+  /* 寬度與 container 對齊 */
+  max-width: 1140px;
+  /* 限制最大寬度與 Bootstrap container 一致 */
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  font-size: 1.1rem;
+
+  gap: 10px;
+
+  .icon {
+    width: 30px;
+    text-align: center;
+    color: #5E5344;
+  }
+
+  .label {
+    color: #8E8375;
+    min-width: 40px;
+  }
+
+  .value {
+    color: #5E5344;
+    font-weight: 500;
+    margin-left: 4px;
+  }
+}

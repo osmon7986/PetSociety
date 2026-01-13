@@ -1,0 +1,34 @@
+/* 顏色變數 (對應奶茶色系) */
+:host {
+  --primary-color: #D8C3A5;
+  /* 奶茶拿鐵 */
+  --text-dark: #5E5344;
+  /* 柔可可灰 */
+  --text-muted: #8E8375;
+  /* 奶粉灰 */
+}
+
+/* 頭像邊框樣式 */
+.avatar-border {
+  border: 4px solid #fff;
+  /* 內圈白框 */
+  outline: 2px solid var(--primary-color);
+  /* 外圈奶茶框 */
+  background-color: #fff;
+}
+
+/* 文字顏色 */
+.text-dark-brown {
+  color: var(--text-dark);
+}
+
+.text-muted-custom {
+  color: var(--text-muted);
+}
+
+/* [關鍵修復] 強制 Email 換行 */
+.email-fix {
+  word-break: break-all;
+  /* 讓長單字 (如 email) 自動換行，不會撐壞版面 */
+  line-height: 1.4;
+}

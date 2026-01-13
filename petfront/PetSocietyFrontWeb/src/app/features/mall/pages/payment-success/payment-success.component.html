@@ -1,0 +1,43 @@
+<div class="surface-ground flex align-items-center justify-content-center min-h-screen w-full">
+  <div class="flex flex-column align-items-center justify-content-center fadein animation-duration-500">
+
+    <div class="surface-card p-5 sm:p-6 shadow-5 border-round-xl text-center border-top-3 border-primary"
+      style="max-width: 500px; width: 90%;">
+
+      <div class="mb-4 flex justify-content-center">
+        <img src="images/naiyue-payment-success.png" alt="Payment Success Naiyue"
+          class="w-18rem max-w-full h-auto animation-duration-1000 fadeinup" style="object-fit: contain;"
+          onerror="this.src='https://placehold.co/400x400/F2EBE5/5E5344?text=No+Image'">
+      </div>
+      <div class="flex align-items-center justify-content-center gap-2 mb-3">
+        <i class="pi pi-check-circle text-green-500 text-3xl"></i>
+        <h1 class="text-900 font-bold text-3xl m-0">訂單支付成功！</h1>
+      </div>
+
+      <p class="text-600 line-height-3 mb-5 text-lg">
+        太棒了！感謝您的購買！🎉<br>
+        我們已經確認收到款項，<br>
+        正在馬不停蹄地為您準備商品囉！📦💨
+      </p>
+
+      <div class="surface-50 border-1 surface-border border-round p-4 mb-5 text-left shadow-1">
+        <div class="flex justify-content-between mb-3 pb-3 border-bottom-1 surface-border">
+          <span class="text-600 font-medium">訂單狀態</span>
+          <p-tag severity="success" value="已付款 (Paid)" icon="pi pi-verified"></p-tag>
+        </div>
+        <div class="flex justify-content-between align-items-center">
+          <span class="text-600 font-medium">寄送方式</span>
+          <span class="text-900 text-lg"><i class="pi pi-truck mr-2"></i>宅配到府</span>
+        </div>
+      </div>
+
+      <div class="flex flex-column sm:flex-row gap-3 justify-content-center">
+        <button pButton label="查看訂單" icon="pi pi-list" routerLink="/mall/orders"
+          class="p-button-outlined p-button-secondary w-full sm:w-auto font-bold"></button>
+        <button pButton label="繼續購物" icon="pi pi-shopping-bag" routerLink="/mall"
+          class="p-button-primary w-full sm:w-auto font-bold shadow-2"></button>
+      </div>
+    </div>
+
+  </div>
+</div>

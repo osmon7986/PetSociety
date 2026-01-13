@@ -1,0 +1,89 @@
+<!-- <app-breadcrumb-banner [bannerTitle]="'所有課程'" [bannerSubtitle]="'專家帶你走進毛孩的學習世界'" [breadcrumbItem]="breadcrumbData"
+  [currentTitle]="'所有課程'"></app-breadcrumb-banner> -->
+
+<!-- 熱門課程 Carousel -->
+<div class="hot-banner">
+  <div class="container py-4">
+    <h2 class="fw-bold">近期熱門</h2>
+  </div>
+
+  <div class="ps-carousel-container">
+
+
+    <p-carousel [value]="hotCourse" [numVisible]="2" [numScroll]="2" [circular]="true"
+      [responsiveOptions]="responsiveOptions">
+
+      <ng-template pTemplate="item" let-course>
+        <a [routerLink]="['/academy/course', course.courseDetailId]" class="ps-horizontal-card">
+          <div class="course-img-box">
+            <img [src]="course.imageUrl" [alt]="course.title" (load)="hotOnLoad()" class="course-thumb"
+              [class.is-visible]="hotImgLoaded()">
+          </div>
+
+          <div class="course-content">
+            <div class="top-info">
+              <h5 class="course-title">{{ course.title }}</h5>
+              <p class="course-instructor">{{ course.instructorName }}</p>
+            </div>
+
+            <div class="course-meta">
+              <div class="subs-info">
+                <i class="pi pi-users"></i>
+                <span>{{ course.subsCount || 0 | number}} 人學習</span>
+              </div>
+
+            </div>
+          </div>
+        </a>
+      </ng-template>
+    </p-carousel>
+  </div>
+
+</div>
+
+<div class="container my-4">
+  <div class="row">
+    <h2 class="fw-bold mb-4">{{categoryTitle}}</h2>
+  </div>
+  <div class="row align-items-center mb-4 g-3">
+    <!-- 課程分類按鈕 -->
+    <div class="col d-flex flex-wrap gap-2">
+      @for(category of categories; track $index){
+      <button class="chip-btn me-2" (click)="selectCategory(category.id, category.name)"
+        [class.active]="category.id === query.categoryId">
+        {{ category.name }}
+      </button>
+      }
+    </div>
+
+    <!-- 課程搜尋框 -->
+    <div class="col-auto">
+      <p-iconfield>
+        <p-inputicon styleClass="pi pi-search" />
+        <input type="text" pInputText [formControl]="searchControl" placeholder="搜尋課程" />
+      </p-iconfield>
+    </div>
+  </div>
+
+  <!-- 課程卡片 -->
+  <div class="row g-4">
+    @for(item of pagedCourse.items; track $index){
+    <div class="col-md-3 col-sm-6">
+      <app-course-card [course]="item" (toggleFav)="toggleFavorite($event)">></app-course-card>
+    </div>
+    }
+  </div>
+
+  <!-- 分頁 paginator -->
+  <div class="row justify-content-end my-3">
+    <div class="col-auto">
+      <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="rows"
+        [totalRecords]="pagedCourse.totalCount" [showFirstLastIcon]="false" [showCurrentPageReport]="true"
+        currentPageReportTemplate="顯示第 {first} 至 {last} 筆資料，共 {totalRecords} 筆" />
+    </div>
+  </div>
+
+  <div class="update-info">
+    <span>數據最後更新時間：{{ pagedCourse.lastUpdated | date: 'yyyy/MM/dd HH:mm' }}</span>
+  </div>
+</div>

@@ -1,0 +1,266 @@
+/* =========================================
+   7. 建立主辦頁面專用樣式 (Organizer Page)
+   ========================================= */
+
+/* --- 頁面佈局容器 --- */
+
+.page-header {
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--dark-color);
+}
+
+.page-header .description {
+  color: var(--light-dark-color);
+  font-size: 0.95rem;
+}
+
+/* --- 主要內容卡片 (白底區塊) --- */
+.content-card {
+  background: #fdfaf5;
+  /* 淡淡的奶茶色背景 */
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(94, 83, 68, 0.12);
+  /* 增強的奶茶色陰影 */
+  overflow: hidden;
+  /* 確保封面圖圓角不跑版 */
+  padding-bottom: 2rem;
+}
+
+/* --- 封面照片區塊 (Cover Photo) --- */
+.cover-photo-section {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  background-color: #efdfcc;
+  /* 使用主題中的米色 */
+  margin-bottom: 30px;
+}
+
+.cover-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #fff;
+}
+
+.cover-placeholder .placeholder-icon {
+  font-size: 4rem;
+  opacity: 0.5;
+}
+
+/* 封面右上角上傳按鈕 */
+.btn-upload-cover {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-upload-cover:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.upload-hint {
+  padding: 8px 20px 0;
+  font-size: 0.8rem;
+  margin-bottom: 0;
+}
+
+/* --- 表單內容樣式 --- */
+.organizer-form {
+  padding: 0 40px;
+}
+
+.form-section {
+  border: none;
+  padding: 0;
+  margin-bottom: 30px;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 15px;
+  border-bottom: none;
+  /* 移除通用樣式的底線 */
+}
+
+/* 表單控制項微調 */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+/* 必填星號 */
+.required:before {
+  content: "*";
+  color: #ff4d4f;
+  margin-right: 4px;
+}
+
+label {
+  font-size: 0.9rem;
+  color: var(--light-dark-color);
+  /* 標籤顏色較淺 */
+  margin-bottom: 0.4rem;
+}
+
+.form-control,
+.form-select {
+  background-color: #fff;
+  border: 1px solid var(--grey-color);
+  /* 很淺的邊框 */
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.95rem;
+  color: var(--dark-color);
+  width: 100%;
+}
+
+/* Focus 時改為品牌色 */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(216, 195, 165, 0.2);
+  outline: none;
+}
+
+/* 字數統計 / 提示文字 */
+.char-counter,
+.form-text {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  color: #999;
+}
+
+.text-danger {
+  color: #dc3545 !important;
+}
+
+/* --- 特殊輸入框：帶驗證按鈕 (Input Group) --- */
+.input-group-with-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-group-with-btn .info-icon {
+  position: absolute;
+  left: 10px;
+  z-index: 2;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* 如果有 icon，輸入框左側要留白，這裡簡單處理直接把 padding-left 加大 */
+.input-group-with-btn input {
+  padding-left: 35px;
+  /* 留位置給 icon */
+  padding-right: 90px;
+  /* 留位置給右側按鈕 */
+}
+
+.btn-verify {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  bottom: 5px;
+  background-color: #E8E8E8;
+  border: none;
+  color: #666;
+  padding: 0 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-verify:disabled {
+  background-color: #f5f5f5;
+  color: #aaa;
+  cursor: default;
+}
+
+.verification-status {
+  font-size: 0.75rem;
+  margin-top: 4px;
+  color: #ccc;
+}
+
+/* --- 聯絡資料排版 (Row/Col) --- */
+/* 使用 Flexbox 讓國碼和電話並排 */
+.form-group-row {
+  display: flex;
+  gap: 15px;
+}
+
+.col-country {
+  flex: 0 0 140px;
+  /* 固定寬度給國碼 */
+}
+
+.col-phone {
+  flex: 1;
+  /* 電話佔滿剩餘空間 */
+}
+
+/* 手機版適配：螢幕太小時變直排 */
+@media (max-width: 576px) {
+  .form-group-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .col-country {
+    flex: auto;
+    width: 100%;
+  }
+}
+
+/* --- 底部建立按鈕 --- */
+.form-actions {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.btn-create-organizer {
+  width: 100%;
+  padding: 12px;
+  border-radius: 50px;
+  /* 圓角膠囊狀 */
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  background-color: var(--grey-color);
+  /* Disabled 狀態 */
+  color: #999;
+  cursor: not-allowed;
+  transition: all 0.3s;
+}
+
+/* 啟用狀態 (模擬) - 未來透過 JS 移除 disabled 屬性後會吃這個樣式 */
+.btn-create-organizer:not(:disabled) {
+  background-color: var(--accent-color);
+  color: var(--dark-color);
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(216, 195, 165, 0.4);
+}
+
+.btn-create-organizer:not(:disabled):hover {
+  background-color: var(--accent-hover);
+}

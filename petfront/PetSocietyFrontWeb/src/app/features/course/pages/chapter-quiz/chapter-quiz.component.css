@@ -1,0 +1,370 @@
+/* 大背景：奶泡淺色 — #F2EBE5 */
+.quiz-page-wrapper {
+  background-color: #F2EBE5;
+  min-height: 100vh;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.quiz-demo {
+  cursor: pointer;
+  text-align: end;
+  margin-top: 20px;
+}
+
+.quiz-container {
+  max-width: 800px;
+  width: 100%;
+}
+
+/* 標題區 */
+.quiz-header {
+  text-align: center;
+
+}
+
+/* 標籤：品牌主色（奶香米杏） — #C9B29B */
+.quiz-header .badge {
+  display: inline-block;
+  background-color: #C9B29B;
+  color: #ffffff;
+  font-size: 12px;
+  padding: 4px 16px;
+  border-radius: 50px;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+/* 標題：柔可可灰 — #5E5344 */
+.quiz-header .quiz-title {
+  color: #5E5344;
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+/* 副標：副文字色（奶粉灰） — #8E8375 */
+.quiz-header .quiz-meta {
+  color: #8E8375;
+  font-size: 14px;
+
+}
+
+/* 題目卡片：白色底 — #FFFFFF */
+.question-card {
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(94, 83, 68, 0.05);
+  border: 1px solid #E8E2DA;
+}
+
+.question-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+/* 題號裝飾 */
+.question-header .q-index {
+  background-color: #F2EBE5;
+  color: #D8C3A5;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.question-header .q-text {
+  color: #594d40;
+  font-size: 1.25rem;
+  margin: 0;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* 選項按鈕區 */
+.options-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.option-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 20px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: 1px solid #E8E2DA;
+  border-radius: 10px;
+  color: #8E8375;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+
+  &:hover {
+    background-color: #F2EBE5;
+
+    .option-text {
+      color: #7e7467;
+    }
+  }
+
+  /* 選中狀態：Signal 更新後會自動觸發此 Class */
+  &.is-selected {
+    background-color: #e8dbc9;
+    border-color: #e8dbc9;
+    color: #5E5344;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(216, 195, 165, 0.3);
+
+    .option-label {
+      background-color: #e0cfb8;
+      border-color: #e0cfb8;
+    }
+
+    .option-text {
+      color: #5E5344;
+    }
+  }
+}
+
+
+.option-btn .option-label {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #E8E2DA;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.option-btn .option-text {
+  color: #70675c;
+  font-size: 1rem;
+}
+
+/* 正確答案：不管你有沒有選，都變綠色 */
+.option-btn.is-correct {
+  background-color: #d4edda !important;
+  border-color: #28a745 !important;
+  color: #155724 !important;
+
+  &::after {
+    content: '';
+  }
+}
+
+/* 選錯的答案：只有在你選錯的那一項變紅色 */
+.option-btn.is-wrong {
+  background-color: #f8d7da !important;
+  border-color: #dc3545 !important;
+  color: #721c24 !important;
+
+  &::after {
+    content: '';
+  }
+}
+
+.option-btn.is-correct .option-text {
+  color: #5E5344;
+  font-weight: bold;
+}
+
+/* 提交按鈕：Primary 奶茶拿鐵 — #D8C3A5 */
+.btn-submit {
+  display: block;
+  width: 200px;
+  margin: 40px auto 0;
+  background-color: #C9B29B;
+  color: #ffffff;
+  border: none;
+  padding: 16px 0;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(216, 195, 165, 0.4);
+}
+
+.btn-submit:hover {
+  background-color: #5E5344;
+}
+
+/* 1. 深度調整 PrimeNG Dialog 外殼 */
+:ng-deep .modern-result-dialog {
+  .p-dialog-content {
+    padding: 0 !important;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    overflow: hidden;
+  }
+
+  .p-dialog-header {
+    background: #f8f9fa;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding: 1.5rem;
+  }
+}
+
+.result-content-wrapper {
+  padding: 3rem 1.5rem 2rem;
+  text-align: center;
+
+  &.status-success {
+    --theme-main: #5fb962;
+    --theme-glow: rgba(76, 175, 80, 0.15);
+  }
+
+  &.status-fail {
+    --theme-main: #f66055;
+    --theme-glow: rgba(244, 67, 54, 0.15);
+  }
+
+  .result-header {
+    margin-bottom: 2rem;
+
+    .result-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #2d3436;
+      margin-bottom: 0.5rem;
+    }
+
+    .result-subtitle {
+      font-size: 1rem;
+      color: #636e72;
+    }
+  }
+
+  .hero-stars-container {
+    margin-bottom: 2.5rem;
+    padding: 2.5rem 1rem;
+    background: #fdfdfd;
+    border-radius: 24px;
+    /* 增加星星容器的陰影感 */
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.02), 0 15px 35px -10px var(--theme-glow);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .stats-badge {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.5rem 1.5rem;
+      background: #f1f2f6;
+      color: #2d3436;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+  }
+}
+
+/* 2. 強制滲透修改 PrimeNG 星星尺寸與置中 */
+:ng-deep .hero-gold-rating {
+  display: flex !important;
+  justify-content: center !important;
+  width: 100%;
+
+  .p-rating {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 15px;
+  }
+
+  .p-rating-option {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 🚩 關鍵：強制覆寫 SVG 尺寸 */
+  svg {
+
+    width: 5rem !important;
+    height: 5rem !important;
+    display: block;
+  }
+
+  /* 顏色處理：針對 PrimeNG 18 的 active 類別 */
+  .p-rating-icon-active {
+    color: #ffca28 !important;
+    fill: #ffca28 !important;
+  }
+
+  .p-rating-icon:not(.p-rating-icon-active) {
+    color: #e0e0e0 !important;
+    fill: #e0e0e0 !important;
+  }
+}
+
+.action-buttons {
+  margin-top: 2rem;
+
+  /* 1. 「查看錯題檢討」：次要按鈕，使用輕盈的文字風格 */
+  .review-button {
+    color: #636e72 !important;
+    /* 中性的灰色 */
+    font-weight: 600 !important;
+    transition: all 0.2s ease;
+    border-radius: 12px !important;
+    padding: 0.8rem 1.5rem !important;
+
+    &:hover {
+      background-color: #f1f2f6 !important;
+      /* 輕微的灰色背景感 */
+      color: #2d3436 !important;
+      transform: translateY(-1px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  /* 2. 「再挑戰一次」：主要按鈕，色彩鮮明且有陰影感 */
+  .theme-button {
+    /* 核心顏色由外層 .status-success / .status-fail 提供 */
+    background: var(--theme-main) !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    border-radius: 12px !important;
+    padding: 0.8rem 2.2rem !important;
+    box-shadow: 0 8px 20px -6px var(--theme-glow) !important;
+    transition: all 0.3s ease;
+
+    /* 調整 PrimeNG 圖示間距 */
+    .p-button-icon {
+      margin-right: 8px;
+    }
+
+    &:hover {
+      filter: brightness(1.1);
+      /* 懸停時稍微變亮 */
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px -5px var(--theme-glow) !important;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* 針對行動裝置的額外優化：在小螢幕時按鈕撐滿寬度 */
+@media screen and (max-width: 576px) {
+  .action-buttons {
+    .p-button {
+      width: 100%;
+      margin: 0.25rem 0;
+    }
+  }
+}

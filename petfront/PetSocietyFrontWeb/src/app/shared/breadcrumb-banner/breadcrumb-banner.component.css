@@ -1,0 +1,38 @@
+.course-banner {
+  background: linear-gradient(135deg, var(--light-primary-color), #e8ded6);
+  padding: 60px 0;
+  margin-bottom: 30px;
+}
+
+.banner-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--dark-color);
+  margin-bottom: 12px;
+}
+
+.banner-subtitle {
+  font-size: 18px;
+  color: var(--light-dark-color);
+  margin-bottom: 16px;
+}
+
+.breadcrumb-nav {
+  font-size: 16px;
+  color: var(--light-dark-color);
+}
+
+.breadcrumb-nav a {
+  color: var(--dark-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.breadcrumb-nav a:hover {
+  color: var(--accent-color);
+}
+
+.breadcrumb-nav .current {
+  color: var(--dark-color);
+  font-weight: 600;
+}

@@ -1,0 +1,30 @@
+<div class="container my-5">
+  @if (apiLoaded | async) {
+  @if (showSearch) {
+  <div class="search-container" style="margin-bottom: 15px;">
+    <label>活動地點搜尋</label>
+
+    <input #addressInput type="text" class="form-control" placeholder="請輸入地點 (例如：台北 101)"
+      style="width: 100%; padding: 10px;">
+  </div>
+  }
+
+  <google-map height="500px" width="100%" [center]="center" [zoom]="zoom" [mapId]="mapId"
+    (mapClick)="onMapClick($event)">
+
+
+    <map-advanced-marker #marker="mapAdvancedMarker" [position]="RedMark.pos" (mapClick)="openInfoWindow(marker)">
+    </map-advanced-marker>
+    @if(showInfoWindow) {
+    <map-info-window>
+      <div class="info-content">
+        <h3 style="color: #ff4081;">{{ info.title }}</h3>
+        <p>{{ info.label }}</p>
+      </div>
+    </map-info-window>
+    }
+  </google-map>
+  } @else {
+  <div class="loading">地圖載入中...</div>
+  }
+</div>
